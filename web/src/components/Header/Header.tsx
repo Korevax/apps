@@ -7,11 +7,12 @@ import {
    flameOutline,
    timeOutline,
    gridOutline,
-   languageOutline,
    menuOutline,
 } from "ionicons/icons";
 
 import "./Header.css";
+
+import LanguageDropdown from "../LanguageDropdown/ LanguageDropdown";
 
 function Header() {
    return (
@@ -96,6 +97,8 @@ function Header() {
 
             <div className="header__actions">
 
+               <LanguageDropdown />
+
                <button
                   className="header__language"
                   type="button"
@@ -104,7 +107,7 @@ function Header() {
                   aria-expanded="false"
                >
                   <IonIcon
-                     icon={languageOutline}
+                     icon={menuOutline}
                      aria-hidden="true"
                   />
 

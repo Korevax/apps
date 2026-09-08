@@ -1,0 +1,141 @@
+.language-dropdown {
+   position: relative;
+}
+
+/* Trigger */
+
+.language-dropdown__trigger {
+   min-height: 2.5rem;
+
+   display: inline-flex;
+   align-items: center;
+   gap: 0.45rem;
+
+   padding: 0.5rem 0.75rem;
+
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius-md);
+
+   background: transparent;
+   color: var(--color-text-muted);
+
+   font-size: var(--font-size-xs);
+   font-weight: 600;
+
+   transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background-color var(--transition-fast);
+}
+
+.language-dropdown__trigger:hover {
+   color: var(--color-white);
+   border-color: var(--color-purple);
+   background: var(--color-surface);
+}
+
+.language-dropdown__trigger:focus-visible {
+   color: var(--color-white);
+}
+
+/* Icons */
+
+.language-dropdown__icon {
+   flex-shrink: 0;
+   font-size: 1.05rem;
+}
+
+.language-dropdown__chevron {
+   flex-shrink: 0;
+   font-size: 0.8rem;
+
+   transition: transform var(--transition-fast);
+}
+
+/* Menu */
+
+.language-dropdown__menu {
+   position: absolute;
+   top: calc(100% + 0.5rem);
+   right: 0;
+
+   min-width: 11rem;
+
+   margin: 0;
+   padding: 0.375rem;
+
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius-md);
+
+   background: var(--color-surface-elevated);
+
+   box-shadow:
+      0 10px 30px rgb(0 0 0 / 40%);
+
+   opacity: 0;
+   visibility: hidden;
+   pointer-events: none;
+
+   transform: translateY(-0.35rem);
+
+   transition:
+      opacity var(--transition-fast),
+      visibility var(--transition-fast),
+      transform var(--transition-fast);
+}
+
+/* Options */
+
+.language-dropdown__option {
+   width: 100%;
+
+   display: flex;
+   align-items: center;
+
+   padding: 0.625rem 0.75rem;
+
+   border: 0;
+   border-radius: var(--radius-sm);
+
+   background: transparent;
+   color: var(--color-text-muted);
+
+   text-align: left;
+   font-size: var(--font-size-sm);
+
+   transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast);
+}
+
+.language-dropdown__option:hover {
+   color: var(--color-white);
+   background: var(--color-surface);
+}
+
+.language-dropdown__option--active {
+   color: var(--color-white);
+}
+
+/* Open state — preparado para React */
+
+.language-dropdown[data-open="true"] .language-dropdown__menu {
+   opacity: 1;
+   visibility: visible;
+   pointer-events: auto;
+
+   transform: translateY(0);
+}
+
+.language-dropdown[data-open="true"]
+   .language-dropdown__chevron {
+   transform: rotate(180deg);
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+   .language-dropdown {
+      display: none;
+   }
+}
