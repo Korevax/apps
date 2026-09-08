@@ -12,7 +12,7 @@ import {
 
 import "./Header.css";
 
-import LanguageDropdown from "../LanguageDropdown/ LanguageDropdown";
+import LanguageDropdown from "../LanguageDropdown/LanguageDropdown";
 
 function Header() {
    return (

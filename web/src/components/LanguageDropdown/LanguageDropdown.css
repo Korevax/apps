@@ -112,9 +112,13 @@
    color: var(--color-white);
    background: var(--color-surface);
 }
-
 .language-dropdown__option--active {
-   color: var(--color-white);
+   color: var(--color-purple-light);
+   background: var(--color-purple-darker);
+}
+
+.language-dropdown__option--active .language-dropdown__code {
+   color: var(--color-purple-light);
 }
 
 /* Open state — preparado para React */
@@ -132,6 +136,30 @@
    transform: rotate(180deg);
 }
 
+.language-dropdown__flag {
+   flex-shrink: 0;
+
+   width: 1.45rem;
+   height: 1.45rem;
+   margin-right: 0.25rem;
+
+   border-radius: var(--radius-sm);
+}
+
+.language-dropdown__code {
+   flex-shrink: 0;
+   margin-left: auto;
+   padding: 0.125rem 0.25rem;
+   border-radius: var(--radius-sm);
+   background: transparent;
+   color: var(--color-text-muted);
+   font-size: var(--font-size-xs);
+}
+.language-dropdown__option--active,
+.language-dropdown__option--active:hover {
+   color: var(--color-purple-light);
+   background: var(--color-purple-darker);
+}
 /* Mobile */
 
 @media (max-width: 768px) {

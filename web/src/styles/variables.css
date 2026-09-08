@@ -10,6 +10,7 @@
    /* Purple variations */
    --color-purple-light: #a78bfa;
    --color-purple-dark: #5b21b6;
+   --color-purple-darker: rgba(77, 29, 149, 0.45);
 
    /* Semantic colors */
    --color-background: var(--color-black);

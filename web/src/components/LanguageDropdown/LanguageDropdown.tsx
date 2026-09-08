@@ -90,28 +90,58 @@ function LanguageDropdown() {
             aria-label="Idiomas disponíveis"
          >
             <li>
-               <button
-                  className="language-dropdown__option language-dropdown__option--active"
-                  type="button"
-                  role="option"
-                  aria-selected="true"
-                  onClick={() => selectLanguage("pt-BR")}
-               >
-                  Português (Brasil)
-               </button>
-            </li>
+   <button
+      className="language-dropdown__option language-dropdown__option--active"
+      type="button"
+      role="option"
+      aria-selected="true"
+      onClick={() => selectLanguage("pt-BR")}
+   >
+      
+      <span
+         className="language-dropdown__flag"
+         aria-hidden="true"
+      >
+         🇧🇷
+      </span>
 
-            <li>
-               <button
-                  className="language-dropdown__option"
-                  type="button"
-                  role="option"
-                  aria-selected="false"
-                  onClick={() => selectLanguage("en")}
-               >
-                  English
-               </button>
-            </li>
+      <span className="language-dropdown__name">
+         Português
+      </span>
+
+      <span className="language-dropdown__code">
+         PT
+      </span>
+
+   </button>
+</li>
+
+<li>
+   <button
+      className="language-dropdown__option"
+      type="button"
+      role="option"
+      aria-selected="false"
+      onClick={() => selectLanguage("en")}
+   >
+
+      <span
+         className="language-dropdown__flag"
+         aria-hidden="true"
+      >
+         🇺🇸
+      </span>
+
+       <span className="language-dropdown__name">
+         English
+      </span>
+
+      <span className="language-dropdown__code">
+         EN
+      </span>
+     
+   </button>
+</li>
          </ul>
       </div>
    );
