@@ -7,16 +7,22 @@ import {
    flameOutline,
    timeOutline,
    gridOutline,
-   menuOutline,
 } from "ionicons/icons";
 
 import "./Header.css";
-
-import LanguageDropdown from "./Actions/LanguageDropdown/LanguageDropdown";
+import { useState } from "react";
 import Actions from "./Actions/Actions";
+import MobileNavigation from "./MobileNavigation/MobileNavigation";
 
 function Header() {
+   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+   function toggleMobileMenu() {
+      setIsMobileMenuOpen((currentState) => !currentState);
+   }
+
    return (
+      
       <header className="header">
          <div className="header__container">
 
@@ -96,41 +102,16 @@ function Header() {
                </ul>
             </nav>
 
-            <div className="header__actions">
-
-               <LanguageDropdown />
-
-               <button
-                  className="header__language"
-                  type="button"
-                  aria-label="Selecionar idioma"
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-               >
-                  <IonIcon
-                     icon={menuOutline}
-                     aria-hidden="true"
-                  />
-
-                  <span>PT-BR</span>
-               </button>
-
-               <button
-                  className="header__menu"
-                  type="button"
-                  aria-label="Abrir menu"
-                  aria-controls="mobile-navigation"
-                  aria-expanded="false"
-               >
-                  <IonIcon
-                     icon={menuOutline}
-                     aria-hidden="true"
-                  />
-               </button>
-
-            </div>
+            <Actions
+               isMobileMenuOpen={isMobileMenuOpen}
+               onMobileMenuToggle={toggleMobileMenu}
+            />
 
          </div>
+
+         <MobileNavigation
+   isOpen={isMobileMenuOpen}
+/>
       </header>
    );
 }

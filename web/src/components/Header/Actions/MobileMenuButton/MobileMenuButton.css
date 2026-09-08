@@ -1,0 +1,40 @@
+.mobile-menu-button {
+   display: none;
+
+   width: 2.5rem;
+   height: 2.5rem;
+
+   padding: 0;
+
+   border: 0;
+   border-radius: var(--radius-md);
+
+   background: transparent;
+   color: var(--color-text-muted);
+
+   align-items: center;
+   justify-content: center;
+
+   transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast);
+}
+
+.mobile-menu-button:hover {
+   color: var(--color-white);
+   background: var(--color-surface);
+}
+
+.mobile-menu-button:focus-visible {
+   color: var(--color-white);
+}
+
+.mobile-menu-button ion-icon {
+   font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+   .mobile-menu-button {
+      display: inline-flex;
+   }
+}
