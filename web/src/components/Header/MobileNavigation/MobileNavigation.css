@@ -1,10 +1,28 @@
+/* Mobile Navigation CSS */
 .mobile-navigation {
-   display: none;
-
    width: 100%;
 
    border-top: 1px solid var(--color-border);
    background: var(--color-background);
+
+   opacity: 0;
+   visibility: hidden;
+   pointer-events: none;
+
+   transform: translateY(-0.5rem);
+
+   transition:
+      opacity var(--transition-fast),
+      visibility var(--transition-fast),
+      transform var(--transition-fast);
+}
+
+.mobile-navigation[data-open="true"] {
+   opacity: 1;
+   visibility: visible;
+   pointer-events: auto;
+
+   transform: translateY(0);
 }
 
 .mobile-navigation__list {
@@ -49,6 +67,14 @@
    color: var(--color-white);
    background: var(--color-surface);
 }
+.mobile-navigation__link:focus-visible {
+   color: var(--color-white);
+   background: var(--color-surface);
+}
+.mobile-navigation__link--active:focus-visible {
+   color: var(--color-purple-light);
+   background: var(--color-purple-darker);
+}
 
 .mobile-navigation__link ion-icon {
    flex-shrink: 0;
@@ -67,7 +93,7 @@
 }
 
 @media (max-width: 768px) {
-   .mobile-navigation[data-open="true"] {
+   .mobile-navigation {
       display: block;
    }
 }

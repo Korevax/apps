@@ -10,16 +10,59 @@ import {
 } from "ionicons/icons";
 
 import "./Header.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Actions from "./Actions/Actions";
 import MobileNavigation from "./MobileNavigation/MobileNavigation";
+
 
 function Header() {
    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+   useEffect(() => {
+   function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+         setIsMobileMenuOpen(false);
+      }
+   }
+
+   const mediaQuery = window.matchMedia(
+      "(max-width: 768px)"
+   );
+
+   function handleViewportChange(
+      event: MediaQueryListEvent
+   ) {
+      if (!event.matches) {
+         setIsMobileMenuOpen(false);
+      }
+   }
+
+   document.addEventListener("keydown", handleEscape);
+   mediaQuery.addEventListener(
+      "change",
+      handleViewportChange
+   );
+
+   return () => {
+      document.removeEventListener(
+         "keydown",
+         handleEscape
+      );
+
+      mediaQuery.removeEventListener(
+         "change",
+         handleViewportChange
+      );
+   };
+}, []);
+
    function toggleMobileMenu() {
       setIsMobileMenuOpen((currentState) => !currentState);
    }
+
+   function closeMobileMenu() {
+   setIsMobileMenuOpen(false);
+}
 
    return (
       
@@ -111,6 +154,7 @@ function Header() {
 
          <MobileNavigation
    isOpen={isMobileMenuOpen}
+   onNavigate={closeMobileMenu}
 />
       </header>
    );

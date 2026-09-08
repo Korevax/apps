@@ -10,9 +10,14 @@
    background: var(--color-background);
 }
 
+/* ========================================
+   Container
+   ======================================== */
+
 .header__container {
    width: 100%;
    max-width: var(--content-width);
+
    min-height: 4.5rem;
 
    margin-inline: auto;
@@ -38,6 +43,7 @@
 
    font-size: var(--font-size-lg);
    font-weight: 700;
+
    letter-spacing: -0.02em;
 
    transition:
@@ -54,7 +60,7 @@
 }
 
 /* ========================================
-   Navigation
+   Desktop Navigation
    ======================================== */
 
 .header__nav {
@@ -82,11 +88,13 @@
    align-items: center;
 
    min-height: 2.75rem;
+
    padding-inline: 0.875rem;
 
    border-radius: var(--radius-md);
 
    color: var(--color-text-muted);
+
    gap: 0.45rem;
 
    font-size: var(--font-size-sm);
@@ -101,6 +109,7 @@
 
 .header__nav-link ion-icon {
    flex-shrink: 0;
+
    font-size: 1.1rem;
 }
 
@@ -117,6 +126,7 @@
    content: "";
 
    position: absolute;
+
    left: 0.875rem;
    right: 0.875rem;
    bottom: 0.25rem;
@@ -126,102 +136,6 @@
    border-radius: var(--radius-full);
 
    background: var(--color-purple);
-}
-
-/* ========================================
-   Actions
-   ======================================== */
-
-.header__actions {
-   flex-shrink: 0;
-
-   display: flex;
-   align-items: center;
-
-   gap: 0.75rem;
-}
-
-/* ========================================
-   Language
-   ======================================== */
-
-.header__language {
-   min-height: 2.5rem;
-
-   display: inline-flex;
-   align-items: center;
-   gap: 0.45rem;
-
-   padding-inline: 0.75rem;
-
-   border: 1px solid var(--color-border);
-   border-radius: var(--radius-md);
-
-   background: transparent;
-   color: var(--color-text-muted);
-
-   font-size: var(--font-size-xs);
-   font-weight: 600;
-
-   transition:
-      color var(--transition-fast),
-      border-color var(--transition-fast),
-      background-color var(--transition-fast);
-}
-
-.header__language ion-icon {
-   font-size: 1.05rem;
-}
-
-.header__language:hover {
-   color: var(--color-white);
-   border-color: var(--color-purple);
-   background: var(--color-surface);
-}
-
-.header__language-icon {
-   color: var(--color-purple-light);
-   font-size: 0.75rem;
-}
-
-/* ========================================
-   Mobile menu
-   ======================================== */
-
-.header__menu {
-   display: none;
-
-   width: 2.5rem;
-   height: 2.5rem;
-
-   padding: 0;
-
-   border: 0;
-   border-radius: var(--radius-md);
-
-   background: transparent;
-
-   align-items: center;
-   justify-content: center;
-   flex-direction: column;
-
-   gap: 0.3rem;
-
-   transition:
-      background-color var(--transition-fast);
-}
-
-.header__menu:hover {
-   background: var(--color-surface);
-}
-
-.header__menu span {
-   width: 1.25rem;
-   height: 2px;
-
-   border-radius: var(--radius-full);
-
-   background: var(--color-white);
 }
 
 /* ========================================
@@ -250,18 +164,10 @@
    .header__nav {
       display: none;
    }
-
-   .header__language {
-      display: none;
-   }
-
-   .header__menu {
-      display: flex;
-   }
 }
 
 /* ========================================
-   Small mobile
+   Small Mobile
    ======================================== */
 
 @media (max-width: 400px) {

@@ -1,3 +1,4 @@
+/* Mobile Menu Button CSS */s
 .mobile-menu-button {
    display: none;
 
@@ -27,6 +28,17 @@
 
 .mobile-menu-button:focus-visible {
    color: var(--color-white);
+   background: var(--color-surface);
+}
+
+.mobile-menu-button[aria-expanded="true"] {
+   color: var(--color-purple-light);
+   background: var(--color-purple-darker);
+}
+
+.mobile-menu-button[aria-expanded="true"]:hover {
+   color: var(--color-purple-light);
+   background: var(--color-purple-darker);
 }
 
 .mobile-menu-button ion-icon {

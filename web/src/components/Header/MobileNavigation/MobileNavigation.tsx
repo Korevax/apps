@@ -1,3 +1,4 @@
+/* Mobile Navigation Component */
 import { IonIcon } from "@ionic/react";
 
 import {
@@ -11,10 +12,12 @@ import "./MobileNavigation.css";
 
 interface MobileNavigationProps {
    isOpen: boolean;
+   onNavigate: () => void;
 }
 
 function MobileNavigation({
    isOpen,
+   onNavigate,
 }: MobileNavigationProps) {
    return (
       <nav
@@ -31,6 +34,7 @@ function MobileNavigation({
                   className="mobile-navigation__link mobile-navigation__link--active"
                   href="/discover"
                   aria-current="page"
+                  onClick={onNavigate}
                >
                   <IonIcon
                      icon={compassOutline}
@@ -45,6 +49,7 @@ function MobileNavigation({
                <a
                   className="mobile-navigation__link"
                   href="/popular"
+                  onClick={onNavigate}
                >
                   <IonIcon
                      icon={flameOutline}
@@ -59,6 +64,7 @@ function MobileNavigation({
                <a
                   className="mobile-navigation__link"
                   href="/recent"
+                  onClick={onNavigate}
                >
                   <IonIcon
                      icon={timeOutline}
@@ -73,6 +79,7 @@ function MobileNavigation({
                <a
                   className="mobile-navigation__link"
                   href="/collections"
+                  onClick={onNavigate}
                >
                   <IonIcon
                      icon={gridOutline}
