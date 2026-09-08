@@ -1,0 +1,275 @@
+.header {
+   position: sticky;
+   top: 0;
+   z-index: 1000;
+
+   width: 100%;
+
+   border-bottom: 1px solid var(--color-border);
+
+   background: var(--color-background);
+}
+
+.header__container {
+   width: 100%;
+   max-width: var(--content-width);
+   min-height: 4.5rem;
+
+   margin-inline: auto;
+   padding-inline: var(--content-padding);
+
+   display: flex;
+   align-items: center;
+
+   gap: 2rem;
+}
+
+/* ========================================
+   Logo
+   ======================================== */
+
+.header__logo {
+   flex-shrink: 0;
+
+   display: inline-flex;
+   align-items: center;
+
+   color: var(--color-white);
+
+   font-size: var(--font-size-lg);
+   font-weight: 700;
+   letter-spacing: -0.02em;
+
+   transition:
+      color var(--transition-fast),
+      opacity var(--transition-fast);
+}
+
+.header__logo:hover {
+   color: var(--color-purple-light);
+}
+
+.header__logo:focus-visible {
+   border-radius: var(--radius-sm);
+}
+
+/* ========================================
+   Navigation
+   ======================================== */
+
+.header__nav {
+   flex: 1;
+
+   display: flex;
+   justify-content: center;
+}
+
+.header__nav-list {
+   display: flex;
+   align-items: center;
+
+   gap: 0.25rem;
+}
+
+.header__nav-item {
+   display: flex;
+}
+
+.header__nav-link {
+   position: relative;
+
+   display: inline-flex;
+   align-items: center;
+
+   min-height: 2.75rem;
+   padding-inline: 0.875rem;
+
+   border-radius: var(--radius-md);
+
+   color: var(--color-text-muted);
+   gap: 0.45rem;
+
+   font-size: var(--font-size-sm);
+   font-weight: 500;
+
+   white-space: nowrap;
+
+   transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast);
+}
+
+.header__nav-link ion-icon {
+   flex-shrink: 0;
+   font-size: 1.1rem;
+}
+
+.header__nav-link:hover {
+   color: var(--color-white);
+   background: var(--color-surface);
+}
+
+.header__nav-link--active {
+   color: var(--color-white);
+}
+
+.header__nav-link--active::after {
+   content: "";
+
+   position: absolute;
+   left: 0.875rem;
+   right: 0.875rem;
+   bottom: 0.25rem;
+
+   height: 2px;
+
+   border-radius: var(--radius-full);
+
+   background: var(--color-purple);
+}
+
+/* ========================================
+   Actions
+   ======================================== */
+
+.header__actions {
+   flex-shrink: 0;
+
+   display: flex;
+   align-items: center;
+
+   gap: 0.75rem;
+}
+
+/* ========================================
+   Language
+   ======================================== */
+
+.header__language {
+   min-height: 2.5rem;
+
+   display: inline-flex;
+   align-items: center;
+   gap: 0.45rem;
+
+   padding-inline: 0.75rem;
+
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius-md);
+
+   background: transparent;
+   color: var(--color-text-muted);
+
+   font-size: var(--font-size-xs);
+   font-weight: 600;
+
+   transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background-color var(--transition-fast);
+}
+
+.header__language ion-icon {
+   font-size: 1.05rem;
+}
+
+.header__language:hover {
+   color: var(--color-white);
+   border-color: var(--color-purple);
+   background: var(--color-surface);
+}
+
+.header__language-icon {
+   color: var(--color-purple-light);
+   font-size: 0.75rem;
+}
+
+/* ========================================
+   Mobile menu
+   ======================================== */
+
+.header__menu {
+   display: none;
+
+   width: 2.5rem;
+   height: 2.5rem;
+
+   padding: 0;
+
+   border: 0;
+   border-radius: var(--radius-md);
+
+   background: transparent;
+
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+
+   gap: 0.3rem;
+
+   transition:
+      background-color var(--transition-fast);
+}
+
+.header__menu:hover {
+   background: var(--color-surface);
+}
+
+.header__menu span {
+   width: 1.25rem;
+   height: 2px;
+
+   border-radius: var(--radius-full);
+
+   background: var(--color-white);
+}
+
+/* ========================================
+   Tablet
+   ======================================== */
+
+@media (max-width: 900px) {
+   .header__container {
+      gap: 1rem;
+   }
+
+   .header__nav-link {
+      padding-inline: 0.625rem;
+   }
+}
+
+/* ========================================
+   Mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+   .header__container {
+      min-height: 4rem;
+   }
+
+   .header__nav {
+      display: none;
+   }
+
+   .header__language {
+      display: none;
+   }
+
+   .header__menu {
+      display: flex;
+   }
+}
+
+/* ========================================
+   Small mobile
+   ======================================== */
+
+@media (max-width: 400px) {
+   .header__container {
+      padding-inline: 1rem;
+   }
+
+   .header__logo {
+      font-size: var(--font-size-md);
+   }
+}

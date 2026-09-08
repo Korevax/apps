@@ -1,0 +1,21 @@
+.app {
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
+}
+
+.app__header {
+   width: 100%;
+}
+
+.app__main {
+   width: 100%;
+   max-width: var(--content-width);
+   margin-inline: auto;
+   padding-inline: var(--content-padding);
+   flex: 1;
+}
+
+.app__footer {
+   width: 100%;
+}

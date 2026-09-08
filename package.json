@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@ionic/core": "^9.0.2",
+    "@ionic/react": "^9.0.2"
+  }
+}
