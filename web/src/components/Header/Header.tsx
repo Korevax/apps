@@ -12,7 +12,8 @@ import {
 
 import "./Header.css";
 
-import LanguageDropdown from "../LanguageDropdown/LanguageDropdown";
+import LanguageDropdown from "./Actions/LanguageDropdown/LanguageDropdown";
+import Actions from "./Actions/Actions";
 
 function Header() {
    return (
