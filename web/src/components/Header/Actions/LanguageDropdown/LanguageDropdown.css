@@ -1,14 +1,23 @@
+/* Language Dropdown CSS */
+
 .language-dropdown {
+
    position: relative;
+
 }
 
-/* Trigger */
+
+/* ========================================
+   Trigger
+   ======================================== */
 
 .language-dropdown__trigger {
+
    min-height: 2.5rem;
 
    display: inline-flex;
    align-items: center;
+
    gap: 0.45rem;
 
    padding: 0.5rem 0.75rem;
@@ -26,36 +35,77 @@
       color var(--transition-fast),
       border-color var(--transition-fast),
       background-color var(--transition-fast);
+
 }
+
 
 .language-dropdown__trigger:hover {
+
    color: var(--color-white);
+
    border-color: var(--color-purple);
+
    background: var(--color-surface);
+
 }
+
 
 .language-dropdown__trigger:focus-visible {
+
    color: var(--color-white);
+
 }
 
-/* Icons */
+
+/* ========================================
+   Trigger — Open
+   ======================================== */
+
+.language-dropdown[data-open="true"]
+   .language-dropdown__trigger {
+
+   color: var(--color-white);
+
+   border-color: var(--color-purple);
+
+   background: var(--color-surface);
+
+}
+
+
+/* ========================================
+   Icons
+   ======================================== */
 
 .language-dropdown__icon {
+
    flex-shrink: 0;
+
    font-size: 1.05rem;
+
 }
+
 
 .language-dropdown__chevron {
+
    flex-shrink: 0;
+
    font-size: 0.8rem;
 
-   transition: transform var(--transition-fast);
+   transition:
+      transform var(--transition-fast);
+
 }
 
-/* Menu */
+
+/* ========================================
+   Menu
+   ======================================== */
 
 .language-dropdown__menu {
+
    position: absolute;
+
    top: calc(100% + 0.5rem);
    right: 0;
 
@@ -73,7 +123,9 @@
       0 10px 30px rgb(0 0 0 / 40%);
 
    opacity: 0;
+
    visibility: hidden;
+
    pointer-events: none;
 
    transform: translateY(-0.35rem);
@@ -82,11 +134,42 @@
       opacity var(--transition-fast),
       visibility var(--transition-fast),
       transform var(--transition-fast);
+
 }
 
-/* Options */
+
+/* ========================================
+   Open State
+   ======================================== */
+
+.language-dropdown[data-open="true"]
+   .language-dropdown__menu {
+
+   opacity: 1;
+
+   visibility: visible;
+
+   pointer-events: auto;
+
+   transform: translateY(0);
+
+}
+
+
+.language-dropdown[data-open="true"]
+   .language-dropdown__chevron {
+
+   transform: rotate(180deg);
+
+}
+
+
+/* ========================================
+   Options
+   ======================================== */
 
 .language-dropdown__option {
+
    width: 100%;
 
    display: flex;
@@ -98,72 +181,137 @@
    border-radius: var(--radius-sm);
 
    background: transparent;
+
    color: var(--color-text-muted);
 
    text-align: left;
+
    font-size: var(--font-size-sm);
 
    transition:
       color var(--transition-fast),
       background-color var(--transition-fast);
+
 }
+
 
 .language-dropdown__option:hover {
+
    color: var(--color-white);
+
    background: var(--color-surface);
+
 }
+
+
+.language-dropdown__option:focus-visible {
+
+   color: var(--color-white);
+
+   background: var(--color-surface);
+
+}
+
+
+/* ========================================
+   Active Option
+   ======================================== */
+
 .language-dropdown__option--active {
+
    color: var(--color-purple-light);
+
    background: var(--color-purple-darker);
+
 }
 
-.language-dropdown__option--active .language-dropdown__code {
+
+.language-dropdown__option--active:hover,
+.language-dropdown__option--active:focus-visible {
+
    color: var(--color-purple-light);
+
+   background: var(--color-purple-darker);
+
 }
 
-/* Open state — preparado para React */
 
-.language-dropdown[data-open="true"] .language-dropdown__menu {
-   opacity: 1;
-   visibility: visible;
-   pointer-events: auto;
-
-   transform: translateY(0);
-}
-
-.language-dropdown[data-open="true"]
-   .language-dropdown__chevron {
-   transform: rotate(180deg);
-}
+/* ========================================
+   Flag
+   ======================================== */
 
 .language-dropdown__flag {
+
    flex-shrink: 0;
 
    width: 1.45rem;
    height: 1.45rem;
+
    margin-right: 0.25rem;
 
    border-radius: var(--radius-sm);
+
 }
+
+
+/* ========================================
+   Language Name
+   ======================================== */
+
+.language-dropdown__name {
+
+   min-width: 0;
+
+   overflow: hidden;
+
+   text-overflow: ellipsis;
+
+   white-space: nowrap;
+
+}
+
+
+/* ========================================
+   Language Code
+   ======================================== */
 
 .language-dropdown__code {
+
    flex-shrink: 0;
+
    margin-left: auto;
+
    padding: 0.125rem 0.25rem;
+
    border-radius: var(--radius-sm);
+
    background: transparent;
+
    color: var(--color-text-muted);
+
    font-size: var(--font-size-xs);
+
 }
-.language-dropdown__option--active,
-.language-dropdown__option--active:hover {
+
+
+.language-dropdown__option--active
+   .language-dropdown__code {
+
    color: var(--color-purple-light);
-   background: var(--color-purple-darker);
+
 }
-/* Mobile */
+
+
+/* ========================================
+   Mobile
+   ======================================== */
 
 @media (max-width: 768px) {
+
    .language-dropdown {
+
       display: none;
+
    }
+
 }

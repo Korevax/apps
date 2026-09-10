@@ -1,4 +1,5 @@
 /* Mobile Navigation Component */
+
 import { IonIcon } from "@ionic/react";
 
 import {
@@ -26,6 +27,7 @@ function MobileNavigation({
          data-open={isOpen}
          aria-label="Navegação mobile"
          aria-hidden={!isOpen}
+         inert={!isOpen}
       >
          <ul className="mobile-navigation__list">
 

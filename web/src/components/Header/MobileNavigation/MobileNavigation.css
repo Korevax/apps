@@ -1,8 +1,14 @@
 /* Mobile Navigation CSS */
+
 .mobile-navigation {
+
    width: 100%;
 
+   display: grid;
+   grid-template-rows: 0fr;
+
    border-top: 1px solid var(--color-border);
+
    background: var(--color-background);
 
    opacity: 0;
@@ -12,33 +18,68 @@
    transform: translateY(-0.5rem);
 
    transition:
+      grid-template-rows var(--transition-fast),
       opacity var(--transition-fast),
       visibility var(--transition-fast),
       transform var(--transition-fast);
+
 }
 
+
+/* ========================================
+   Open State
+   ======================================== */
+
 .mobile-navigation[data-open="true"] {
+
+   grid-template-rows: 1fr;
+
    opacity: 1;
    visibility: visible;
    pointer-events: auto;
 
    transform: translateY(0);
+
 }
 
+
+/* ========================================
+   List
+   ======================================== */
+
 .mobile-navigation__list {
+
+   min-height: 0;
+
+   overflow: hidden;
+
    display: flex;
    flex-direction: column;
 
    gap: 0.25rem;
 
    padding: 0.75rem var(--content-padding);
+
 }
+
+
+/* ========================================
+   Item
+   ======================================== */
 
 .mobile-navigation__item {
+
    width: 100%;
+
 }
 
+
+/* ========================================
+   Link
+   ======================================== */
+
 .mobile-navigation__link {
+
    position: relative;
 
    width: 100%;
@@ -61,39 +102,90 @@
    transition:
       color var(--transition-fast),
       background-color var(--transition-fast);
+
 }
+
+
+/* ========================================
+   Hover
+   ======================================== */
 
 .mobile-navigation__link:hover {
+
    color: var(--color-white);
+
    background: var(--color-surface);
-}
-.mobile-navigation__link:focus-visible {
-   color: var(--color-white);
-   background: var(--color-surface);
-}
-.mobile-navigation__link--active:focus-visible {
-   color: var(--color-purple-light);
-   background: var(--color-purple-darker);
+
 }
 
+
+/* ========================================
+   Focus
+   ======================================== */
+
+.mobile-navigation__link:focus-visible {
+
+   color: var(--color-white);
+
+   background: var(--color-surface);
+
+}
+
+
+/* ========================================
+   Icon
+   ======================================== */
+
 .mobile-navigation__link ion-icon {
+
    flex-shrink: 0;
 
    font-size: 1.25rem;
+
 }
+
+
+/* ========================================
+   Active
+   ======================================== */
 
 .mobile-navigation__link--active {
+
    color: var(--color-purple-light);
+
    background: var(--color-purple-darker);
+
 }
+
 
 .mobile-navigation__link--active:hover {
+
    color: var(--color-purple-light);
+
    background: var(--color-purple-darker);
+
 }
 
-@media (max-width: 768px) {
+
+.mobile-navigation__link--active:focus-visible {
+
+   color: var(--color-purple-light);
+
+   background: var(--color-purple-darker);
+
+}
+
+
+/* ========================================
+   Desktop
+   ======================================== */
+
+@media (min-width: 769px) {
+
    .mobile-navigation {
-      display: block;
+
+      display: none;
+
    }
+
 }
