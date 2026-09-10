@@ -59,6 +59,12 @@
    border-radius: var(--radius-sm);
 }
 
+.header__logo-icon {
+   width: 2rem;
+   height: 2rem;
+
+   margin-right: 0.5rem;
+}
 /* ========================================
    Desktop Navigation
    ======================================== */

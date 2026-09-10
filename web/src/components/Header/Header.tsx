@@ -120,6 +120,8 @@ function Header() {
                href="/"
                aria-label={translation.header.home}
             >
+
+               <img className="header__logo-icon" src="src/assets/Korevax.svg" alt="Korevax" />
                <span className="header__logo-text">
                   Korevax
                </span>
