@@ -17,22 +17,38 @@ import {
 } from "../../../../config/languages";
 
 import {
-   defaultLocale,
+   useLanguage,
+} from "../../../../contexts/LanguageContext";
+
+
+import type {
+   LocaleCode,
 } from "../../../../services/i18n";
 
 import "./LanguageDropdown.css";
 
+
 function LanguageDropdown() {
 
-   const [isOpen, setIsOpen] = useState(false);
+   const [isOpen, setIsOpen] =
+      useState(false);
 
-   const [selectedLanguage, setSelectedLanguage] =
-   useState<Language>(
+   const {
+      locale,
+      setLocale,
+   } = useLanguage();
+
+
+   /*
+    * Obtém o idioma atualmente selecionado
+    * a partir do estado global da aplicação.
+    */
+   const selectedLanguage =
       languages.find(
          (language) =>
-            language.code === defaultLocale
-      ) ?? languages[0]
-   );
+            language.code === locale
+      ) ?? languages[0];
+
 
    const dropdownRef =
       useRef<HTMLDivElement>(null);
@@ -122,7 +138,8 @@ function LanguageDropdown() {
 
    function toggleDropdown() {
       setIsOpen(
-         (currentState) => !currentState
+         (currentState) =>
+            !currentState
       );
    }
 
@@ -131,6 +148,7 @@ function LanguageDropdown() {
       setIsOpen(true);
 
       requestAnimationFrame(() => {
+
          const selectedIndex =
             languages.findIndex(
                (language) =>
@@ -138,11 +156,13 @@ function LanguageDropdown() {
                   selectedLanguage.code
             );
 
+
          optionRefs.current[
             selectedIndex >= 0
                ? selectedIndex
                : 0
          ]?.focus();
+
       });
    }
 
@@ -155,7 +175,10 @@ function LanguageDropdown() {
    function selectLanguage(
       language: Language
    ) {
-      setSelectedLanguage(language);
+      setLocale(
+         language.code as LocaleCode
+      );
+
       setIsOpen(false);
 
       requestAnimationFrame(() => {
@@ -173,15 +196,21 @@ function LanguageDropdown() {
          case "Enter":
          case " ":
             event.preventDefault();
+
             openDropdown();
+
             break;
+
 
          case "Escape":
             if (isOpen) {
                event.preventDefault();
+
                closeDropdown();
             }
+
             break;
+
 
          default:
             break;
@@ -199,7 +228,8 @@ function LanguageDropdown() {
             event.preventDefault();
 
             const nextIndex =
-               (index + 1) % languages.length;
+               (index + 1) %
+               languages.length;
 
             optionRefs.current[
                nextIndex

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
+import korevaxLogo from "../../assets/Korevax.svg";
 import { IonIcon } from "@ionic/react";
 
 import {
@@ -12,18 +13,20 @@ import {
 import Actions from "./Actions/Actions";
 import MobileNavigation from "./MobileNavigation/MobileNavigation";
 
-import {
-   defaultLocale,
-   getTranslation,
-} from "../../services/i18n";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 import "./Header.css";
 
 
 function Header() {
-   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+   const [isMobileMenuOpen, setIsMobileMenuOpen] =
+      useState(false);
 
-   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+   const mobileMenuButtonRef =
+      useRef<HTMLButtonElement>(null);
+
+   const { translation } =
+      useLanguage();
 
 
    /*
@@ -105,8 +108,6 @@ function Header() {
       setIsMobileMenuOpen(false);
    }
 
-   const translation = getTranslation(defaultLocale);
-
 
    return (
       <header className="header">
@@ -121,7 +122,12 @@ function Header() {
                aria-label={translation.header.home}
             >
 
-               <img className="header__logo-icon" src="src/assets/Korevax.svg" alt="Korevax" />
+               <img
+   className="header__logo-icon"
+   src={korevaxLogo}
+   alt=""
+   aria-hidden="true"
+/>
                <span className="header__logo-text">
                   Korevax
                </span>
@@ -148,7 +154,7 @@ function Header() {
                         />
 
                         <span>
-                           translation.header.navigation.discover
+                           {translation.header.navigation.discover}
                         </span>
                      </a>
                   </li>
@@ -165,7 +171,7 @@ function Header() {
                         />
 
                         <span>
-                           translation.header.navigation.popular
+                           {translation.header.navigation.popular}
                         </span>
                      </a>
                   </li>
@@ -182,7 +188,7 @@ function Header() {
                         />
 
                         <span>
-                           translation.header.navigation.recent
+                           {translation.header.navigation.recent}
                         </span>
                      </a>
                   </li>
@@ -199,7 +205,7 @@ function Header() {
                         />
 
                         <span>
-                           translation.header.navigation.collections
+                           {translation.header.navigation.collections}
                         </span>
                      </a>
                   </li>
