@@ -31,6 +31,7 @@ function LanguageDropdown() {
    const {
       locale,
       setLocale,
+      translation,
    } = useLanguage();
 
    const selectedLanguage =
@@ -291,7 +292,9 @@ function LanguageDropdown() {
             ref={triggerRef}
             className="language-dropdown__trigger"
             type="button"
-            aria-label="Selecionar idioma"
+            aria-label={
+   translation.header.language.select
+}
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             aria-controls="language-dropdown-menu"
@@ -320,7 +323,9 @@ function LanguageDropdown() {
             id="language-dropdown-menu"
             className="language-dropdown__menu"
             role="listbox"
-            aria-label="Idiomas disponíveis"
+            aria-label={
+   translation.header.language.available
+}
             aria-hidden={!isOpen}
             inert={!isOpen}
          >

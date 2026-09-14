@@ -63,7 +63,7 @@ function MobileNavigation({
                      aria-hidden="true"
                   />
 
-                  <span>{translation.header.navigation.popular} </span>
+                  <span>{translation.header.navigation.popular}</span>
                </a>
             </li>
 
