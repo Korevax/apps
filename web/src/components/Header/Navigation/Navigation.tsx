@@ -32,7 +32,7 @@ function Navigation() {
 
             <li className="header-navigation__item">
                <a
-                  className="header-navigation__link header-navigation__link--active"
+                  className="header-navigation__link"
                   href="/discover"
                   aria-current="page"
                >

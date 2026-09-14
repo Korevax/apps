@@ -1,12 +1,12 @@
 import AppLayout from "./layouts/AppLayout";
 import { LanguageProvider } from "./contexts/LanguageContext";
-
+import Home from "./pages/Home/Home";
 
 function App() {
    return (
       <LanguageProvider>
          <AppLayout>
-            <h1>Korevax</h1>
+            <Home />
          </AppLayout>
       </LanguageProvider>
    );
