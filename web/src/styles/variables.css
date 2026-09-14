@@ -14,8 +14,9 @@
    /* ==== Highlight — Destaque === */
    --hl-01: #782aff;
    --hl-02: #a78bfa;
-
+   
    --hl-01-transparent: rgba(120, 42, 255, 0.35);
+   --hl-02-transparent: rgba(124, 58, 237, 0.025);
 
    /* ==== Blur — Desfoco === */
    --blur-01: blur(4px);
@@ -42,6 +43,9 @@
 
    --color-border: #2a2a2a;
    --color-focus: var(--color-purple);
+
+   /* Shadow */
+   --shadow-01: 0 0 18px rgba(167, 139, 250, 0.14);
 
    /* ========================================
       Typography

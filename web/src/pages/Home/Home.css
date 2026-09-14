@@ -38,11 +38,6 @@
       var(--color-black);
 }
 
-/*
- * Pequeno brilho central adicional.
- * Mantido propositalmente suave para não exagerar
- * no aspecto neon.
- */
 .home__hero::after {
    content: "";
    position: absolute;
@@ -95,20 +90,6 @@
       drop-shadow(0 0 24px var(--color-purple-darker));
 }
 .home__title{
-   margin: 0;
-
-   font-size: clamp(3rem, 8vw, 6rem);
-   line-height: 0.95;
-   font-weight: 700;
-   letter-spacing: -0.04em;
-
-   color: var(--color-white);
-
-   text-shadow:
-      0 0 8px rgba(124, 58, 237, 0.45),
-      0 0 28px rgba(124, 58, 237, 0.2);
-}
-.home__brand h1 {
    margin: 0;
 
    font-size: clamp(3rem, 8vw, 6rem);
@@ -176,6 +157,170 @@
 }
 
 /* ==============================
+   About
+   ============================== */
+
+.home__about {
+   border-top: 1px solid var(--color-border);
+   background:
+      linear-gradient(
+         180deg,
+         var(--color-black) 0%,
+         var(--hl-02-transparent) 100%
+      );
+}
+
+.home__eyebrow {
+   display: inline-block;
+   margin-bottom: 0.75rem;
+
+   font-size: 0.8rem;
+   font-weight: 600;
+   letter-spacing: 0.12em;
+   text-transform: uppercase;
+
+   color: var(--color-purple-light);
+}
+
+.home__about h2 {
+   margin-bottom: 1.5rem;
+}
+
+.home__about p {
+   margin: 0 0 1rem;
+
+   font-size: 1.05rem;
+   line-height: 1.8;
+
+   color: var(--color-text-secondary);
+}
+
+.home__about p:last-child {
+   margin-bottom: 0;
+}
+
+
+/* ==============================
+   Content Types
+   ============================== */
+
+.home__content-types {
+   border-top: 1px solid var(--color-border);
+}
+
+.home__content-types h2 {
+   max-width: 800px;
+   margin-bottom: 1rem;
+}
+
+.home__section-intro {
+   max-width: 760px;
+   margin: 0 0 2.5rem;
+
+   font-size: 1.05rem;
+   line-height: 1.8;
+
+   color: var(--color-text-secondary);
+}
+
+.home__content-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.75rem;
+   max-width: 900px;
+}
+
+.home__content-list span {
+   padding: 0.65rem 1rem;
+
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius-md);
+
+   background: var(--color-surface);
+
+   font-size: 0.9rem;
+   font-weight: 500;
+
+   color: var(--color-text-primary);
+
+   transition:
+      border-color var(--transition-fast),
+      background-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+}
+
+.home__content-list span:hover {
+   border-color: var(--color-purple);
+   background: var(--color-purple-darker);
+   box-shadow: var(--shadow-01);
+}
+
+/* ==============================
+   Ecosystem
+   ============================== */
+
+.home__ecosystem {
+   border-top: 1px solid var(--color-border);
+
+   background:
+      radial-gradient(
+         circle at 50% 100%,
+         rgba(124, 58, 237, 0.06),
+         transparent 55%
+      );
+}
+
+.home__ecosystem h2 {
+   max-width: 800px;
+   margin-bottom: 1rem;
+}
+
+.home__ecosystem-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 1.25rem;
+   margin-top: 2.5rem;
+}
+
+.home__ecosystem-item {
+   padding: 1.5rem;
+
+   border: 1px solid var(--color-border);
+   border-radius: var(--radius-md);
+
+   background: var(--color-surface);
+
+   transition:
+      border-color var(--transition-fast),
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+}
+
+.home__ecosystem-item:hover {
+   border-color: var(--color-purple);
+   transform: translateY(-2px);
+   box-shadow: var(--shadow-01);
+}
+
+.home__ecosystem-item h3 {
+   margin: 0 0 0.75rem;
+
+   font-size: 1.1rem;
+   font-weight: 600;
+
+   color: var(--color-white);
+}
+
+.home__ecosystem-item p {
+   margin: 0;
+
+   font-size: 0.95rem;
+   line-height: 1.7;
+
+   color: var(--color-text-secondary);
+}
+
+/* ==============================
    Responsive
    ============================== */
 
@@ -199,5 +344,9 @@
 
    .home__section {
       padding: 4rem 0;
+   }
+
+   .home__ecosystem-grid {
+      grid-template-columns: 1fr;
    }
 }
