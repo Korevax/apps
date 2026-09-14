@@ -1,14 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 import korevaxLogo from "../../assets/Korevax.svg";
-import { IonIcon } from "@ionic/react";
 
-import {
-   compassOutline,
-   flameOutline,
-   timeOutline,
-   gridOutline,
-} from "ionicons/icons";
+import Navigation from "./Navigation/Navigation";
 
 import Actions from "./Actions/Actions";
 import MobileNavigation from "./MobileNavigation/MobileNavigation";
@@ -135,83 +129,7 @@ function Header() {
 
 
             {/* Desktop Navigation */}
-
-            <nav
-               className="header__nav"
-               aria-label={translation.header.navigation.label}
-            >
-               <ul className="header__nav-list">
-
-                  <li className="header__nav-item">
-                     <a
-                        className="header__nav-link header__nav-link--active"
-                        href="/discover"
-                        aria-current="page"
-                     >
-                        <IonIcon
-                           icon={compassOutline}
-                           aria-hidden="true"
-                        />
-
-                        <span>
-                           {translation.header.navigation.discover}
-                        </span>
-                     </a>
-                  </li>
-
-
-                  <li className="header__nav-item">
-                     <a
-                        className="header__nav-link"
-                        href="/popular"
-                     >
-                        <IonIcon
-                           icon={flameOutline}
-                           aria-hidden="true"
-                        />
-
-                        <span>
-                           {translation.header.navigation.popular}
-                        </span>
-                     </a>
-                  </li>
-
-
-                  <li className="header__nav-item">
-                     <a
-                        className="header__nav-link"
-                        href="/recent"
-                     >
-                        <IonIcon
-                           icon={timeOutline}
-                           aria-hidden="true"
-                        />
-
-                        <span>
-                           {translation.header.navigation.recent}
-                        </span>
-                     </a>
-                  </li>
-
-
-                  <li className="header__nav-item">
-                     <a
-                        className="header__nav-link"
-                        href="/collections"
-                     >
-                        <IonIcon
-                           icon={gridOutline}
-                           aria-hidden="true"
-                        />
-
-                        <span>
-                           {translation.header.navigation.collections}
-                        </span>
-                     </a>
-                  </li>
-
-               </ul>
-            </nav>
+<Navigation />
 
 
             {/* Header Actions */}
