@@ -1,6 +1,7 @@
 import {
    createContext,
    useContext,
+   useEffect,
    useMemo,
    useState,
    type ReactNode,
@@ -13,6 +14,9 @@ import {
    type Translation,
 } from "../services/i18n";
 
+import {
+   languages,
+} from "../config/languages";
 
 interface LanguageContextValue {
    locale: LocaleCode;
@@ -30,11 +34,53 @@ const LanguageContext =
    createContext<LanguageContextValue | null>(null);
 
 
+const LANGUAGE_STORAGE_KEY =
+   "korevax:locale";
+
+
+function isLocaleCode(
+   value: string | null
+): value is LocaleCode {
+   if (!value) {
+      return false;
+   }
+
+   return languages.some(
+      (language) =>
+         language.code === value
+   );
+}
+
+
+function getInitialLocale(): LocaleCode {
+
+   try {
+      const storedLocale =
+         localStorage.getItem(
+            LANGUAGE_STORAGE_KEY
+         );
+
+      if (
+         isLocaleCode(storedLocale)
+      ) {
+         return storedLocale;
+      }
+   } catch {
+   }
+
+
+   return defaultLocale;
+}
+
+
 function LanguageProvider({
    children,
 }: LanguageProviderProps) {
+
    const [locale, setLocale] =
-      useState<LocaleCode>(defaultLocale);
+      useState<LocaleCode>(
+         getInitialLocale
+      );
 
 
    const translation =
@@ -42,6 +88,19 @@ function LanguageProvider({
          () => getTranslation(locale),
          [locale]
       );
+
+
+   useEffect(() => {
+
+      try {
+         localStorage.setItem(
+            LANGUAGE_STORAGE_KEY,
+            locale
+         );
+      } catch {
+      }
+
+   }, [locale]);
 
 
    const value =
@@ -56,14 +115,18 @@ function LanguageProvider({
 
 
    return (
-      <LanguageContext.Provider value={value}>
+      <LanguageContext.Provider
+         value={value}
+      >
          {children}
       </LanguageContext.Provider>
    );
 }
 
 
-function useLanguage(): LanguageContextValue {
+function useLanguage():
+   LanguageContextValue {
+
    const context =
       useContext(LanguageContext);
 

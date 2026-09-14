@@ -1,0 +1,23 @@
+{
+   "header": {
+      "home": "Korevax - Página de inicio",
+
+      "navigation": {
+         "label": "Navegación principal",
+         "discover": "Descubrir",
+         "popular": "Popular",
+         "recent": "Recientes",
+         "collections": "Colecciones"
+      },
+
+      "language": {
+         "select": "Seleccionar idioma",
+         "available": "Idiomas disponibles"
+      },
+
+      "mobileMenu": {
+         "open": "Abrir menú",
+         "close": "Cerrar menú"
+      }
+   }
+}

@@ -3,6 +3,25 @@
       Korevax — Color System
       ======================================== */
 
+   /* ==== Backgrounds — Color === */
+   --bg-01: #000;
+   --bg-02: #181818;
+
+   /* ==== Backgrounds — Color === */
+   --bg-01-transparent: rgba(0, 0, 0, 0.5);
+   --bg-02-transparent: rgba(24, 24, 24, 0.5);
+
+   /* ==== Highlight — Destaque === */
+   --hl-01: #782aff;
+   --hl-02: #a78bfa;
+
+   --hl-01-transparent: rgba(120, 42, 255, 0.35);
+
+   /* ==== Blur — Desfoco === */
+   --blur-01: blur(4px);
+   --blur-02: blur(8px);
+   --blur-03: blur(12px);
+
    --color-black: #000000;
    --color-white: #ffffff;
    --color-purple: #7c3aed;
@@ -13,7 +32,7 @@
    --color-purple-darker: rgba(77, 29, 149, 0.45);
 
    /* Semantic colors */
-   --color-background: var(--color-black);
+   --color-background: var(--bg-01);
    --color-surface: #0f0f0f;
    --color-surface-elevated: #181818;
 

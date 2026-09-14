@@ -9,6 +9,8 @@ import {
    gridOutline,
 } from "ionicons/icons";
 
+import { useLanguage, } from "../../../contexts/LanguageContext";
+
 import "./MobileNavigation.css";
 
 interface MobileNavigationProps {
@@ -20,12 +22,15 @@ function MobileNavigation({
    isOpen,
    onNavigate,
 }: MobileNavigationProps) {
+
+   const { translation, } = useLanguage();
+
    return (
       <nav
          id="mobile-navigation"
          className="mobile-navigation"
          data-open={isOpen}
-         aria-label="Navegação mobile"
+         aria-label={ translation.header.navigation.label }
          aria-hidden={!isOpen}
          inert={!isOpen}
       >
@@ -43,7 +48,7 @@ function MobileNavigation({
                      aria-hidden="true"
                   />
 
-                  <span>Descobrir</span>
+                  <span>{translation.header.navigation.discover}</span>
                </a>
             </li>
 
@@ -58,7 +63,7 @@ function MobileNavigation({
                      aria-hidden="true"
                   />
 
-                  <span>Popular</span>
+                  <span>{translation.header.navigation.popular} </span>
                </a>
             </li>
 
@@ -73,7 +78,7 @@ function MobileNavigation({
                      aria-hidden="true"
                   />
 
-                  <span>Recentes</span>
+                  <span>{translation.header.navigation.recent}</span>
                </a>
             </li>
 
@@ -88,7 +93,7 @@ function MobileNavigation({
                      aria-hidden="true"
                   />
 
-                  <span>Coleções</span>
+                  <span>{translation.header.navigation.collections}</span>
                </a>
             </li>
 

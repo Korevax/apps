@@ -9,8 +9,9 @@ import {
    menuOutline,
 } from "ionicons/icons";
 
-import "./MobileMenuButton.css";
+import { useLanguage, } from "../../../../contexts/LanguageContext";
 
+import "./MobileMenuButton.css";
 
 interface MobileMenuButtonProps {
    isOpen: boolean;
@@ -29,6 +30,9 @@ const MobileMenuButton = forwardRef<
       },
       ref
    ) {
+
+      const { translation, } = useLanguage();
+
       return (
          <button
             ref={ref}
@@ -36,8 +40,8 @@ const MobileMenuButton = forwardRef<
             type="button"
             aria-label={
                isOpen
-                  ? "Fechar menu"
-                  : "Abrir menu"
+                  ? translation.header.mobileMenu.close
+                  : translation.header.mobileMenu.open
             }
             aria-controls="mobile-navigation"
             aria-expanded={isOpen}

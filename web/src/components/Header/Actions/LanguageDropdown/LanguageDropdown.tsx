@@ -20,11 +20,6 @@ import {
    useLanguage,
 } from "../../../../contexts/LanguageContext";
 
-
-import type {
-   LocaleCode,
-} from "../../../../services/i18n";
-
 import "./LanguageDropdown.css";
 
 
@@ -38,11 +33,6 @@ function LanguageDropdown() {
       setLocale,
    } = useLanguage();
 
-
-   /*
-    * Obtém o idioma atualmente selecionado
-    * a partir do estado global da aplicação.
-    */
    const selectedLanguage =
       languages.find(
          (language) =>
@@ -59,11 +49,6 @@ function LanguageDropdown() {
    const optionRefs =
       useRef<Array<HTMLButtonElement | null>>([]);
 
-
-   /*
-    * Fecha o dropdown quando o usuário
-    * clica fora do componente.
-    */
    useEffect(() => {
 
       function handleOutsideClick(
@@ -95,11 +80,6 @@ function LanguageDropdown() {
 
    }, []);
 
-
-   /*
-    * Fecha o dropdown com Escape
-    * e devolve o foco ao botão.
-    */
    useEffect(() => {
 
       function handleEscape(
@@ -173,18 +153,16 @@ function LanguageDropdown() {
 
 
    function selectLanguage(
-      language: Language
-   ) {
-      setLocale(
-         language.code as LocaleCode
-      );
+   language: Language
+) {
+   setLocale(language.code);
 
-      setIsOpen(false);
+   setIsOpen(false);
 
-      requestAnimationFrame(() => {
-         triggerRef.current?.focus();
-      });
-   }
+   requestAnimationFrame(() => {
+      triggerRef.current?.focus();
+   });
+}
 
 
    function handleTriggerKeyDown(

@@ -1,7 +1,8 @@
 // languages.ts
-
+import type { LocaleCode, } from "../services/i18n";
+   
 export interface Language {
-   code: string;
+   code: LocaleCode;
    shortCode: string;
    name: string;
    flag: string;
@@ -22,4 +23,11 @@ export const languages: Language[] = [
       name: "English",
       flag: "🇺🇸",
    },
+
+   {
+      code: "es" as LocaleCode,
+      shortCode: "ES",
+      name: "Español",
+      flag: "🇪🇸",
+   }
 ];
