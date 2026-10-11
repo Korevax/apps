@@ -1,31 +1,58 @@
 .header {
+   height: 4rem;
    width: 100%;
    position: sticky;
    top: 0;
    z-index: 1000;
-
+   backdrop-filter: var(--blur-01);
    border-bottom: 1px solid var(--color-border);
-   background: var(--color-bg-01-transparent);
+   background: var(--bg-03-transparent);
+   transition: var(--transition-normal);
 }
 
-/* ========================================
-   Container
-   ======================================== */
 
+/* ===== CONTAINER =====*/
 .header__container {
    min-height: 4rem;
    width: 100%;
    max-width: var(--content-width);
-
    margin-inline: auto;
    padding-inline: var(--content-padding);
-
    display: flex;
    align-items: center;
-
    gap: 2rem;
+   transition: var(--transition-normal);
 }
 
+/* ===== SEARCH =====*/
+.header-search-container {
+   height: min-content;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    grid-template-rows 180ms ease,
+    opacity 180ms ease,
+    visibility 180ms ease;
+    transition: var(--transition-normal);
+}
+.header-search-container > * {
+  min-height: 0;
+  overflow: hidden;
+}
+.header--scrolled{
+   position: fixed;
+   transition: var(--transition-normal);
+}
+.header--scrolled .header-search-container {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: var(--transition-normal);
+}
 /* ========================================
    Logo
    ======================================== */
@@ -141,6 +168,12 @@
    background: var(--color-purple);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .header-search-container {
+    transition: none;
+  }
+}
+
 /* ========================================
    Tablet
    ======================================== */
@@ -160,8 +193,10 @@
    ======================================== */
 
 @media (max-width: 768px) {
+
    .header__container {
       min-height: 4rem;
+      justify-content: space-between;
    }
 
    .header__nav {

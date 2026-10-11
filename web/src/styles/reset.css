@@ -35,6 +35,10 @@ textarea,
 select {
    font: inherit;
 }
+input:focus{
+   border: none;
+   outline: none;
+}
 
 button {
    cursor: pointer;

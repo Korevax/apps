@@ -10,6 +10,11 @@
          "collections": "Colecciones"
       },
 
+      "searchbox": {
+         "search": "Buscar",
+         "searchlab": "Buscar contenidos..."
+      },
+
       "language": {
          "select": "Seleccionar idioma",
          "available": "Idiomas disponibles"

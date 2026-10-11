@@ -3,22 +3,25 @@
       Korevax — Color System
       ======================================== */
 
-   /* ==== Backgrounds — Color === */
+   /* ====== BACKGROUND ===== */
+   --bg-01-transparent: rgba(0, 0, 0, 0.25);
+   --bg-02-transparent: rgba(0, 0, 0, 0.5);
+   --bg-03-transparent: rgba(0, 0, 0, 0.6);
+   --bg-04-transparent: rgba(0, 0, 0, 0.75);
+   --bg-05-transparent: rgba(0, 0, 0, 1);
+
+   /* ====== COLORS ======*/
    --bg-01: #000;
    --bg-02: #181818;
 
-   /* ==== Backgrounds — Color === */
-   --bg-01-transparent: rgba(0, 0, 0, 0.5);
-   --bg-02-transparent: rgba(24, 24, 24, 0.5);
-
-   /* ==== Highlight — Destaque === */
+   /* ====== HIGHLIGHT ===== */
    --hl-01: #782aff;
    --hl-02: #a78bfa;
    
    --hl-01-transparent: rgba(120, 42, 255, 0.35);
    --hl-02-transparent: rgba(124, 58, 237, 0.025);
 
-   /* ==== Blur — Desfoco === */
+   /* ====== Blur ====== */
    --blur-01: blur(4px);
    --blur-02: blur(8px);
    --blur-03: blur(12px);
