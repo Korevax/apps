@@ -1,0 +1,43 @@
+
+.content-rating {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.content-rating__score {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+.content-rating__value {
+  color: var(--text-color, #ffffff);
+  font-size: 2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.content-rating__scale {
+  color: var(--text-muted, #aaa2b3);
+  font-size: 0.875rem;
+}
+
+.content-rating__details {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.content-rating__stars {
+  display: flex;
+  gap: 0.2rem;
+  color: var(--primary-color, #9b5de5);
+  font-size: 1rem;
+}
+
+.content-rating__count {
+  margin: 0;
+  color: var(--text-muted, #aaa2b3);
+  font-size: 0.8rem;
+}
