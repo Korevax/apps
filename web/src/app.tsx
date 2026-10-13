@@ -1,10 +1,13 @@
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
+/* Layout & Pages*/
 import AppLayout from "./layouts/AppLayout";
-import { LanguageProvider } from "./contexts/LanguageContext";
-
 import Home from "./pages/Home/Home";
+import Discover from "./pages/Discover/Discover"
+
 import { ContentDetails } from "./pages/ContentDetails/ContentDetails";
+
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 import { home } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
@@ -29,7 +32,7 @@ function App() {
         <AppLayout>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/discover" element={<Home />} />
+            <Route path="/discover" element={<Discover />} />
             <Route path="/content/:slug" element={<ContentDetails />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

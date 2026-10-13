@@ -1,0 +1,28 @@
+.Discover_container{
+    border: 1px solid red;
+}
+/* Banner */
+.DiscoverBanner{
+    height: 35vh;
+    border: 1px solid white;
+}
+.DiscoverBanner-gradient{
+    background: rgba(255, 255, 255, 0) rgba(0, 0, 0, 0.75);
+}
+
+/* Artcle*/
+.DiscoverArtcle{
+    height: 14rem ;
+    width: 100%;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(200, 255, 0);
+}
+.Art-Header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid red;
+}
