@@ -1,12 +1,9 @@
-
 import { IonIcon } from "@ionic/react";
-import {
-  bookmarkOutline,
-  download,
-  shareSocialOutline,
-} from "ionicons/icons";
+import { bookmarkOutline, download, shareSocialOutline } from "ionicons/icons";
 
-import { mockContent } from "../../data/mockContent";
+import { Link, useParams } from "react-router-dom";
+import { getContentBySlug } from "../../services/catalog/catalog.services";
+
 import { ContentRating } from "../../components/Content/ContentRating/ContentRating";
 import { GenreList } from "../../components/Content/GenreList/GenreList";
 
@@ -27,7 +24,23 @@ const contentTypeLabels: Record<string, string> = {
 };
 
 export function ContentDetails() {
-  const content = mockContent;
+  const { slug } = useParams<{ slug: string }>();
+
+  const content = slug ? getContentBySlug(slug) : undefined;
+
+  if (!content) {
+    return (
+      <main className="content-details">
+        <div className="content-details__container">
+          <h1>Conteúdo não encontrado</h1>
+          <p>Este conteúdo não existe no catálogo ou não está disponível.</p>
+          <Link to="/discover">Voltar a descobrir</Link>
+        </div>
+      </main>
+    );
+  }
+
+  const contentTitle = content.title;
 
   const releaseYear = content.releaseDate
     ? content.releaseDate.slice(0, 4)
@@ -52,7 +65,7 @@ export function ContentDetails() {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: content.title,
+          title: contentTitle,
           url,
         });
       } else if (navigator.clipboard?.writeText) {
@@ -60,10 +73,7 @@ export function ContentDetails() {
       }
     } catch (error) {
       // Cancelar o compartilhamento é uma ação normal.
-      if (
-        error instanceof Error &&
-        error.name === "AbortError"
-      ) {
+      if (error instanceof Error && error.name === "AbortError") {
         return;
       }
 
@@ -76,10 +86,13 @@ export function ContentDetails() {
       <div className="content-details__backdrop" aria-hidden="true" />
 
       <div className="content-details__container">
-        <nav className="content-details__breadcrumb" aria-label="Navegação estrutural">
-          <a href="/">Início</a>
+        <nav
+          className="content-details__breadcrumb"
+          aria-label="Navegação estrutural"
+        >
+          <Link to="/">Início</Link>
           <span aria-hidden="true">/</span>
-          <a href="/discover">Descobrir</a>
+          <Link to="/discover">Descobrir</Link>
           <span aria-hidden="true">/</span>
           <span aria-current="page">{content.title}</span>
         </nav>
@@ -90,12 +103,8 @@ export function ContentDetails() {
             role="img"
             aria-label={`Capa ilustrativa de ${content.title}`}
           >
-            <span className="content-hero__poster-title">
-              {content.title}
-            </span>
-            <span className="content-hero__poster-caption">
-              KOREVAX
-            </span>
+            <span className="content-hero__poster-title">{content.title}</span>
+            <span className="content-hero__poster-caption">KOREVAX</span>
           </div>
 
           <div className="content-hero__information">
@@ -103,9 +112,7 @@ export function ContentDetails() {
               {contentTypeLabels[content.type] ?? "Conteúdo"}
             </p>
 
-            <h1 className="content-hero__title">
-              {content.title}
-            </h1>
+            <h1 className="content-hero__title">{content.title}</h1>
 
             {content.originalTitle &&
               content.originalTitle !== content.title && (
@@ -114,7 +121,10 @@ export function ContentDetails() {
                 </p>
               )}
 
-            <ul className="content-hero__metadata" aria-label="Informações básicas">
+            <ul
+              className="content-hero__metadata"
+              aria-label="Informações básicas"
+            >
               {metadata.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -148,22 +158,20 @@ export function ContentDetails() {
                 Compartilhar
               </button>
 
-              <button 
+              <button
                 type="button"
-                className="content-hero__button content-magnet">
+                className="content-hero__button content-magnet"
+              >
                 <IonIcon icon={download} aria-hidden="true" />
-               Magnet
-             </button>
-
-            </div>  
+                Magnet
+              </button>
+            </div>
           </div>
         </section>
 
         <section className="content-details__section">
           <h2>Sinopse</h2>
-          <p className="content-details__synopsis">
-            {content.synopsis}
-          </p>
+          <p className="content-details__synopsis">{content.synopsis}</p>
         </section>
 
         <section className="content-details__section">
@@ -196,8 +204,8 @@ export function ContentDetails() {
         <section className="content-details__section">
           <h2>Conteúdos relacionados</h2>
           <p className="content-details__muted">
-            Os conteúdos relacionados serão exibidos aqui
-            quando o catálogo e as relações estiverem disponíveis.
+            Os conteúdos relacionados serão exibidos aqui quando o catálogo e as
+            relações estiverem disponíveis.
           </p>
         </section>
       </div>
