@@ -13,11 +13,11 @@
   height: 34rem;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 72% 10%, rgb(116 54 173 / 24%), transparent 55%),
+    radial-gradient(ellipse at 72% 10%, rgba(132, 0, 255, 0.24), transparent 55%),
     linear-gradient(
       180deg,
-      rgb(30 18 40 / 70%),
-      var(--background-color, #0b0a0d)
+      rgb(30 18 40 / 80%),
+      var(--background-color, rgba(0, 0, 0, 0.25))
     );
 }
 
@@ -29,7 +29,7 @@
   margin-inline: auto;
   padding-block: 1.5rem 5rem;
 }
-.content-details__container span{
+.content-details__container .noPage{
   width: 100%;
   font-size: 5rem;
   font-weight: bold;
@@ -37,6 +37,7 @@
   display: flex;
   justify-content: center;
 }
+
 .content-details__container h1{
   text-align: center;
 }
