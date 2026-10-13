@@ -6,14 +6,17 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import Home from "./pages/Home/Home";
 import { ContentDetails } from "./pages/ContentDetails/ContentDetails";
 
+import { home } from "ionicons/icons";
+import { IonIcon } from "@ionic/react";
+
 function NotFoundPage() {
   return (
     <main className="content-details">
       <div className="content-details__container">
         <span>404</span>
         <h1>Página não encontrada</h1>
-        <p>O endereço acessado não corresponde a uma página disponível.</p>
-        <Link to="/">Voltar ao início</Link>
+        <p className="cd-txt">O endereço acessado não corresponde a uma página disponível.</p>
+        <Link className="cd-Link" to="/"><IonIcon icon={home} aria-hidden="true" />Voltar ao início</Link>
       </div>
     </main>
   );

@@ -5,7 +5,6 @@
   isolation: isolate;
   overflow: clip;
   color: var(--text-color, #fff);
-  background: var(--background-color, #0b0a0d);
 }
 
 .content-details__backdrop {
@@ -31,7 +30,35 @@
   margin-inline: auto;
   padding-block: 1.5rem 5rem;
 }
-
+.content-details__container span{
+  width: 100%;
+  font-size: 5rem;
+  font-weight: bold;
+  color: var(--hl-01);
+  display: flex;
+  justify-content: center;
+}
+.content-details__container h1{
+  text-align: center;
+}
+.cd-txt{
+  padding-bottom: 1rem;
+  text-align: center;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--hl-01);
+}
+.cd-Link{
+  width: max-content;
+  margin: 1rem auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  &:hover{
+    color: var(--hl-02);
+  }
+}
 .content-details__breadcrumb {
   display: flex;
   flex-wrap: wrap;
