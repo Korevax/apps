@@ -7,7 +7,7 @@ import Discover from "./pages/Discover/Discover"
 
 import { ContentDetails } from "./pages/ContentDetails/ContentDetails";
 
-import { LanguageProvider } from "./contexts/LanguageContext";
+import { LanguageProvider } from "./contexts/LanguageProvider";
 
 import { home } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";

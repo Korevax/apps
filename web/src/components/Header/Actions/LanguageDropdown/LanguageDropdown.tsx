@@ -18,7 +18,7 @@ import {
 
 import {
    useLanguage,
-} from "../../../../contexts/LanguageContext";
+} from "../../../../contexts/useLanguage";
 
 import "./LanguageDropdown.css";
 

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useHeaderScroll } from "./hooks/useHeaderScroll";
 
 import korevaxLogo from "../../assets/Korevax.svg";
 
@@ -7,55 +8,12 @@ import Navigation from "./Navigation/Navigation";
 import Actions from "./Actions/Actions";
 import MobileNavigation from "./MobileNavigation/MobileNavigation";
 
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useLanguage } from "../../contexts/useLanguage";
 
 import { SearchBar } from "./SearchBar/SearchBar";
 
 import "./Header.css";
 
-const SCROLL_THRESHOLD = 8;
-
-export function useHeaderScroll() {
-  const [isScrolled, setIsScrolled] = useState(
-    () => window.scrollY > SCROLL_THRESHOLD,
-  );
-
-  useEffect(() => {
-    let frameId: number | null = null;
-
-    const updateScrollState = () => {
-      if (frameId !== null) {
-        return;
-      }
-
-      frameId = window.requestAnimationFrame(() => {
-        const nextState = window.scrollY > SCROLL_THRESHOLD;
-
-        setIsScrolled((currentState) =>
-          currentState === nextState ? currentState : nextState,
-        );
-
-        frameId = null;
-      });
-    };
-
-    window.addEventListener("scroll", updateScrollState, {
-      passive: true,
-    });
-
-    updateScrollState();
-
-    return () => {
-      window.removeEventListener("scroll", updateScrollState);
-
-      if (frameId !== null) {
-        window.cancelAnimationFrame(frameId);
-      }
-    };
-  }, []);
-
-  return isScrolled;
-}
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

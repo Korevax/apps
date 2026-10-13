@@ -3,7 +3,7 @@ import { IonIcon } from "@ionic/react";
 import { searchOutline } from "ionicons/icons";
 import {
    useLanguage,
-} from "../../../contexts/LanguageContext";
+} from "../../../contexts/useLanguage";
 import "./SearchBar.css";
 
 interface SearchBarProps {

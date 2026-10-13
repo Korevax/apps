@@ -9,7 +9,7 @@ import {
 
 import {
    useLanguage,
-} from "../../../contexts/LanguageContext";
+} from "../../../contexts/useLanguage";
 
 import "./Navigation.css";
 

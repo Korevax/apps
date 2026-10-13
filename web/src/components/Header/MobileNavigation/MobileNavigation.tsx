@@ -9,7 +9,7 @@ import {
    gridOutline,
 } from "ionicons/icons";
 
-import { useLanguage, } from "../../../contexts/LanguageContext";
+import { useLanguage, } from "../../../contexts/useLanguage";
 
 import "./MobileNavigation.css";
 

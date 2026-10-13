@@ -8,11 +8,7 @@ import {
 const CONTENT_TYPE_SET: ReadonlySet<string> = new Set(CONTENT_TYPES);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    !Array.isArray(value)
-  );
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function isNonEmptyString(value: unknown): value is string {
@@ -57,6 +53,8 @@ function isSafeImageUrl(value: unknown): value is string {
   }
 
   if (value.startsWith("/") && !value.startsWith("//")) {
+    // Bloqueia caracteres de controle para rejeitar caminhos malformados.
+    // eslint-disable-next-line no-control-regex
     return !value.includes("\\") && !/[\u0000-\u001F]/.test(value);
   }
 
@@ -82,9 +80,7 @@ export function isContentRating(value: unknown): value is ContentRating {
   const { average, count } = value;
 
   const validCount =
-    typeof count === "number" &&
-    Number.isSafeInteger(count) &&
-    count >= 0;
+    typeof count === "number" && Number.isSafeInteger(count) && count >= 0;
 
   const validAverage =
     average === null ||
@@ -137,17 +133,11 @@ export function getContentValidationErrors(value: unknown): string[] {
     errors.push("synopsis deve ser uma string.");
   }
 
-  if (
-    !Array.isArray(value.genres) ||
-    !value.genres.every(isNonEmptyString)
-  ) {
+  if (!Array.isArray(value.genres) || !value.genres.every(isNonEmptyString)) {
     errors.push("genres deve ser uma lista de strings não vazias.");
   }
 
-  if (
-    value.releaseDate !== undefined &&
-    !isValidDate(value.releaseDate)
-  ) {
+  if (value.releaseDate !== undefined && !isValidDate(value.releaseDate)) {
     errors.push("releaseDate deve ser uma data real no formato YYYY-MM-DD.");
   }
 
@@ -160,22 +150,22 @@ export function getContentValidationErrors(value: unknown): string[] {
     errors.push("durationMinutes deve ser um inteiro positivo.");
   }
 
-  if (
-    value.posterUrl !== undefined &&
-    !isSafeImageUrl(value.posterUrl)
-  ) {
-    errors.push("posterUrl deve ser uma URL HTTP(S) ou um caminho local seguro.");
+  if (value.posterUrl !== undefined && !isSafeImageUrl(value.posterUrl)) {
+    errors.push(
+      "posterUrl deve ser uma URL HTTP(S) ou um caminho local seguro.",
+    );
   }
 
-  if (
-    value.backdropUrl !== undefined &&
-    !isSafeImageUrl(value.backdropUrl)
-  ) {
-    errors.push("backdropUrl deve ser uma URL HTTP(S) ou um caminho local seguro.");
+  if (value.backdropUrl !== undefined && !isSafeImageUrl(value.backdropUrl)) {
+    errors.push(
+      "backdropUrl deve ser uma URL HTTP(S) ou um caminho local seguro.",
+    );
   }
 
   if (!isContentRating(value.rating)) {
-    errors.push("rating deve conter uma média válida e uma contagem não negativa.");
+    errors.push(
+      "rating deve conter uma média válida e uma contagem não negativa.",
+    );
   }
 
   return errors;
@@ -189,9 +179,7 @@ export function isContent(value: unknown): value is Content {
 /** Valida e retorna o conteúdo tipado ou os erros encontrados. */
 export function validateContent(
   value: unknown,
-):
-  | { success: true; data: Content }
-  | { success: false; errors: string[] } {
+): { success: true; data: Content } | { success: false; errors: string[] } {
   const errors = getContentValidationErrors(value);
 
   if (errors.length > 0) {
