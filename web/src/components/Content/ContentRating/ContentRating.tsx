@@ -1,7 +1,7 @@
 
 import { IonIcon } from "@ionic/react";
 import { star, starOutline } from "ionicons/icons";
-import type { ContentRating as Rating } from "../../../types/content";
+import type { ContentRating as Rating } from "../../../domain/catalog/content.types";
 import "./ContentRating.css";
 
 interface ContentRatingProps {

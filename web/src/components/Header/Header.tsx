@@ -148,7 +148,7 @@ function Header() {
         >
           {isScrolled && (
             <SearchBar
-              onSearch={(query) => {
+              onSearch={(_query) => {
                 // Integrar ao mecanismo de pesquisa do Korevax.
                 // Não navegar diretamente com texto não validado.
               }}

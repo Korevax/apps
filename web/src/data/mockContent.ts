@@ -1,5 +1,5 @@
 
-import type { Content } from "../types/content";
+import type { Content } from "../domain/catalog/content.types";
 
 export const mockContent: Content = {
   id: "movie-filme-x",
