@@ -2,6 +2,7 @@ import "./Home.css";
 import korevaxLogo from "../../assets/Korevax.svg";
 
 import { useLanguage } from "../../contexts/useLanguage";
+import { CONTENT_TYPES } from "../../domain/catalog/content.types";
 /*import { transition } from "@ionic/core/dist/types/utils/transition/index.js";*/
 
 function Home() {
@@ -61,17 +62,9 @@ function Home() {
           </p>
 
           <div className="home__content-list">
-            <span>{translation.home.homeSection3.content.Movie}</span>
-            <span>{translation.home.homeSection3.content.Serie}</span>
-            <span>{translation.home.homeSection3.content.Anime}</span>
-            <span>{translation.home.homeSection3.content.Animation}</span>
-            <span>{translation.home.homeSection3.content.Book}</span>
-            <span>{translation.home.homeSection3.content.Manga}</span>
-            <span>{translation.home.homeSection3.content.Manhwa}</span>
-            <span>{translation.home.homeSection3.content.Music}</span>
-            <span>{translation.home.homeSection3.content.Podcast}</span>
-            <span>{translation.home.homeSection3.content.Games}</span>
-            <span>{translation.home.homeSection3.content.Documentaries}</span>
+            {CONTENT_TYPES.map((type) => (
+              <span key={type}>{translation.home.homeSection3.content[type]}</span>
+            ))}
           </div>
         </div>
       </section>
