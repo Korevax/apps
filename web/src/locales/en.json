@@ -137,6 +137,8 @@
       "platforms": "Platforms",
       "gameModes": "Game modes",
       "animationMedium": "Animation medium"
-    }
+    },
+    "filterGenre": "Filter by genre",
+    "allGenres": "All genres"
   }
 }
