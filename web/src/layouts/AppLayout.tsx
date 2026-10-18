@@ -1,5 +1,7 @@
 import Header from "../components/Header/Header";
 import type { ReactNode } from "react";
+import Footer from "../components/Footer/Footer";
+import "../styles/layout.css";
 
 interface AppLayoutProps {
    children: ReactNode;
@@ -16,9 +18,7 @@ function AppLayout({ children }: AppLayoutProps) {
             {children}
          </main>
 
-         <footer className="app__footer">
-            {/* Footer futuramente */}
-         </footer>
+         <Footer />
       </div>
    );
 }
