@@ -1,214 +1,106 @@
+import { useState } from "react";
 import { IonIcon } from "@ionic/react";
-import { bookmarkOutline, download, shareSocialOutline } from "ionicons/icons";
-
-import { Link, useParams } from "react-router-dom";
+import { bookmarkOutline,shareSocialOutline } from "ionicons/icons";
+import { Link,useParams } from "react-router-dom";
 import { getContentBySlug } from "../../services/catalog/catalog.services";
-
+import { getContentRatingSummary } from "../../services/ratings/ratings.services";
+import type { Content } from "../../domain/catalog/content.types";
 import { ContentRating } from "../../components/Content/ContentRating/ContentRating";
 import { GenreList } from "../../components/Content/GenreList/GenreList";
-
+import { useLanguage } from "../../contexts/useLanguage";
 import "./ContentDetails.css";
 
-const contentTypeLabels: Record<string, string> = {
-  movie: "Filme",
-  series: "Série",
-  animation: "Animação",
-  anime: "Anime",
-  book: "Livro",
-  manga: "Mangá",
-  manhwa: "Manhwa",
-  music: "Música",
-  podcast: "Podcast",
-  game: "Jogo",
-  documentary: "Documentário",
-};
+function specificFacts(content:Content,labels:typeof import("../../locales/pt-BR.json")["catalog"]["facts"]):Array<{label:string;value:string}>{
+ switch(content.type){
+  case "movie": case "documentary": return content.metadata?[
+   ...(content.metadata.runtimeMinutes?[{label:labels.duration,value:content.metadata.runtimeMinutes+" min"}]:[]),
+   ...(content.metadata.productionCountries?.length?[{label:labels.productionCountries,value:content.metadata.productionCountries.join(", ")}]:[])
+  ]:[];
+  case "series": return content.metadata?[
+   ...(content.metadata.totalSeasons!==undefined?[{label:labels.seasons,value:String(content.metadata.totalSeasons)}]:[]),
+   ...(content.metadata.totalEpisodes!==undefined?[{label:labels.episodes,value:String(content.metadata.totalEpisodes)}]:[])
+  ]:[];
+  case "book": return content.metadata?[
+   ...(content.metadata.pageCount?[{label:labels.pages,value:String(content.metadata.pageCount)}]:[]),
+   ...(content.metadata.publisher?[{label:labels.publisher,value:content.metadata.publisher}]:[]),
+   ...(content.metadata.isbn13?[{label:labels.isbn13,value:content.metadata.isbn13}]:[])
+  ]:[];
+  case "manga": case "manhwa": return content.metadata?[
+   ...(content.metadata.volumeCount!==undefined?[{label:labels.volumes,value:String(content.metadata.volumeCount)}]:[]),
+   ...(content.metadata.chapterCount!==undefined?[{label:labels.chapters,value:String(content.metadata.chapterCount)}]:[])
+  ]:[];
+  case "music": return content.metadata?.durationSeconds!==undefined?[{label:labels.duration,value:Math.floor(content.metadata.durationSeconds/60)+" min "+content.metadata.durationSeconds%60+" s"}]:[];
+  case "podcast": return content.metadata?.episodeCount!==undefined?[{label:labels.episodes,value:String(content.metadata.episodeCount)}]:[];
+  case "game": return content.metadata?[
+   ...(content.metadata.platforms?.length?[{label:labels.platforms,value:content.metadata.platforms.join(", ")}]:[]),
+   ...(content.metadata.gameModes?.length?[{label:labels.gameModes,value:content.metadata.gameModes.join(", ")}]:[])
+  ]:[];
+  case "animation": case "anime": return content.metadata?.animationMedium?[{label:labels.animationMedium,value:content.metadata.animationMedium}]:[];
+ }
+}
 
-export function ContentDetails() {
-  const { slug } = useParams<{ slug: string }>();
+export function ContentDetails(){
+ const {slug}=useParams<{slug:string}>();
+ const {translation}=useLanguage();
+ const [shareMessage,setShareMessage]=useState("");
+ const content=slug?getContentBySlug(slug):undefined;
+ if(!content)return <main className="content-details"><div className="content-details__container">
+  <h1>{translation.NotFoundPage.title}</h1><p>{translation.NotFoundPage.desc}</p><Link to="/discover">{translation.main.navigation.discover}</Link>
+ </div></main>;
 
-  const content = slug ? getContentBySlug(slug) : undefined;
-
-  if (!content) {
-    return (
-      <main className="content-details">
-        <div className="content-details__container">
-          <h1>Conteúdo não encontrado</h1>
-          <p>Este conteúdo não existe no catálogo ou não está disponível.</p>
-          <Link to="/discover">Voltar a descobrir</Link>
-        </div>
-      </main>
-    );
-  }
-
-  const contentTitle = content.title;
-
-  const releaseYear = content.releaseDate
-    ? content.releaseDate.slice(0, 4)
-    : null;
-
-  const duration =
-    content.durationMinutes != null
-      ? `${Math.floor(content.durationMinutes / 60)}h ${
-          content.durationMinutes % 60
-        }min`
-      : null;
-
-  const metadata = [
-    releaseYear,
-    duration,
-    contentTypeLabels[content.type] ?? "Conteúdo",
-  ].filter(Boolean);
-
-  async function handleShare() {
-    const url = window.location.href;
-
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: contentTitle,
-          url,
-        });
-      } else if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(url);
-      }
-    } catch (error) {
-      // Cancelar o compartilhamento é uma ação normal.
-      if (error instanceof Error && error.name === "AbortError") {
-        return;
-      }
-
-      console.error("Não foi possível compartilhar o conteúdo.");
-    }
-  }
-
-  return (
-    <main className="content-details">
-      <div className="content-details__backdrop" aria-hidden="true" />
-
-      <div className="content-details__container">
-        <nav
-          className="content-details__breadcrumb"
-          aria-label="Navegação estrutural"
-        >
-          <Link to="/">Início</Link>
-          <span aria-hidden="true">/</span>
-          <Link to="/discover">Descobrir</Link>
-          <span aria-hidden="true">/</span>
-          <span aria-current="page">{content.title}</span>
-        </nav>
-
-        <section className="content-hero">
-          <div
-            className="content-hero__poster"
-            role="img"
-            aria-label={`Capa ilustrativa de ${content.title}`}
-          >
-            <span className="content-hero__poster-title">{content.title}</span>
-            <span className="content-hero__poster-caption">KOREVAX</span>
-          </div>
-
-          <div className="content-hero__information">
-            <p className="content-hero__eyebrow">
-              {contentTypeLabels[content.type] ?? "Conteúdo"}
-            </p>
-
-            <h1 className="content-hero__title">{content.title}</h1>
-
-            {content.originalTitle &&
-              content.originalTitle !== content.title && (
-                <p className="content-hero__original-title">
-                  {content.originalTitle}
-                </p>
-              )}
-
-            <ul
-              className="content-hero__metadata"
-              aria-label="Informações básicas"
-            >
-              {metadata.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-
-            <GenreList genres={content.genres} />
-
-            <div className="content-hero__rating">
-              <ContentRating rating={content.rating} />
-            </div>
-
-            <div className="content-hero__actions">
-              <button
-                type="button"
-                className="content-hero__button content-hero__button--primary"
-                onClick={() => {
-                  // A avaliação será implementada posteriormente.
-                }}
-                aria-label={`Avaliar ${content.title}`}
-              >
-                <IonIcon icon={bookmarkOutline} aria-hidden="true" />
-                Avaliar conteúdo
-              </button>
-
-              <button
-                type="button"
-                className="content-hero__button"
-                onClick={handleShare}
-              >
-                <IonIcon icon={shareSocialOutline} aria-hidden="true" />
-                Compartilhar
-              </button>
-
-              <button
-                type="button"
-                className="content-hero__button content-magnet"
-              >
-                <IonIcon icon={download} aria-hidden="true" />
-                Magnet
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <section className="content-details__section">
-          <h2>Sinopse</h2>
-          <p className="content-details__synopsis">{content.synopsis}</p>
-        </section>
-
-        <section className="content-details__section">
-          <h2>Informações</h2>
-
-          <dl className="content-details__facts">
-            <div>
-              <dt>Tipo</dt>
-              <dd>{contentTypeLabels[content.type] ?? "Conteúdo"}</dd>
-            </div>
-
-            <div>
-              <dt>Lançamento</dt>
-              <dd>{content.releaseDate ?? "Não informado"}</dd>
-            </div>
-
-            <div>
-              <dt>Duração</dt>
-              <dd>
-                {duration ?? (
-                  <span className="content-details__muted">
-                    Não aplicável ou não informada
-                  </span>
-                )}
-              </dd>
-            </div>
-          </dl>
-        </section>
-
-        <section className="content-details__section">
-          <h2>Conteúdos relacionados</h2>
-          <p className="content-details__muted">
-            Os conteúdos relacionados serão exibidos aqui quando o catálogo e as
-            relações estiverem disponíveis.
-          </p>
-        </section>
-      </div>
-    </main>
-  );
+ const contentTitle=content.title;
+ const rating=getContentRatingSummary(content.id);
+ const typeLabel=translation.catalog.types[content.type];
+ const year=content.releaseDate?.slice(0,4);
+ const facts=specificFacts(content,translation.catalog.facts);
+ async function share(){
+  const url=window.location.href;
+  try{
+   if(typeof navigator.share==="function"){await navigator.share({title:contentTitle,url});setShareMessage(translation.catalog.shareSuccess);}
+   else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);setShareMessage(translation.catalog.shareSuccess);}
+   else setShareMessage(translation.catalog.shareUnavailable);
+  }catch(error){if(error instanceof Error&&error.name==="AbortError")return;setShareMessage(translation.catalog.shareUnavailable);}
+ }
+ return <main className="content-details">
+  {content.backdropUrl?<img className="content-details__backdrop-image" src={content.backdropUrl} alt="" aria-hidden="true" onError={e=>{e.currentTarget.hidden=true;}}/>:null}
+  <div className="content-details__container">
+   <nav className="content-details__breadcrumb" aria-label={translation.catalog.breadcrumb}>
+    <Link to="/">{translation.catalog.home}</Link><span aria-hidden="true">/</span><Link to="/discover">{translation.main.navigation.discover}</Link><span aria-hidden="true">/</span><span aria-current="page">{content.title}</span>
+   </nav>
+   <section className="content-hero">
+    <div className="content-hero__poster">
+     {content.posterUrl?<img className="content-hero__poster-image" src={content.posterUrl} alt={translation.catalog.posterAlt+" "+content.title} onError={e=>{e.currentTarget.hidden=true;}}/>:null}
+     <span className="content-hero__poster-title">{content.title}</span><span className="content-hero__poster-caption">KOREVAX</span>
+    </div>
+    <div className="content-hero__information">
+     <p className="content-hero__eyebrow">{typeLabel}</p><h1 className="content-hero__title">{content.title}</h1>
+     {content.originalTitle&&content.originalTitle!==content.title?<p className="content-hero__original-title">{content.originalTitle}</p>:null}
+     {content.alternativeTitles.length?<p className="content-hero__original-title">{translation.catalog.alsoKnownAs}: {content.alternativeTitles.join(", ")}</p>:null}
+     <ul className="content-hero__metadata" aria-label={translation.catalog.basicInformation}>
+      {year?<li>{year}</li>:null}<li>{typeLabel}</li>{content.originalLanguage?<li>{content.originalLanguage}</li>:null}
+     </ul>
+     <GenreList genres={content.genres}/><div className="content-hero__rating"><ContentRating rating={rating}/></div>
+     <div className="content-hero__actions">
+      <button type="button" className="content-hero__button content-hero__button--primary" disabled aria-label={translation.catalog.ratingComingSoon}>
+       <IonIcon icon={bookmarkOutline} aria-hidden="true"/>{translation.catalog.ratingComingSoon}
+      </button>
+      <button type="button" className="content-hero__button" onClick={share}><IonIcon icon={shareSocialOutline} aria-hidden="true"/>{translation.catalog.share}</button>
+     </div>
+     {shareMessage?<p className="content-details__muted" role="status">{shareMessage}</p>:null}
+    </div>
+   </section>
+   {content.synopsis?<section className="content-details__section"><h2>{translation.catalog.synopsis}</h2><p className="content-details__synopsis">{content.synopsis}</p></section>:null}
+   <section className="content-details__section"><h2>{translation.catalog.information}</h2>
+    <dl className="content-details__facts">
+     <div><dt>{translation.catalog.type}</dt><dd>{typeLabel}</dd></div>
+     <div><dt>{translation.catalog.releaseDate}</dt><dd>{content.releaseDate??translation.catalog.notAvailable}</dd></div>
+     {content.originalLanguage?<div><dt>{translation.catalog.originalLanguage}</dt><dd>{content.originalLanguage}</dd></div>:null}
+     {facts.map(f=><div key={f.label}><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
+    </dl>
+   </section>
+   <section className="content-details__section"><h2>{translation.catalog.tags}</h2>
+    {content.tags.length?<ul className="content-details__tags">{content.tags.map(tag=><li key={tag}>{tag}</li>)}</ul>:<p className="content-details__muted">{translation.catalog.notAvailable}</p>}
+   </section>
+  </div>
+ </main>;
 }

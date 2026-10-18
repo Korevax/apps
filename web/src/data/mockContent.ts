@@ -1,25 +1,15 @@
-
 import type { Content } from "../domain/catalog/content.types";
-
-export const mockContent: Content = {
-  id: "movie-filme-x",
-  slug: "filme-x",
-  title: "FilmeX",
-  originalTitle: "Film X",
-  type: "movie",
-  synopsis:
-    "Em um futuro próximo, uma descoberta inesperada " +
-    "coloca em risco as fronteiras entre a memória e a realidade. " +
-    "Uma jornada de mistério, escolhas e consequências.",
-  genres: [
-    "Ficção científica",
-    "Drama",
-    "Mistério",
-  ],
-  releaseDate: "2026-05-15",
-  durationMinutes: 128,
-  rating: {
-    average: 8.7,
-    count: 1248,
-  },
-};
+/** Dados sintéticos para interface; não são registros editoriais verificados. */
+export const mockContents: readonly Content[] = [
+{id:"movie-filme-x",slug:"filme-x",title:"Filme X",originalTitle:"Film X",alternativeTitles:["Projeto Horizonte"],type:"movie",synopsis:"Em um futuro próximo, uma descoberta inesperada coloca em risco as fronteiras entre a memória e a realidade.",genres:["Ficção científica","Drama","Mistério"],tags:["memória","futuro","mistério"],status:"published",releaseDate:"2026-05-15",originalLanguage:"pt-BR",metadata:{runtimeMinutes:128,productionCountries:["BR"]},createdAt:"2026-04-01T12:00:00Z",updatedAt:"2026-10-16T12:00:00Z"},
+{id:"book-cidade-de-vidro",slug:"cidade-de-vidro",title:"A Cidade de Vidro",alternativeTitles:[],type:"book",synopsis:"Uma cartógrafa encontra registros de uma cidade que não aparece em nenhum mapa conhecido.",genres:["Fantasia","Aventura"],tags:["cartografia","cidade","jornada"],status:"published",releaseDate:"2024-09-12",originalLanguage:"pt-BR",metadata:{pageCount:320,publisher:"Editora Horizonte"},createdAt:"2026-02-10T10:00:00Z",updatedAt:"2026-10-12T10:00:00Z"},
+{id:"anime-orbita-zero",slug:"orbita-zero",title:"Órbita Zero",originalTitle:"Zero Orbit",alternativeTitles:["Orbit Zero"],type:"anime",synopsis:"Uma equipe de exploradores tenta restabelecer contato com uma estação científica distante.",genres:["Ficção científica","Aventura"],tags:["espaço","exploração","equipe"],status:"published",releaseDate:"2025-04-03",originalLanguage:"ja",metadata:{animationMedium:"2d"},createdAt:"2026-01-08T09:30:00Z",updatedAt:"2026-10-15T08:00:00Z"},
+{id:"music-luzes-distantes",slug:"luzes-distantes",title:"Luzes Distantes",alternativeTitles:[],type:"music",synopsis:null,genres:["Eletrônica","Ambient"],tags:["instrumental","noturno"],status:"published",releaseDate:"2025-11-21",originalLanguage:"pt-BR",metadata:{durationSeconds:214},createdAt:"2026-03-01T12:00:00Z",updatedAt:"2026-10-14T12:00:00Z"},
+{id:"game-vale-eco",slug:"vale-do-eco",title:"Vale do Eco",originalTitle:"Echo Vale",alternativeTitles:[],type:"game",synopsis:"Um jogo de exploração em que o ambiente guarda pistas das escolhas feitas anteriormente.",genres:["Aventura","Puzzle"],tags:["exploração","narrativa","enigmas"],status:"published",releaseDate:"2025-08-19",originalLanguage:"en",metadata:{platforms:["PC","Console"],gameModes:["single-player"]},createdAt:"2026-02-15T14:00:00Z",updatedAt:"2026-10-10T14:00:00Z"},
+{id:"series-arquivo-lunar",slug:"arquivo-lunar",title:"Arquivo Lunar",alternativeTitles:[],type:"series",synopsis:null,genres:["Drama","Mistério"],tags:["investigação","arquivo"],status:"published",releaseDate:"2023-06-01",originalLanguage:"pt-BR",metadata:{totalSeasons:2,totalEpisodes:16,seriesStatus:"ongoing"},createdAt:"2026-02-16T14:00:00Z",updatedAt:"2026-10-09T14:00:00Z"},
+{id:"animation-pequenos-cometas",slug:"pequenos-cometas",title:"Pequenos Cometas",alternativeTitles:[],type:"animation",synopsis:"Curtas animados sobre criaturas que encontram novos caminhos para casa.",genres:["Família","Fantasia"],tags:["curtas","amizade"],status:"published",releaseDate:"2024-03-10",originalLanguage:"pt-BR",metadata:{animationMedium:"mixed"},createdAt:"2026-02-17T14:00:00Z",updatedAt:"2026-10-08T14:00:00Z"},
+{id:"manga-jardim-de-inverno",slug:"jardim-de-inverno",title:"Jardim de Inverno",alternativeTitles:[],type:"manga",synopsis:null,genres:["Drama","Slice of life"],tags:["cotidiano","jardim"],status:"published",originalLanguage:"ja",metadata:{chapterCount:24,publicationStatus:"ongoing"},createdAt:"2026-02-18T14:00:00Z",updatedAt:"2026-10-07T14:00:00Z"},
+{id:"manhwa-codigo-azul",slug:"codigo-azul",title:"Código Azul",alternativeTitles:[],type:"manhwa",synopsis:"Uma técnica de sistemas descobre uma rede de mensagens escondida na cidade.",genres:["Suspense","Ficção científica"],tags:["tecnologia","conspiração"],status:"published",originalLanguage:"ko",metadata:{chapterCount:42,publicationStatus:"ongoing"},createdAt:"2026-02-19T14:00:00Z",updatedAt:"2026-10-06T14:00:00Z"},
+{id:"podcast-entre-camadas",slug:"entre-camadas",title:"Entre Camadas",alternativeTitles:[],type:"podcast",synopsis:"Conversas sobre criação, cultura digital e como as ideias se transformam.",genres:["Tecnologia","Cultura"],tags:["entrevista","criatividade"],status:"published",originalLanguage:"pt-BR",metadata:{episodeCount:18,podcastStatus:"ongoing"},createdAt:"2026-02-20T14:00:00Z",updatedAt:"2026-10-05T14:00:00Z"},
+{id:"documentary-mapas-do-silencio",slug:"mapas-do-silencio",title:"Mapas do Silêncio",alternativeTitles:[],type:"documentary",synopsis:"Um documentário sobre arquivos sonoros e as comunidades que preservam suas histórias.",genres:["Documentário","História"],tags:["arquivo","memória","comunidade"],status:"published",releaseDate:"2024-10-11",originalLanguage:"pt-BR",metadata:{runtimeMinutes:86,productionCountries:["BR","PT"]},createdAt:"2026-02-21T14:00:00Z",updatedAt:"2026-10-04T14:00:00Z"}
+];

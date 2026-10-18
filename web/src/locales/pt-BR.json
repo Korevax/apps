@@ -1,7 +1,6 @@
 {
   "header": {
     "home": "Korevax - Página inicial",
-
     "navigation": {
       "label": "Navegação principal",
       "discover": "Descobrir",
@@ -9,23 +8,19 @@
       "recent": "Recentes",
       "collections": "Coleções"
     },
-
     "searchbox": {
       "search": "Pesquisar",
       "searchlab": "Pesquisar conteúdos..."
     },
-
     "language": {
       "select": "Selecionar idioma",
       "available": "Idiomas disponíveis"
     },
-
     "mobileMenu": {
       "open": "Abrir menu",
       "close": "Fechar menu"
     }
   },
-
   "main": {
     "navigation": {
       "discover": "Descobrir",
@@ -36,7 +31,6 @@
       "seeMore": "Ver Mais"
     }
   },
-
   "home": {
     "homeSection1": {
       "title": "Korevax",
@@ -50,7 +44,6 @@
       "description1": "O Korevax é um ecossistema open-source criado para facilitar a descoberta, organização e exploração de conteúdos digitais. Visando a preservação e o acesso a informações, o projeto busca reunir diferentes tipos de conteúdo em uma base aberta e estruturada, permitindo que pessoas possam encontrar, explorar e relacionar obras, entidades e informações de forma simples e organizada.",
       "description2": "Essa estrutura permite conectar obras, entidades e informações, criando uma base que pode ser explorada por pessoas, colaboradores e diferentes aplicações."
     },
-
     "homeSection3": {
       "title": "Um espaço para diferentes tipos de conteúdo",
       "span": "Conteúdos",
@@ -69,25 +62,84 @@
         "Documentaries": "Documentários"
       }
     },
-
     "homeSection4": {
       "title": "Construído para crescer de forma aberta",
-      "span":"Ecossistema",
+      "span": "Ecossistema",
       "description": {
-         "desc":"O Korevax é um projeto open-source pensado para conectar pessoas, dados e aplicações em torno de conteúdos digitais.",
-         "title1":"Código aberto",
-         "desc1":"Um projeto aberto, desenvolvido de forma colaborativa e acessível para a comunidade.",
-         "title2":"Dados estruturados",
-         "desc2":"Informações organizadas para facilitar a descoberta, consulta e conexão entre conteúdos.",
-         "title3":"Comunidade",
-         "desc3":"Pessoas podem contribuir, avaliar informações e ajudar na evolução do ecossistema."
+        "desc": "O Korevax é um projeto open-source pensado para conectar pessoas, dados e aplicações em torno de conteúdos digitais.",
+        "title1": "Código aberto",
+        "desc1": "Um projeto aberto, desenvolvido de forma colaborativa e acessível para a comunidade.",
+        "title2": "Dados estruturados",
+        "desc2": "Informações organizadas para facilitar a descoberta, consulta e conexão entre conteúdos.",
+        "title3": "Comunidade",
+        "desc3": "Pessoas podem contribuir, avaliar informações e ajudar na evolução do ecossistema."
       }
     }
   },
-
-  "NotFoundPage":{
-   "title": "Página não encontrada",
-   "desc": "O endereço acessado não corresponde a uma página disponível.",
-   "link": "Voltar ao início"
+  "NotFoundPage": {
+    "title": "Página não encontrada",
+    "desc": "O endereço acessado não corresponde a uma página disponível.",
+    "link": "Voltar ao início"
+  },
+  "catalog": {
+    "title": "Catálogo de conteúdos",
+    "description": "Explore obras, encontre novos conteúdos e descubra conexões.",
+    "searchPlaceholder": "Pesquisar títulos, gêneros e etiquetas...",
+    "searchLabel": "Pesquisar no catálogo",
+    "clear": "Limpar",
+    "filterType": "Filtrar por tipo",
+    "allTypes": "Todos os tipos",
+    "results": "Resultados",
+    "noResults": "Nenhum conteúdo corresponde aos filtros selecionados.",
+    "noRating": "Sem avaliações",
+    "recentTitle": "Adicionados recentemente",
+    "popularTitle": "Mais avaliados",
+    "collection": "Biblioteca",
+    "allContent": "Todos os conteúdos",
+    "shareSuccess": "Link compartilhado ou copiado.",
+    "shareUnavailable": "Não foi possível compartilhar o link neste navegador.",
+    "ratingComingSoon": "Avaliações em breve",
+    "share": "Compartilhar",
+    "breadcrumb": "Navegação estrutural",
+    "home": "Início",
+    "posterAlt": "Capa de",
+    "alsoKnownAs": "Também conhecido como",
+    "basicInformation": "Informações básicas",
+    "synopsis": "Sinopse",
+    "information": "Informações",
+    "type": "Tipo",
+    "releaseDate": "Lançamento",
+    "originalLanguage": "Idioma original",
+    "notAvailable": "Não informado",
+    "tags": "Etiquetas",
+    "types": {
+      "movie": "Filme",
+      "series": "Série",
+      "animation": "Animação",
+      "anime": "Anime",
+      "book": "Livro",
+      "manga": "Mangá",
+      "manhwa": "Manhwa",
+      "music": "Música",
+      "podcast": "Podcast",
+      "game": "Jogo",
+      "documentary": "Documentário"
+    },
+    "facts": {
+      "duration": "Duração",
+      "productionCountries": "Países de produção",
+      "seasons": "Temporadas",
+      "episodes": "Episódios",
+      "pages": "Páginas",
+      "publisher": "Editora",
+      "isbn13": "ISBN-13",
+      "volumes": "Volumes",
+      "chapters": "Capítulos",
+      "platforms": "Plataformas",
+      "gameModes": "Modos de jogo",
+      "animationMedium": "Técnica de animação"
+    },
+    "filterGenre": "Filtrar por gênero",
+    "allGenres": "Todos os gêneros"
   }
 }
