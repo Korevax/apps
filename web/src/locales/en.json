@@ -306,7 +306,9 @@
         "path": "/games"
       }
     ],
-    "footerNote": "Community documentation in progress. Verify information before relying on it."
+    "footerNote": "Community documentation in progress. Verify information before relying on it.",
+    "koreTitle": "Kore: the planned ecosystem core",
+    "koreDescription": "Kore is the proposed name for the base API that may centralize contracts, validation, and access to Korevax data. No first-party API service has been published yet; this section describes a planned direction, not an available capability."
   },
   "collections": {
     "title": "Collections",
