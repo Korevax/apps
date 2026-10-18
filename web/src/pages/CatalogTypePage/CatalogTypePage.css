@@ -14,3 +14,5 @@
 @media(max-width:1000px){.catalog-type-page__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:760px){.catalog-type-page__container{width:min(100% - 1.5rem,var(--content-width))}.catalog-type-page__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:480px){.catalog-type-page__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem}}
+
+.catalog-type-page__notice{margin:0 0 1.25rem;padding:.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);color:var(--color-text-muted);font-size:.85rem;line-height:1.6}
