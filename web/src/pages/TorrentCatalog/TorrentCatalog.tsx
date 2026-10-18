@@ -31,6 +31,9 @@ function TorrentRow({ source, labels }: { source: TorrentSource; labels: ReturnT
   const canDownload = !source.isDemo && isSafeTorrentDownloadUrl(source.torrentUrl);
   const canPlay = !source.isDemo && isSafeBrowserStream(source.streamUrl, source.streamMimeType);
   const validationLabel = source.mediaValidationStatus === "verified" ? labels.mediaVerified : source.mediaValidationStatus === "failed" ? labels.mediaFailed : labels.mediaUnknown;
+  const formatTracks = (tracks: TorrentSource["audioTracks"]) => tracks?.length
+    ? tracks.map(track => [track.language, track.codec, track.channels, track.isDefault ? "default" : ""].filter(Boolean).join(" · ")).join(", ")
+    : "";
 
   async function copyMagnet() {
     if (!canCopy || !source.magnetUri || !navigator.clipboard?.writeText) return;
@@ -59,8 +62,8 @@ function TorrentRow({ source, labels }: { source: TorrentSource; labels: ReturnT
         <div><dt>{labels.quality}</dt><dd>{source.quality}</dd></div>
       </dl>
       <dl className="torrent-row__media">
-        <div><dt>{labels.audio}</dt><dd>{source.audioLanguages?.length ? source.audioLanguages.join(", ") : labels.mediaUnknown}</dd></div>
-        <div><dt>{labels.subtitles}</dt><dd>{source.subtitleLanguages?.length ? source.subtitleLanguages.join(", ") : labels.mediaUnknown}</dd></div>
+        <div><dt>{labels.audio}</dt><dd>{formatTracks(source.audioTracks) || (source.audioLanguages?.length ? source.audioLanguages.join(", ") : labels.mediaUnknown)}</dd></div>
+        <div><dt>{labels.subtitles}</dt><dd>{formatTracks(source.subtitleTracks) || (source.subtitleLanguages?.length ? source.subtitleLanguages.join(", ") : labels.mediaUnknown)}</dd></div>
         <div><dt>{labels.mediaValidation}</dt><dd>{validationLabel}</dd></div>
       </dl>
       <div className="torrent-row__actions">
