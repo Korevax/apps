@@ -37,7 +37,8 @@
       "subtitle": "Descubra, organize e conecte conteúdos.",
       "subtitle2": "Seu novo buscador de conteúdos digitais, reunindo informações sobre filmes, séries, livros, músicas e muito mais."
     },
-    "homeSectcion2": {
+
+    "homeSection2": {
       "title": "O que é o Korevax?",
       "span": "Sobre o projeto",
       "description1": "O Korevax é um ecossistema open-source criado para facilitar a descoberta, organização e exploração de conteúdos digitais. Visando a preservação e o acesso a informações, o projeto busca reunir diferentes tipos de conteúdo em uma base aberta e estruturada, permitindo que pessoas possam encontrar, explorar e relacionar obras, entidades e informações de forma simples e organizada.",
@@ -56,7 +57,7 @@
         "Manga": "Mangás",
         "Manhwa": "Manhwas",
         "Music": "Músicas",
-        "Podcast": "Podcast",
+        "Podcast": "Podcasts",
         "Games": "Jogos",
         "Documentaries": "Documentários"
       }
