@@ -28,7 +28,7 @@
       "recent": "Recientes",
       "tops": "Mejores",
       "collections": "Colecciones",
-      "seeMore": "Ver Más"
+      "seeMore": "Ver más"
     }
   },
   "home": {
@@ -37,7 +37,6 @@
       "subtitle": "Descubre, organiza y conecta contenidos.",
       "subtitle2": "Tu nuevo buscador de contenidos digitales, que reúne información sobre películas, series, libros, música y mucho más."
     },
-
     "homeSection2": {
       "title": "¿Qué es Korevax?",
       "span": "Sobre el proyecto",
@@ -49,30 +48,30 @@
       "span": "Contenidos",
       "description": "Korevax fue concebido para organizar diferentes formas de contenido digital en una estructura única y conectada.",
       "content": {
-        "Movie": "Películas",
-        "Serie": "Series",
-        "Anime": "Animes",
-        "Animation": "Animaciones",
-        "Book": "Libros",
-        "Manga": "Mangas",
-        "Manhwa": "Manhwas",
-        "Music": "Música",
-        "Podcast": "Podcasts",
-        "Games": "Juegos",
-        "Documentaries": "Documentales"
+        "movie": "Película",
+        "series": "Serie",
+        "animation": "Animación",
+        "anime": "Anime",
+        "book": "Libro",
+        "manga": "Manga",
+        "manhwa": "Manhwa",
+        "music": "Música",
+        "podcast": "Pódcast",
+        "game": "Juego",
+        "documentary": "Documental"
       }
     },
     "homeSection4": {
       "title": "Construido para crecer de forma abierta",
       "span": "Ecosistema",
       "description": {
-         "desc":"El Korevax es un proyecto de código abierto pensado para conectar personas, datos y aplicaciones en torno de contenidos digitales.",
-         "title1":"Código abierto",
-         "desc1":"Un proyecto abierto, desarrollado de forma colaborativa y accesible para la comunidad.",
-         "title2":"Datos estructurados",
-         "desc2":"Información organizada para facilitar el descubrimiento, la consulta y la conexión entre contenidos.",
-         "title3":"Comunidad",
-         "desc3":"Las personas pueden contribuir, evaluar información y ayudar en la evolución del ecosistema."
+        "desc": "El Korevax es un proyecto de código abierto pensado para conectar personas, datos y aplicaciones en torno de contenidos digitales.",
+        "title1": "Código abierto",
+        "desc1": "Un proyecto abierto, desarrollado de forma colaborativa y accesible para la comunidad.",
+        "title2": "Datos estructurados",
+        "desc2": "Información organizada para facilitar el descubrimiento, la consulta y la conexión entre contenidos.",
+        "title3": "Comunidad",
+        "desc3": "Las personas pueden contribuir, evaluar información y ayudar en la evolución del ecosistema."
       }
     }
   },
@@ -140,6 +139,23 @@
       "animationMedium": "Técnica de animación"
     },
     "filterGenre": "Filtrar por género",
-    "allGenres": "Todos los géneros"
+    "allGenres": "Todos los géneros",
+    "torrentsTitle": "Archivos y fuentes",
+    "torrentsDescription": "Opciones de distribución asociadas a este contenido.",
+    "torrentName": "Nombre",
+    "torrentQuality": "Calidad",
+    "torrentSize": "Tamaño",
+    "torrentSeeders": "Seeders",
+    "torrentLeechers": "Leechers",
+    "torrentActions": "Acciones",
+    "copyMagnet": "Copiar magnet",
+    "downloadTorrent": "Descargar .torrent",
+    "torrentCopied": "Enlace magnet copiado al portapapeles.",
+    "torrentCopyFailed": "Este navegador no pudo copiar el enlace magnet.",
+    "torrentUnavailable": "Enlace no disponible",
+    "torrentDemo": "Datos ilustrativos: las fuentes y métricas no son reales.",
+    "torrentEmpty": "No se han registrado fuentes torrent para este contenido.",
+    "torrentSource": "Fuente",
+    "torrentStatus": "Disponibilidad"
   }
 }

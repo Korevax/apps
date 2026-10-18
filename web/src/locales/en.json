@@ -28,7 +28,7 @@
       "recent": "Recent",
       "tops": "Best",
       "collections": "Collections",
-      "seeMore": "See More"
+      "seeMore": "See more"
     }
   },
   "home": {
@@ -37,28 +37,22 @@
       "subtitle": "Discover, organize, and connect content.",
       "subtitle2": "Your new search tool for digital content, bringing together information on movies, series, books, music, and much more."
     },
-    "homeSectcion2": {
-      "title": "What is Korevax?",
-      "span": "About the project",
-      "description1": "Korevax is an open-source ecosystem designed to facilitate the discovery, organization, and exploration of digital content. Focused on the preservation of and access to information, the project aims to bring together various types of content within an open, structured framework, enabling users to find, explore, and establish connections between works, entities, and information in a simple and organized manner.",
-      "description2": "This structure allows for the connection of works, entities, and information, creating a foundation that can be explored by individuals, collaborators, and various applications."
-    },
     "homeSection3": {
       "title": "A space for different types of content",
       "span": "Contents",
       "description": "Korevax was designed to organize different forms of digital content into a single, connected structure.",
       "content": {
-        "Movie": "Movies",
-        "Serie": "Series",
-        "Anime": "Animes",
-        "Animation": "Animations",
-        "Book": "Books",
-        "Manga": "Manga",
-        "Manhwa": "Manhwa",
-        "Music": "Music",
-        "Podcast": "Podcasts",
-        "Games": "Games",
-        "Documentaries": "Documentaries"
+        "movie": "Movie",
+        "series": "Series",
+        "animation": "Animation",
+        "anime": "Anime",
+        "book": "Book",
+        "manga": "Manga",
+        "manhwa": "Manhwa",
+        "music": "Music",
+        "podcast": "Podcast",
+        "game": "Game",
+        "documentary": "Documentary"
       }
     },
     "homeSection4": {
@@ -73,6 +67,12 @@
         "title3": "Community",
         "desc3": "People can contribute, evaluate information, and help the ecosystem evolve."
       }
+    },
+    "homeSection2": {
+      "title": "What is Korevax?",
+      "span": "About the project",
+      "description1": "Korevax is an open-source ecosystem designed to facilitate the discovery, organization, and exploration of digital content. Focused on the preservation of and access to information, the project aims to bring together various types of content within an open, structured framework, enabling users to find, explore, and establish connections between works, entities, and information in a simple and organized manner.",
+      "description2": "This structure allows for the connection of works, entities, and information, creating a foundation that can be explored by individuals, collaborators, and various applications."
     }
   },
   "NotFoundPage": {
@@ -139,6 +139,23 @@
       "animationMedium": "Animation medium"
     },
     "filterGenre": "Filter by genre",
-    "allGenres": "All genres"
+    "allGenres": "All genres",
+    "torrentsTitle": "Files and sources",
+    "torrentsDescription": "Distribution options associated with this content.",
+    "torrentName": "Name",
+    "torrentQuality": "Quality",
+    "torrentSize": "Size",
+    "torrentSeeders": "Seeders",
+    "torrentLeechers": "Leechers",
+    "torrentActions": "Actions",
+    "copyMagnet": "Copy magnet",
+    "downloadTorrent": "Download .torrent",
+    "torrentCopied": "Magnet link copied to the clipboard.",
+    "torrentCopyFailed": "This browser could not copy the magnet link.",
+    "torrentUnavailable": "Link unavailable",
+    "torrentDemo": "Illustrative data — sources and metrics are not real.",
+    "torrentEmpty": "No torrent sources have been registered for this content.",
+    "torrentSource": "Source",
+    "torrentStatus": "Availability"
   }
 }

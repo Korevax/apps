@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TorrentSources } from "../../components/TorrentSources/TorrentSources";
 import { IonIcon } from "@ionic/react";
 import { bookmarkOutline,shareSocialOutline } from "ionicons/icons";
 import { Link,useParams } from "react-router-dom";
@@ -10,7 +11,7 @@ import { GenreList } from "../../components/Content/GenreList/GenreList";
 import { useLanguage } from "../../contexts/useLanguage";
 import "./ContentDetails.css";
 
-function specificFacts(content:Content,labels:typeof import("../../locales/pt-BR.json")["catalog"]["facts"]):Array<{label:string;value:string}>{
+function specificFacts(content:Content,labels:Record<keyof typeof import("../../locales/pt-BR.json")["catalog"]["facts"],string>):Array<{label:string;value:string}>{
  switch(content.type){
   case "movie": case "documentary": return content.metadata?[
    ...(content.metadata.runtimeMinutes?[{label:labels.duration,value:content.metadata.runtimeMinutes+" min"}]:[]),
@@ -98,6 +99,7 @@ export function ContentDetails(){
      {facts.map(f=><div key={f.label}><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
     </dl>
    </section>
+   <TorrentSources contentId={content.id}/>
    <section className="content-details__section"><h2>{translation.catalog.tags}</h2>
     {content.tags.length?<ul className="content-details__tags">{content.tags.map(tag=><li key={tag}>{tag}</li>)}</ul>:<p className="content-details__muted">{translation.catalog.notAvailable}</p>}
    </section>

@@ -26,17 +26,18 @@
 
 /* ===== SEARCH =====*/
 .header-search-container {
+   flex: 1 1 16rem;
+   min-width: 0;
    height: min-content;
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition:
-    grid-template-rows 180ms ease,
-    opacity 180ms ease,
-    visibility 180ms ease;
-    transition: var(--transition-normal);
+   display: grid;
+   grid-template-rows: 0fr;
+   opacity: 0;
+   visibility: hidden;
+   pointer-events: none;
+   transition:
+      grid-template-rows 180ms ease,
+      opacity 180ms ease,
+      visibility 180ms ease;
 }
 .header-search-container > * {
   min-height: 0;

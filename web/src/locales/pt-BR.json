@@ -28,7 +28,7 @@
       "recent": "Recentes",
       "tops": "Melhores",
       "collections": "Coleções",
-      "seeMore": "Ver Mais"
+      "seeMore": "Ver mais"
     }
   },
   "home": {
@@ -37,7 +37,6 @@
       "subtitle": "Descubra, organize e conecte conteúdos.",
       "subtitle2": "Seu novo buscador de conteúdos digitais, reunindo informações sobre filmes, séries, livros, músicas e muito mais."
     },
-
     "homeSection2": {
       "title": "O que é o Korevax?",
       "span": "Sobre o projeto",
@@ -49,17 +48,17 @@
       "span": "Conteúdos",
       "description": "O Korevax foi pensado para organizar diferentes formas de conteúdo digital em uma estrutura única e conectada.",
       "content": {
-        "Movie": "Filmes",
-        "Serie": "Séries",
-        "Anime": "Animes",
-        "Animation": "Animações",
-        "Book": "Livros",
-        "Manga": "Mangás",
-        "Manhwa": "Manhwas",
-        "Music": "Músicas",
-        "Podcast": "Podcasts",
-        "Games": "Jogos",
-        "Documentaries": "Documentários"
+        "movie": "Filme",
+        "series": "Série",
+        "animation": "Animação",
+        "anime": "Anime",
+        "book": "Livro",
+        "manga": "Mangá",
+        "manhwa": "Manhwa",
+        "music": "Música",
+        "podcast": "Podcast",
+        "game": "Jogo",
+        "documentary": "Documentário"
       }
     },
     "homeSection4": {
@@ -140,6 +139,23 @@
       "animationMedium": "Técnica de animação"
     },
     "filterGenre": "Filtrar por gênero",
-    "allGenres": "Todos os gêneros"
+    "allGenres": "Todos os gêneros",
+    "torrentsTitle": "Arquivos e fontes",
+    "torrentsDescription": "Opções de distribuição associadas a este conteúdo.",
+    "torrentName": "Nome",
+    "torrentQuality": "Qualidade",
+    "torrentSize": "Tamanho",
+    "torrentSeeders": "Seeders",
+    "torrentLeechers": "Leechers",
+    "torrentActions": "Ações",
+    "copyMagnet": "Copiar magnet",
+    "downloadTorrent": "Baixar .torrent",
+    "torrentCopied": "Magnet copiado para a área de transferência.",
+    "torrentCopyFailed": "Não foi possível copiar o magnet neste navegador.",
+    "torrentUnavailable": "Link indisponível",
+    "torrentDemo": "Dados ilustrativos — fontes e métricas não são reais.",
+    "torrentEmpty": "Nenhuma fonte de torrent foi cadastrada para este conteúdo.",
+    "torrentSource": "Fonte",
+    "torrentStatus": "Disponibilidade"
   }
 }
