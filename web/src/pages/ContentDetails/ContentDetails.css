@@ -354,3 +354,24 @@
 .content-hero__poster-title,.content-hero__poster-caption { position:relative; z-index:1; text-shadow:0 2px 8px rgba(0,0,0,.8); }
 .content-details__tags { display:flex; flex-wrap:wrap; gap:.5rem; margin:0; padding:0; list-style:none; }
 .content-details__tags li { padding:.4rem .7rem; border:1px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); color:var(--color-text-muted); font-size:.85rem; }
+
+
+.torrent-sources__heading{display:flex;align-items:start;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+.torrent-sources__heading h2{margin:0 0 .4rem}
+.torrent-sources__heading p{margin:0;color:var(--color-text-muted);line-height:1.6}
+.torrent-sources__notice{margin:1rem 0;padding:.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);color:var(--color-text-muted);font-size:.85rem}
+.torrent-sources__list{display:grid;gap:.9rem}
+.torrent-source{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.5fr) minmax(0,1.4fr);align-items:center;gap:1rem;padding:1rem;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface)}
+.torrent-source__main{display:flex;align-items:start;flex-direction:column;gap:.5rem;min-width:0}
+.torrent-source__main h3{margin:0;font-size:1rem;overflow-wrap:anywhere}
+.torrent-source__quality{padding:.2rem .5rem;border-radius:var(--radius-sm);background:var(--color-purple-darker-02);color:var(--color-purple-light);font-size:.8rem;font-weight:700}
+.torrent-source__stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem 1rem;margin:0}
+.torrent-source__stats>div{min-width:0}
+.torrent-source__stats dt{color:var(--color-text-muted);font-size:.72rem}
+.torrent-source__stats dd{margin:.15rem 0 0;font-size:.9rem;font-weight:600;overflow-wrap:anywhere}
+.torrent-source__actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.5rem}
+.torrent-source__actions .content-hero__button{min-height:2.4rem;padding:.55rem .7rem;font-size:.8rem}
+.torrent-source__actions .content-hero__button:disabled{cursor:not-allowed;opacity:.5}
+.torrent-source__download{text-decoration:none}
+@media(max-width:900px){.torrent-source{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.torrent-source__main{grid-column:1/-1}.torrent-source__actions{grid-column:1/-1;justify-content:flex-start}}
+@media(max-width:520px){.torrent-source{grid-template-columns:minmax(0,1fr)}.torrent-source__main,.torrent-source__actions{grid-column:auto}.torrent-source__actions{display:grid;grid-template-columns:minmax(0,1fr)}.torrent-source__actions .content-hero__button{width:100%}}
