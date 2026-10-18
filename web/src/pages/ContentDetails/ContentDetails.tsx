@@ -48,6 +48,7 @@ export function ContentDetails(){
   <h1>{translation.NotFoundPage.title}</h1><p>{translation.NotFoundPage.desc}</p><Link to="/discover">{translation.main.navigation.discover}</Link>
  </div></main>;
 
+ const contentTitle=content.title;
  const rating=getContentRatingSummary(content.id);
  const typeLabel=translation.catalog.types[content.type];
  const year=content.releaseDate?.slice(0,4);
@@ -55,7 +56,7 @@ export function ContentDetails(){
  async function share(){
   const url=window.location.href;
   try{
-   if(typeof navigator.share==="function"){await navigator.share({title:content.title,url});setShareMessage(translation.catalog.shareSuccess);}
+   if(typeof navigator.share==="function"){await navigator.share({title:contentTitle,url});setShareMessage(translation.catalog.shareSuccess);}
    else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);setShareMessage(translation.catalog.shareSuccess);}
    else setShareMessage(translation.catalog.shareUnavailable);
   }catch(error){if(error instanceof Error&&error.name==="AbortError")return;setShareMessage(translation.catalog.shareUnavailable);}
