@@ -6,6 +6,8 @@ export type ContentStatus = (typeof CONTENT_STATUSES)[number];
 export interface ContentBase {
   id: string; slug: string; title: string;
   originalTitle?: string | null;
+  /** Explicit franchise relationship; never inferred from title similarity. */
+  franchiseId?: string | null;
   alternativeTitles: string[];
   synopsis: string | null;
   genres: string[]; tags: string[];

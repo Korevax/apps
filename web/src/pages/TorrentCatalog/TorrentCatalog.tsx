@@ -1,33 +1,39 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { arrowForward, copyOutline, downloadOutline, searchOutline } from "ionicons/icons";
+import { arrowForward, copyOutline, downloadOutline, playCircleOutline, searchOutline } from "ionicons/icons";
 import { useLanguage } from "../../contexts/useLanguage";
 import { getAllContent } from "../../services/catalog/catalog.services";
-import { getAllTorrentSources, getTorrentReleaseGroup, getTorrentSourceProfile, isSafeMagnetLink, isSafeTorrentDownloadUrl, searchTorrentSources } from "../../services/torrents/torrent.services";
+import { getAllTorrentSources, getTorrentReleaseGroup, getTorrentSourceProfile, isSafeBrowserStream, isSafeMagnetLink, isSafeTorrentDownloadUrl, searchTorrentSources } from "../../services/torrents/torrent.services";
 import type { TorrentSource } from "../../domain/downloads/torrent.types";
+import type { Content } from "../../domain/catalog/content.types";
 import "./TorrentCatalog.css";
 
 type SortMode = "seeders" | "size" | "name";
 
 function formatBytes(bytes: number): string {
   if (!Number.isSafeInteger(bytes) || bytes <= 0) return "—";
-  const units = ["B", "KB", "MB", "GB", "TB"];
+  const units = ["B", "KiB", "MiB", "GiB", "TiB"];
   let value = bytes;
   let unit = 0;
-  while (value >= 1000 && unit < units.length - 1) {
-    value /= 1000;
+  while (value >= 1024 && unit < units.length - 1) {
+    value /= 1024;
     unit += 1;
   }
   return value.toLocaleString(undefined, { maximumFractionDigits: 1 }) + " " + units[unit];
 }
 
-function TorrentRow({ source, labels }: { source: TorrentSource; labels: ReturnType<typeof useLanguage>["translation"]["torrentCatalog"] }) {
+function TorrentRow({ source, content, labels }: { source: TorrentSource; content?: Content; labels: ReturnType<typeof useLanguage>["translation"]["torrentCatalog"] }) {
   const [feedback, setFeedback] = useState("");
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const group = getTorrentReleaseGroup(source.name) ?? source.sourceName;
-  const content = getAllContent().find(item => item.id === source.contentId);
   const canCopy = !source.isDemo && isSafeMagnetLink(source.magnetUri);
   const canDownload = !source.isDemo && isSafeTorrentDownloadUrl(source.torrentUrl);
+  const canPlay = !source.isDemo && isSafeBrowserStream(source.streamUrl, source.streamMimeType);
+  const validationLabel = source.mediaValidationStatus === "verified" ? labels.mediaVerified : source.mediaValidationStatus === "failed" ? labels.mediaFailed : labels.mediaUnknown;
+  const formatTracks = (tracks: TorrentSource["audioTracks"]) => tracks?.length
+    ? tracks.map(track => [track.language, track.codec, track.channels, track.isDefault ? "default" : ""].filter(Boolean).join(" · ")).join(", ")
+    : "";
 
   async function copyMagnet() {
     if (!canCopy || !source.magnetUri || !navigator.clipboard?.writeText) return;
@@ -55,6 +61,11 @@ function TorrentRow({ source, labels }: { source: TorrentSource; labels: ReturnT
         <div><dt>{labels.leechers}</dt><dd>{source.leechers.toLocaleString()}</dd></div>
         <div><dt>{labels.quality}</dt><dd>{source.quality}</dd></div>
       </dl>
+      <dl className="torrent-row__media">
+        <div><dt>{labels.audio}</dt><dd>{formatTracks(source.audioTracks) || (source.audioLanguages?.length ? source.audioLanguages.join(", ") : labels.mediaUnknown)}</dd></div>
+        <div><dt>{labels.subtitles}</dt><dd>{formatTracks(source.subtitleTracks) || (source.subtitleLanguages?.length ? source.subtitleLanguages.join(", ") : labels.mediaUnknown)}</dd></div>
+        <div><dt>{labels.mediaValidation}</dt><dd>{validationLabel}</dd></div>
+      </dl>
       <div className="torrent-row__actions">
         <button type="button" onClick={() => void copyMagnet()} disabled={!canCopy} title={canCopy ? undefined : labels.unavailable}>
           <IonIcon icon={copyOutline} aria-hidden="true" />{labels.copyMagnet}
@@ -68,8 +79,19 @@ function TorrentRow({ source, labels }: { source: TorrentSource; labels: ReturnT
             <IonIcon icon={downloadOutline} aria-hidden="true" />{labels.downloadTorrent}
           </button>
         )}
+        <button type="button" onClick={() => setIsPlayerOpen(value => !value)} disabled={!canPlay} title={canPlay ? labels.player : labels.playerUnavailable}>
+          <IonIcon icon={playCircleOutline} aria-hidden="true" />{labels.player}
+        </button>
         {feedback ? <span role="status">{feedback === "copied" ? "✓" : "!"}</span> : null}
       </div>
+      {isPlayerOpen && canPlay ? (
+        <div className="torrent-row__player">
+          <p>{labels.playerHelp}</p>
+          <video controls preload="none" playsInline controlsList="nodownload">
+            <source src={source.streamUrl!} type={source.streamMimeType} />
+          </video>
+        </div>
+      ) : null}
     </article>
   );
 }
@@ -89,6 +111,11 @@ export default function TorrentCatalog() {
     setQuery(searchParams.get("q") ?? "");
   }, [searchParams]);
 
+  useEffect(() => {
+    setSort(mode === "popular" ? "seeders" : "name");
+  }, [mode]);
+
+  const contentById = useMemo(() => new Map(getAllContent().map(item => [item.id, item])), []);
   const allSources = getAllTorrentSources();
   const qualities = [...new Set(allSources.map(source => source.quality))].sort((a, b) => a.localeCompare(b));
   const results = useMemo(() => {
@@ -161,7 +188,7 @@ export default function TorrentCatalog() {
         ) : null}
         <p className="torrent-catalog__notice" role="note">{labels.demoNotice}</p>
         {results.length ? (
-          <div className="torrent-catalog__list">{results.map(source => <TorrentRow key={source.id} source={source} labels={labels} />)}</div>
+          <div className="torrent-catalog__list">{results.map(source => <TorrentRow key={source.id} source={source} content={contentById.get(source.contentId)} labels={labels} />)}</div>
         ) : (
           <div className="torrent-catalog__empty" role="status"><h2>{labels.noResults}</h2><p>{labels.providerHint}</p></div>
         )}

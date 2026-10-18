@@ -1,26 +1,30 @@
-import Header from "../components/Header/Header";
+import { useLocation } from "react-router-dom";
 import type { ReactNode } from "react";
+import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "../styles/layout.css";
 
 interface AppLayoutProps {
-   children: ReactNode;
+  children: ReactNode;
 }
 
 function AppLayout({ children }: AppLayoutProps) {
-   return (
-      <div className="app">
-         <header className="app__header">
-            <Header />
-         </header>
+  const { pathname } = useLocation();
 
-         <main className="app__main">
-            {children}
-         </main>
+  // The Wiki intentionally owns its complete page chrome.
+  if (pathname === "/wiki" || pathname.startsWith("/wiki/")) {
+    return <div className="app app--wiki">{children}</div>;
+  }
 
-         <Footer />
-      </div>
-   );
+  return (
+    <div className="app">
+      <header className="app__header">
+        <Header />
+      </header>
+      <div className="app__main">{children}</div>
+      <Footer />
+    </div>
+  );
 }
 
 export default AppLayout;

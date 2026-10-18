@@ -68,6 +68,7 @@ export function ContentDetails(){
    <nav className="content-details__breadcrumb" aria-label={translation.catalog.breadcrumb}>
     <Link to="/">{translation.catalog.home}</Link><span aria-hidden="true">/</span><Link to="/discover">{translation.main.navigation.discover}</Link><span aria-hidden="true">/</span><span aria-current="page">{content.title}</span>
    </nav>
+   <p className="content-details__demo-notice" role="note">{translation.catalog.demoNotice}</p>
    <section className="content-hero">
     <div className="content-hero__poster">
      {content.posterUrl?<img className="content-hero__poster-image" src={content.posterUrl} alt={translation.catalog.posterAlt+" "+content.title} onError={e=>{e.currentTarget.hidden=true;}}/>:null}

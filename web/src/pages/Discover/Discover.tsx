@@ -103,6 +103,7 @@ function Discover() {
       </section>
 
       <div className="discover-page__content">
+        <p className="discover-demo-notice" role="note">{translation.catalog.demoNotice}</p>
         {filtering ? (
           <section className="discover-section" aria-labelledby="discover-results-heading">
             <div className="discover-section__header">

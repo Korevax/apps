@@ -74,6 +74,25 @@
         "title3": "Comunidade",
         "desc3": "Pessoas podem contribuir, avaliar informações e ajudar na evolução do ecossistema."
       }
+    },
+    "homeSection5": {
+      "span": "Diferenciais",
+      "title": "O que nos torna diferente?",
+      "description": "O Korevax foi pensado como uma base aberta e conectada — não apenas uma lista de títulos.",
+      "items": [
+        {
+          "title": "Um catálogo conectado",
+          "description": "Obras, pessoas, personagens, edições e franquias podem se relacionar por dados estruturados."
+        },
+        {
+          "title": "Dados transparentes",
+          "description": "Distinguimos informações demonstrativas, pendentes de revisão e verificadas, sem inventar métricas ou fontes."
+        },
+        {
+          "title": "Ecossistema aberto",
+          "description": "Uma base preparada para APIs, ferramentas comunitárias e integrações independentes."
+        }
+      ]
     }
   },
   "NotFoundPage": {
@@ -157,7 +176,8 @@
     "torrentDemo": "Dados ilustrativos — fontes e métricas não são reais.",
     "torrentEmpty": "Nenhuma fonte de torrent foi cadastrada para este conteúdo.",
     "torrentSource": "Fonte",
-    "torrentStatus": "Disponibilidade"
+    "torrentStatus": "Disponibilidade",
+    "demoNotice": "Os registros exibidos neste catálogo são dados demonstrativos. A API própria e a base editorial ainda não estão disponíveis."
   },
   "torrentCatalog": {
     "popularTitle": "Torrents populares",
@@ -186,22 +206,37 @@
     "clear": "Limpar busca",
     "providerHint": "Dica: digite [Judas] para filtrar por distribuidor.",
     "copyMagnet": "Copiar magnet",
-    "downloadTorrent": "Baixar .torrent"
+    "downloadTorrent": "Baixar .torrent",
+    "audio": "Áudio",
+    "subtitles": "Legendas",
+    "mediaValidation": "Validação de mídia",
+    "mediaUnknown": "Ainda não verificado",
+    "mediaVerified": "Metadados de mídia verificados",
+    "mediaFailed": "Falha na validação",
+    "player": "Player web",
+    "playerUnavailable": "Player indisponível: nenhuma fonte de mídia compatível foi configurada.",
+    "playerHelp": "O player só será habilitado para uma fonte HTTPS validada e compatível com o navegador."
   },
   "footer": {
     "tagline": "Descubra, organize e conecte conteúdos digitais.",
     "ecosystem": "Ecossistema",
-    "discover": "Descobrir catálogo",
     "popular": "Torrents populares",
     "torrents": "Explorar torrents",
     "status": "Status do servidor",
     "statusUnknown": "Monitoramento ainda não configurado",
-    "domains": "Outros domínios",
-    "domainsSoon": "Nenhum domínio adicional publicado",
     "wiki": "Wiki e guias",
     "wikiHome": "Central de conhecimento",
     "contribute": "Contribuir no GitHub",
-    "copyright": "Korevax — ecossistema open-source."
+    "copyright": "Korevax — ecossistema open-source.",
+    "kore": "Kore — núcleo do ecossistema",
+    "koreDescription": "API base planejada; ainda não publicada.",
+    "news": "Novidades",
+    "discoverHeading": "Descobrir",
+    "discoverCatalog": "Catálogo completo",
+    "music": "Música",
+    "games": "Jogos",
+    "manga": "Mangás",
+    "site": "Site do Korevax"
   },
   "wiki": {
     "eyebrow": "Korevax Wiki",
@@ -225,6 +260,64 @@
       "Fontes rastreáveis e correções comunitárias.",
       "Não hospedamos arquivos nem garantimos a segurança de fontes externas.",
       "Respeito à legislação e aos direitos dos titulares."
-    ]
+    ],
+    "navHome": "Início",
+    "navCatalog": "Catálogo",
+    "navCollections": "Coleções",
+    "navContribute": "Contribuir",
+    "welcome": "Bem-vindo à Wiki do Korevax",
+    "quickStartTitle": "Antes de começar",
+    "quickStart": [
+      {
+        "title": "Explore o catálogo",
+        "description": "Encontre obras, consulte metadados e navegue pelas relações registradas."
+      },
+      {
+        "title": "Confira a qualidade dos dados",
+        "description": "Observe avisos de validação e diferencie dados demonstrativos de informações confirmadas."
+      },
+      {
+        "title": "Contribua com responsabilidade",
+        "description": "Reporte erros e proponha melhorias com contexto e fontes rastreáveis."
+      }
+    ],
+    "directoryTitle": "Diretório do ecossistema",
+    "directory": [
+      {
+        "title": "Filmes e séries",
+        "description": "Obras audiovisuais, metadados e relações entre franquias.",
+        "path": "/movies"
+      },
+      {
+        "title": "Música",
+        "description": "Obras musicais individuais e metadados relacionados.",
+        "path": "/music"
+      },
+      {
+        "title": "Mangás",
+        "description": "Catálogo de mangás e relações com autores e edições.",
+        "path": "/manga"
+      },
+      {
+        "title": "Jogos",
+        "description": "Jogos, plataformas e modos de jogo.",
+        "path": "/games"
+      }
+    ],
+    "footerNote": "Documentação comunitária em evolução. Verifique as informações antes de confiar nelas.",
+    "koreTitle": "Kore: o núcleo planejado do ecossistema",
+    "koreDescription": "Kore é o nome proposto para a API base que poderá centralizar contratos, validação e acesso aos dados do Korevax. Ainda não existe um serviço de API próprio publicado; esta seção descreve a direção planejada, não uma capacidade disponível."
+  },
+  "collections": {
+    "title": "Coleções",
+    "description": "Franquias de filmes conectadas por relações explícitas no catálogo.",
+    "emptyTitle": "Ainda não há coleções publicadas",
+    "emptyDescription": "Uma coleção aparece quando pelo menos dois filmes publicados estão ligados à mesma franquia. Não exibimos agrupamentos sem relações verificadas."
+  },
+  "newsPage": {
+    "title": "Novidades",
+    "description": "Acompanhe as mudanças e o desenvolvimento do ecossistema Korevax.",
+    "emptyTitle": "Registro de novidades em preparação",
+    "emptyDescription": "As atualizações serão publicadas aqui quando houver um changelog mantido pelo projeto."
   }
 }

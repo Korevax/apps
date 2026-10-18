@@ -21,7 +21,7 @@ function isSafeMagnetUri(value: unknown): value is string {
 }
 
 function isSafeTorrentUrl(value: unknown): value is string {
-  if (typeof value !== "string" || value.length > 2048 || /[\u0000-\u001F\u007F]/.test(value)) return false;
+  if (typeof value !== "string" || value.length > 2048 || /[\u0000-\u0020\u007F]/.test(value)) return false;
   try {
     const url = new URL(value);
     return url.protocol === "https:" &&
@@ -40,8 +40,8 @@ function isValidSource(source: TorrentSource): boolean {
     Number.isFinite(Date.parse(source.updatedAt));
 
   if (!metadataValid || source.status !== "active") return false;
-  if (source.isDemo) return source.magnetUri === null && source.torrentUrl === null;
-  return isSafeMagnetUri(source.magnetUri) || isSafeTorrentUrl(source.torrentUrl);
+  if (source.isDemo) return source.magnetUri === null && source.torrentUrl === null && source.streamUrl == null;
+  return isSafeMagnetUri(source.magnetUri) || isSafeTorrentUrl(source.torrentUrl) || isSafeBrowserStream(source.streamUrl, source.streamMimeType);
 }
 
 export function getTorrentSourcesForContent(contentId: string): TorrentSource[] {
@@ -95,4 +95,19 @@ export function getTorrentSourceProfile(name: string): { name: string; count: nu
     (getTorrentReleaseGroup(source.name) ?? source.sourceName).toLocaleLowerCase() === normalized.toLocaleLowerCase()
   );
   return matches.length ? { name: normalized, count: matches.length } : null;
+}
+
+/**
+ * A browser player accepts only HTTPS media endpoints with an explicit supported MIME type.
+ * This is URL hygiene, not proof that the remote server or media is trustworthy.
+ */
+export function isSafeBrowserStream(value: unknown, mimeType: unknown): value is string {
+  if (typeof value !== "string" || value.length > 2048 || /[\\u0000-\\u0020\\u007F]/.test(value)) return false;
+  if (mimeType !== "video/mp4" && mimeType !== "video/webm" && mimeType !== "application/vnd.apple.mpegurl") return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && Boolean(url.hostname) && !url.username && !url.password;
+  } catch {
+    return false;
+  }
 }

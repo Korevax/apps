@@ -4,6 +4,9 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const Discover = lazy(() => import("./pages/Discover/Discover"));
 const TorrentCatalog = lazy(() => import("./pages/TorrentCatalog/TorrentCatalog"));
 const Wiki = lazy(() => import("./pages/Wiki/Wiki"));
+const CatalogTypePage = lazy(() => import("./pages/CatalogTypePage/CatalogTypePage"));
+const Collections = lazy(() => import("./pages/Collections/Collections"));
+const News = lazy(() => import("./pages/News/News"));
 
 const ContentDetails = lazy(() =>
   import("./pages/ContentDetails/ContentDetails").then((module) => ({
@@ -11,7 +14,6 @@ const ContentDetails = lazy(() =>
   })),
 );
 
-import "./pages/ContentDetails/ContentDetails.css";
 
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
@@ -62,6 +64,13 @@ function App() {
               <Route path="/popular" element={<TorrentCatalog />} />
               <Route path="/torrents" element={<TorrentCatalog />} />
               <Route path="/wiki" element={<Wiki />} />
+              <Route path="/movies" element={<CatalogTypePage />} />
+              <Route path="/series" element={<CatalogTypePage />} />
+              <Route path="/music" element={<CatalogTypePage />} />
+              <Route path="/games" element={<CatalogTypePage />} />
+              <Route path="/manga" element={<CatalogTypePage />} />
+              <Route path="/collections" element={<Collections />} />
+              <Route path="/news" element={<News />} />
               <Route path="/content/:slug" element={<ContentDetails />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>

@@ -83,6 +83,7 @@ export function getContentValidationErrors(v: unknown): string[] {
   if(!nonEmpty(v.slug)||v.slug.length>160||!SLUG.test(v.slug))e.push("slug deve conter letras minúsculas, números e hífens.");
   if(!nonEmpty(v.title)||v.title.length>300)e.push("title deve ser string não vazia de até 300 caracteres.");
   if(!nullableString(v.originalTitle)||(typeof v.originalTitle==="string"&&v.originalTitle.length>300))e.push("originalTitle inválido.");
+  if(v.franchiseId!==undefined&&v.franchiseId!==null&&(v.type!=="movie"||typeof v.franchiseId!=="string"||v.franchiseId.length>160||!SLUG.test(v.franchiseId)))e.push("franchiseId deve ser um slug válido e só pode ser usado por filmes.");
   if(!isType(v.type))e.push("type não corresponde a categoria permitida.");
   if(!isStatus(v.status))e.push("status não corresponde a estado editorial permitido.");
   if(!Array.isArray(v.alternativeTitles)||v.alternativeTitles.length>100||!v.alternativeTitles.every(x=>nonEmpty(x)&&x.length<=300))e.push("alternativeTitles deve ser lista de títulos não vazios.");

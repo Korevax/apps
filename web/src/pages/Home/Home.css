@@ -350,3 +350,32 @@
       grid-template-columns: 1fr;
    }
 }
+
+/* ==============================
+   Featured catalogs
+   ============================== */
+.home__catalogs,.home__different{border-top:1px solid var(--color-border)}
+.home__catalog-heading,.home__catalog-subheading{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+.home__catalog-heading h2{margin-bottom:.75rem}
+.home__catalog-heading .home__section-intro{margin-bottom:0}
+.home__catalog-link,.home__catalog-subheading>a{display:inline-flex;align-items:center;gap:.4rem;flex-shrink:0;color:var(--color-purple-light);font-size:.9rem;font-weight:650;text-decoration:none}
+.home__catalog-link:hover,.home__catalog-subheading>a:hover{text-decoration:underline}
+.home__catalog-group{margin-top:2.5rem}
+.home__catalog-subheading{margin-bottom:1rem}
+.home__catalog-subheading h3{margin:0;color:var(--color-white);font-size:1.35rem}
+.home__catalog-empty{padding:1rem;border:1px dashed var(--color-border);border-radius:var(--radius-md);color:var(--color-text-secondary)}
+.home__different{background:radial-gradient(ellipse at 90% 0%,rgba(124,58,237,.08),transparent 55%)}
+.home__different-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2rem}
+.home__different-item{padding:1.5rem;border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface)}
+.home__different-item h3{margin:0 0 .75rem;color:var(--color-white);font-size:1.05rem}
+.home__different-item p{margin:0;color:var(--color-text-secondary);font-size:.95rem;line-height:1.7}
+@media(max-width:768px){
+ .home__catalog-heading,.home__catalog-subheading{align-items:flex-start;flex-direction:column}
+ .home__different-grid{grid-template-columns:1fr}
+}
+
+.home .content-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+@media(max-width:900px){.home .content-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.home .content-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem}}
+
+.home__data-notice{max-width:60rem;margin:1.5rem 0 0;padding:.75rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-md);color:var(--color-text-muted);font-size:.85rem;line-height:1.6}

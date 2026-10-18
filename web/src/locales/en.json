@@ -74,6 +74,25 @@
       "span": "About the project",
       "description1": "Korevax is an open-source ecosystem designed to facilitate the discovery, organization, and exploration of digital content. Focused on the preservation of and access to information, the project aims to bring together various types of content within an open, structured framework, enabling users to find, explore, and establish connections between works, entities, and information in a simple and organized manner.",
       "description2": "This structure allows for the connection of works, entities, and information, creating a foundation that can be explored by individuals, collaborators, and various applications."
+    },
+    "homeSection5": {
+      "span": "What makes us different",
+      "title": "What makes Korevax different?",
+      "description": "Korevax is designed as an open, connected foundation — not just a list of titles.",
+      "items": [
+        {
+          "title": "A connected catalog",
+          "description": "Works, people, characters, editions, and franchises can be linked through structured data."
+        },
+        {
+          "title": "Transparent data",
+          "description": "We distinguish demo, pending-review, and verified information without inventing metrics or sources."
+        },
+        {
+          "title": "An open ecosystem",
+          "description": "A foundation designed for APIs, community tools, and independent integrations."
+        }
+      ]
     }
   },
   "NotFoundPage": {
@@ -157,7 +176,8 @@
     "torrentDemo": "Illustrative data — sources and metrics are not real.",
     "torrentEmpty": "No torrent sources have been registered for this content.",
     "torrentSource": "Source",
-    "torrentStatus": "Availability"
+    "torrentStatus": "Availability",
+    "demoNotice": "Records shown in this catalog are demonstration data. The first-party API and editorial database are not available yet."
   },
   "torrentCatalog": {
     "popularTitle": "Popular torrents",
@@ -186,22 +206,37 @@
     "clear": "Clear search",
     "providerHint": "Tip: type [Judas] to filter by distributor.",
     "copyMagnet": "Copy magnet",
-    "downloadTorrent": "Download .torrent"
+    "downloadTorrent": "Download .torrent",
+    "audio": "Audio",
+    "subtitles": "Subtitles",
+    "mediaValidation": "Media validation",
+    "mediaUnknown": "Not verified yet",
+    "mediaVerified": "Media metadata verified",
+    "mediaFailed": "Validation failed",
+    "player": "Web player",
+    "playerUnavailable": "Player unavailable: no compatible media source is configured.",
+    "playerHelp": "The player will only be enabled for a validated HTTPS source supported by the browser."
   },
   "footer": {
     "tagline": "Discover, organize, and connect digital content.",
     "ecosystem": "Ecosystem",
-    "discover": "Discover catalog",
     "popular": "Popular torrents",
     "torrents": "Explore torrents",
     "status": "Server status",
     "statusUnknown": "Monitoring is not configured yet",
-    "domains": "Other domains",
-    "domainsSoon": "No additional domains published",
     "wiki": "Wiki and guides",
     "wikiHome": "Knowledge base",
     "contribute": "Contribute on GitHub",
-    "copyright": "Korevax — open-source ecosystem."
+    "copyright": "Korevax — open-source ecosystem.",
+    "kore": "Kore — ecosystem core",
+    "koreDescription": "Base API planned; not published yet.",
+    "news": "What's new",
+    "discoverHeading": "Discover",
+    "discoverCatalog": "Full catalog",
+    "music": "Music",
+    "games": "Games",
+    "manga": "Manga",
+    "site": "Korevax website"
   },
   "wiki": {
     "eyebrow": "Korevax Wiki",
@@ -225,6 +260,64 @@
       "Traceable sources and community corrections.",
       "We do not host files or guarantee the safety of external sources.",
       "Respect for laws and rights holders."
-    ]
+    ],
+    "navHome": "Home",
+    "navCatalog": "Catalog",
+    "navCollections": "Collections",
+    "navContribute": "Contribute",
+    "welcome": "Welcome to the Korevax Wiki",
+    "quickStartTitle": "Before you start",
+    "quickStart": [
+      {
+        "title": "Explore the catalog",
+        "description": "Find works, inspect metadata, and navigate recorded relationships."
+      },
+      {
+        "title": "Check data quality",
+        "description": "Read validation notices and distinguish demo data from confirmed information."
+      },
+      {
+        "title": "Contribute responsibly",
+        "description": "Report errors and suggest improvements with context and traceable sources."
+      }
+    ],
+    "directoryTitle": "Ecosystem directory",
+    "directory": [
+      {
+        "title": "Movies and series",
+        "description": "Audiovisual works, metadata, and franchise relationships.",
+        "path": "/movies"
+      },
+      {
+        "title": "Music",
+        "description": "Individual musical works and related metadata.",
+        "path": "/music"
+      },
+      {
+        "title": "Manga",
+        "description": "Manga catalog and relationships to creators and editions.",
+        "path": "/manga"
+      },
+      {
+        "title": "Games",
+        "description": "Games, platforms, and game modes.",
+        "path": "/games"
+      }
+    ],
+    "footerNote": "Community documentation in progress. Verify information before relying on it.",
+    "koreTitle": "Kore: the planned ecosystem core",
+    "koreDescription": "Kore is the proposed name for the base API that may centralize contracts, validation, and access to Korevax data. No first-party API service has been published yet; this section describes a planned direction, not an available capability."
+  },
+  "collections": {
+    "title": "Collections",
+    "description": "Movie franchises connected through explicit catalog relationships.",
+    "emptyTitle": "No collections published yet",
+    "emptyDescription": "A collection appears when at least two published movies are linked to the same franchise. We do not show groups without verified relationships."
+  },
+  "newsPage": {
+    "title": "What's new",
+    "description": "Follow changes and development across the Korevax ecosystem.",
+    "emptyTitle": "Release notes are being prepared",
+    "emptyDescription": "Updates will appear here once the project maintains a changelog."
   }
 }
