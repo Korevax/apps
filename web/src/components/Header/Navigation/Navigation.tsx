@@ -3,8 +3,8 @@ import { IonIcon } from "@ionic/react";
 import {
    compassOutline,
    flameOutline,
-   timeOutline,
-   gridOutline,
+   pulseOutline,
+   bookOutline,
 } from "ionicons/icons";
 
 import {
@@ -68,10 +68,10 @@ function Navigation() {
             <li className="header-navigation__item">
                <a
                   className="header-navigation__link"
-                  href="/recent"
+                  href="/torrents"
                >
                   <IonIcon
-                     icon={timeOutline}
+                     icon={pulseOutline}
                      aria-hidden="true"
                   />
 
@@ -85,15 +85,15 @@ function Navigation() {
             <li className="header-navigation__item">
                <a
                   className="header-navigation__link"
-                  href="/collections"
+                  href="/wiki"
                >
                   <IonIcon
-                     icon={gridOutline}
+                     icon={bookOutline}
                      aria-hidden="true"
                   />
 
                   <span>
-                     {translation.header.navigation.collections}
+                     {translation.header.navigation.wiki}
                   </span>
                </a>
             </li>
