@@ -74,6 +74,25 @@
         "title3": "Comunidad",
         "desc3": "Las personas pueden contribuir, evaluar información y ayudar en la evolución del ecosistema."
       }
+    },
+    "homeSection5": {
+      "span": "Diferencias",
+      "title": "¿Qué nos hace diferentes?",
+      "description": "Korevax está diseñado como una base abierta y conectada, no solo como una lista de títulos.",
+      "items": [
+        {
+          "title": "Catálogo conectado",
+          "description": "Obras, personas, personajes, ediciones y franquicias pueden relacionarse mediante datos estructurados."
+        },
+        {
+          "title": "Datos transparentes",
+          "description": "Diferenciamos los datos de demostración, pendientes de revisión y verificados, sin inventar métricas ni fuentes."
+        },
+        {
+          "title": "Ecosistema abierto",
+          "description": "Una base preparada para API, herramientas comunitarias e integraciones independientes."
+        }
+      ]
     }
   },
   "NotFoundPage": {
@@ -186,7 +205,16 @@
     "clear": "Limpiar búsqueda",
     "providerHint": "Consejo: escribe [Judas] para filtrar por distribuidor.",
     "copyMagnet": "Copiar magnet",
-    "downloadTorrent": "Descargar .torrent"
+    "downloadTorrent": "Descargar .torrent",
+    "audio": "Audio",
+    "subtitles": "Subtítulos",
+    "mediaValidation": "Validación multimedia",
+    "mediaUnknown": "Aún no verificado",
+    "mediaVerified": "Metadatos multimedia verificados",
+    "mediaFailed": "Error de validación",
+    "player": "Reproductor web",
+    "playerUnavailable": "Reproductor no disponible: no hay una fuente multimedia compatible configurada.",
+    "playerHelp": "El reproductor solo se habilitará para una fuente HTTPS validada y compatible con el navegador."
   },
   "footer": {
     "tagline": "Descubre, organiza y conecta contenido digital.",
@@ -201,7 +229,16 @@
     "wiki": "Wiki y guías",
     "wikiHome": "Centro de conocimiento",
     "contribute": "Contribuir en GitHub",
-    "copyright": "Korevax — ecosistema de código abierto."
+    "copyright": "Korevax — ecosistema de código abierto.",
+    "kore": "Kore — núcleo del ecosistema",
+    "koreDescription": "API base planificada; aún no publicada.",
+    "news": "Novedades",
+    "discoverHeading": "Descubrir",
+    "discoverCatalog": "Catálogo completo",
+    "music": "Música",
+    "games": "Juegos",
+    "manga": "Mangas",
+    "site": "Sitio de Korevax"
   },
   "wiki": {
     "eyebrow": "Wiki de Korevax",
@@ -226,5 +263,17 @@
       "No alojamos archivos ni garantizamos la seguridad de fuentes externas.",
       "Respeto a la legislación y a los titulares de derechos."
     ]
+  },
+  "collections": {
+    "title": "Colecciones",
+    "description": "Franquicias de películas conectadas mediante relaciones explícitas en el catálogo.",
+    "emptyTitle": "Todavía no hay colecciones publicadas",
+    "emptyDescription": "Una colección aparece cuando al menos dos películas publicadas están vinculadas a la misma franquicia. No mostramos grupos sin relaciones verificadas."
+  },
+  "newsPage": {
+    "title": "Novedades",
+    "description": "Sigue los cambios y el desarrollo del ecosistema Korevax.",
+    "emptyTitle": "El registro de novedades está en preparación",
+    "emptyDescription": "Las actualizaciones aparecerán aquí cuando el proyecto mantenga un registro de cambios."
   }
 }
