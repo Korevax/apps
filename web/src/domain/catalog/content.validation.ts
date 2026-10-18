@@ -43,7 +43,23 @@ function isbn13(v: unknown): boolean {
 function metadataErrors(type: ContentType, v: unknown): string[] {
   if (v===undefined) return [];
   if (!record(v)) return ["metadata deve ser um objeto."];
+  const allowed: Record<ContentType, readonly string[]> = {
+    movie: ["runtimeMinutes", "productionCountries"],
+    series: ["totalSeasons", "totalEpisodes", "seriesStatus"],
+    animation: ["animationMedium"],
+    anime: ["animationMedium"],
+    book: ["pageCount", "isbn13", "publisher"],
+    manga: ["chapterCount", "volumeCount", "publicationStatus"],
+    manhwa: ["chapterCount", "volumeCount", "publicationStatus"],
+    music: ["durationSeconds", "isrc"],
+    podcast: ["episodeCount", "podcastStatus"],
+    game: ["platforms", "gameModes"],
+    documentary: ["runtimeMinutes", "productionCountries"],
+  };
   const e:string[]=[];
+  for (const key of Object.keys(v)) {
+    if (!allowed[type].includes(key)) e.push("metadata." + key + " não é permitido para o tipo " + type + ".");
+  }
   const pos=(k:string)=>{if(v[k]!==undefined&&!positive(v[k]))e.push("metadata."+k+" deve ser inteiro positivo.");};
   const nn=(k:string)=>{if(v[k]!==undefined&&!nonNegative(v[k]))e.push("metadata."+k+" deve ser inteiro não negativo.");};
   const arr=(k:string)=>{if(v[k]!==undefined&&!strings(v[k]))e.push("metadata."+k+" deve ser uma lista de strings.");};
