@@ -61,7 +61,7 @@ export function TorrentSources({ contentId }: TorrentSourcesProps) {
                 <article className="torrent-source" key={source.id}>
                   <div className="torrent-source__main">
                     <h3>{source.name}</h3>
-                    <span className="torrent-source__quality">{source.quality}</span>
+                    <span className="torrent-source__quality" aria-label={labels.torrentQuality + ": " + source.quality}>{source.quality}</span>
                   </div>
                   <dl className="torrent-source__stats">
                     <div><dt>{labels.torrentSize}</dt><dd>{formatBytes(source.sizeBytes)}</dd></div>
@@ -69,7 +69,7 @@ export function TorrentSources({ contentId }: TorrentSourcesProps) {
                     <div><dt>{labels.torrentLeechers}</dt><dd>{source.leechers.toLocaleString()}</dd></div>
                     <div><dt>{labels.torrentSource}</dt><dd>{source.sourceName}</dd></div>
                   </dl>
-                  <div className="torrent-source__actions">
+                  <div className="torrent-source__actions" aria-label={labels.torrentActions}>
                     <button type="button" className="content-hero__button" onClick={() => void copyMagnet(source)} disabled={!canCopy}>
                       <IonIcon icon={copyOutline} aria-hidden="true" />{labels.copyMagnet}
                     </button>
