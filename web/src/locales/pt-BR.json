@@ -137,6 +137,8 @@
       "platforms": "Plataformas",
       "gameModes": "Modos de jogo",
       "animationMedium": "Técnica de animação"
-    }
+    },
+    "filterGenre": "Filtrar por gênero",
+    "allGenres": "Todos os gêneros"
   }
 }
