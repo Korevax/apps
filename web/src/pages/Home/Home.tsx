@@ -82,6 +82,7 @@ function Home() {
             </div>
             <Link className="home__catalog-link" to="/discover">{translation.catalog.allContent} <span aria-hidden="true">→</span></Link>
           </div>
+          <p className="home__data-notice" role="note">{translation.catalog.demoNotice}</p>
           {([
             { type: "movie" as const, title: translation.catalog.types.movie, href: "/movies" },
             { type: "series" as const, title: translation.catalog.types.series, href: "/series" },
