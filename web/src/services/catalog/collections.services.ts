@@ -26,7 +26,7 @@ export function getMovieCollections(): MovieCollection[] {
     .filter(([, movies]) => movies.length >= 2)
     .map(([id, movies]) => ({
       id,
-      name: movies[0].franchiseName?.trim() || movies[0].title,
+      name: movies[0].franchiseName?.trim() || id.replace(/[-_]+/g, " "),
       movies: movies.slice().sort((a, b) =>
         (a.releaseDate ?? "").localeCompare(b.releaseDate ?? "") || a.title.localeCompare(b.title),
       ),
