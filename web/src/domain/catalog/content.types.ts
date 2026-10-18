@@ -8,7 +8,6 @@ export interface ContentBase {
   originalTitle?: string | null;
   /** Explicit franchise relationship; never inferred from title similarity. */
   franchiseId?: string | null;
-  franchiseName?: string | null;
   alternativeTitles: string[];
   synopsis: string | null;
   genres: string[]; tags: string[];
