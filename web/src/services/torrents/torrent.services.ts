@@ -21,7 +21,7 @@ function isSafeMagnetUri(value: unknown): value is string {
 }
 
 function isSafeTorrentUrl(value: unknown): value is string {
-  if (typeof value !== "string" || value.length > 2048 || /[\u0000-\u001F\u007F]/.test(value)) return false;
+  if (typeof value !== "string" || value.length > 2048 || /[\u0000-\u0020\u007F]/.test(value)) return false;
   try {
     const url = new URL(value);
     return url.protocol === "https:" &&
