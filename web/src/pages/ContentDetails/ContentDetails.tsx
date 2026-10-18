@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TorrentSources } from "../../components/TorrentSources/TorrentSources";
 import { IonIcon } from "@ionic/react";
 import { bookmarkOutline,shareSocialOutline } from "ionicons/icons";
 import { Link,useParams } from "react-router-dom";
@@ -98,6 +99,7 @@ export function ContentDetails(){
      {facts.map(f=><div key={f.label}><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
     </dl>
    </section>
+   <TorrentSources contentId={content.id}/>
    <section className="content-details__section"><h2>{translation.catalog.tags}</h2>
     {content.tags.length?<ul className="content-details__tags">{content.tags.map(tag=><li key={tag}>{tag}</li>)}</ul>:<p className="content-details__muted">{translation.catalog.notAvailable}</p>}
    </section>
