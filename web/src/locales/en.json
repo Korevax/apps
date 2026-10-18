@@ -5,8 +5,9 @@
       "label": "Main navigation",
       "discover": "Discover",
       "popular": "Popular",
-      "recent": "Recent",
-      "collections": "Collections"
+      "recent": "Torrents",
+      "collections": "Collections",
+      "wiki": "Wiki"
     },
     "searchbox": {
       "search": "Search",
@@ -157,5 +158,71 @@
     "torrentEmpty": "No torrent sources have been registered for this content.",
     "torrentSource": "Source",
     "torrentStatus": "Availability"
+  },
+  "torrentCatalog": {
+    "popularTitle": "Popular torrents",
+    "popularDescription": "Explore sources sorted by reported activity. Demonstration metrics do not represent a live network.",
+    "allTitle": "Explore torrents",
+    "allDescription": "Search by title, quality, or source name. Use [SourceName] to find releases attributed to a group.",
+    "searchPlaceholder": "Title, quality, or [Judas]",
+    "searchLabel": "Search torrent sources",
+    "sort": "Sort by",
+    "seedersSort": "Most seeders",
+    "sizeSort": "Largest size",
+    "nameSort": "Name",
+    "filterQuality": "Quality",
+    "allQualities": "All qualities",
+    "results": "Results",
+    "noResults": "No sources match this search.",
+    "demoNotice": "Demo: names and metrics are fictional. No real links have been added.",
+    "sourceProfile": "Source profile",
+    "sourceCount": "listed sources",
+    "seeders": "Seeders",
+    "leechers": "Leechers",
+    "size": "Size",
+    "quality": "Quality",
+    "openContent": "View content",
+    "unavailable": "Link unavailable",
+    "clear": "Clear search",
+    "providerHint": "Tip: type [Judas] to filter by distributor."
+  },
+  "footer": {
+    "tagline": "Discover, organize, and connect digital content.",
+    "ecosystem": "Ecosystem",
+    "discover": "Discover catalog",
+    "popular": "Popular torrents",
+    "torrents": "Explore torrents",
+    "status": "Server status",
+    "statusUnknown": "Monitoring is not configured yet",
+    "domains": "Other domains",
+    "domainsSoon": "No additional domains published",
+    "wiki": "Wiki and guides",
+    "wikiHome": "Knowledge base",
+    "contribute": "Contribute on GitHub",
+    "copyright": "Korevax — open-source ecosystem."
+  },
+  "wiki": {
+    "eyebrow": "Korevax Wiki",
+    "title": "Knowledge base",
+    "description": "Community guides to understand the ecosystem, explore the catalog, and contribute information responsibly.",
+    "noticeTitle": "Before you start",
+    "notice": "Metadata may be incomplete or outdated. Verify sources, respect copyright, and avoid executables or suspicious links.",
+    "exploreTitle": "Explore the ecosystem",
+    "catalogTitle": "Catalog and metadata",
+    "catalogText": "How titles, genres, types, and relationships are organized in Korevax.",
+    "torrentsTitle": "Sources and identifiers",
+    "torrentsText": "Learn about quality, seeders, leechers, and the [SourceName] convention used to identify release groups.",
+    "safetyTitle": "Safety and privacy",
+    "safetyText": "Best practices for recognizing links, protecting your devices, and preserving privacy.",
+    "communityTitle": "Community and contribution",
+    "communityText": "Suggest corrections, report inaccurate data, and follow open development.",
+    "contribute": "View GitHub repository",
+    "principlesTitle": "Principles",
+    "principles": [
+      "Transparency about verified and demonstration data.",
+      "Traceable sources and community corrections.",
+      "We do not host files or guarantee the safety of external sources.",
+      "Respect for laws and rights holders."
+    ]
   }
 }
