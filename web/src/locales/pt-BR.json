@@ -184,7 +184,9 @@
     "openContent": "Ver conteúdo",
     "unavailable": "Link indisponível",
     "clear": "Limpar busca",
-    "providerHint": "Dica: digite [Judas] para filtrar por distribuidor."
+    "providerHint": "Dica: digite [Judas] para filtrar por distribuidor.",
+    "copyMagnet": "Copiar magnet",
+    "downloadTorrent": "Baixar .torrent"
   },
   "footer": {
     "tagline": "Descubra, organize e conecte conteúdos digitais.",
