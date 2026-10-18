@@ -8,15 +8,22 @@ export interface MovieCollection {
 }
 
 /**
- * A collection is a franchise of at least two published movies sharing an explicit franchiseId.
- * We intentionally do not infer franchise membership from similar titles.
+ * Collection identity is canonical data, separate from movie records.
+ * Add aliases/descriptions here or, once the API exists, store these definitions in its database.
  */
+const collectionDefinitions: readonly Pick<MovieCollection, "id" | "name">[] = [
+  { id: "terminator", name: "O Exterminador do Futuro" },
+];
+
+/** Return only collections with a canonical definition and at least two published movies. */
 export function getMovieCollections(): MovieCollection[] {
+  const definitions = new Map(collectionDefinitions.map(collection => [collection.id, collection]));
   const groups = new Map<string, Extract<Content, { type: "movie" }>[]>();
+
   for (const content of getAllContent()) {
     if (content.type !== "movie" || !content.franchiseId) continue;
     const key = content.franchiseId.trim().toLocaleLowerCase();
-    if (!key) continue;
+    if (!key || !definitions.has(key)) continue;
     const movies = groups.get(key) ?? [];
     movies.push(content);
     groups.set(key, movies);
@@ -25,8 +32,7 @@ export function getMovieCollections(): MovieCollection[] {
   return [...groups.entries()]
     .filter(([, movies]) => movies.length >= 2)
     .map(([id, movies]) => ({
-      id,
-      name: movies[0].franchiseName?.trim() || id.replace(/[-_]+/g, " "),
+      ...definitions.get(id)!,
       movies: movies.slice().sort((a, b) =>
         (a.releaseDate ?? "").localeCompare(b.releaseDate ?? "") || a.title.localeCompare(b.title),
       ),
