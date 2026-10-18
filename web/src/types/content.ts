@@ -1,33 +1,12 @@
-
-export type ContentType =
-  | "movie"
-  | "series"
-  | "animation"
-  | "anime"
-  | "book"
-  | "manga"
-  | "manhwa"
-  | "music"
-  | "podcast"
-  | "game"
-  | "documentary";
-
-export interface ContentRating {
-  average: number | null;
-  count: number;
-}
-
-export interface Content {
-  id: string;
-  slug: string;
-  title: string;
-  originalTitle?: string;
-  type: ContentType;
-  synopsis: string;
-  genres: string[];
-  releaseDate?: string;
-  durationMinutes?: number;
-  posterUrl?: string;
-  backdropUrl?: string;
-  rating: ContentRating;
-}
+/**
+ * @deprecated Import contracts from domain/catalog and domain/ratings.
+ * Kept temporarily while existing imports are migrated.
+ */
+export {
+ CONTENT_STATUSES, CONTENT_TYPES,
+ type AnimationMetadata, type AnimeMetadata, type BookMetadata, type Content,
+ type ContentBase, type ContentMetadataByType, type ContentStatus, type ContentType,
+ type DocumentaryMetadata, type GameMetadata, type MangaMetadata, type ManhwaMetadata,
+ type MovieMetadata, type MusicMetadata, type PodcastMetadata, type SeriesMetadata,
+} from "../domain/catalog/content.types";
+export type { ContentRatingSummary as ContentRating } from "../domain/ratings/rating.types";
