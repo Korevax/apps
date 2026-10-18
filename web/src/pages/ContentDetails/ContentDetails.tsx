@@ -11,7 +11,7 @@ import { GenreList } from "../../components/Content/GenreList/GenreList";
 import { useLanguage } from "../../contexts/useLanguage";
 import "./ContentDetails.css";
 
-function specificFacts(content:Content,labels:typeof import("../../locales/pt-BR.json")["catalog"]["facts"]):Array<{label:string;value:string}>{
+function specificFacts(content:Content,labels:Record<keyof typeof import("../../locales/pt-BR.json")["catalog"]["facts"],string>):Array<{label:string;value:string}>{
  switch(content.type){
   case "movie": case "documentary": return content.metadata?[
    ...(content.metadata.runtimeMinutes?[{label:labels.duration,value:content.metadata.runtimeMinutes+" min"}]:[]),
