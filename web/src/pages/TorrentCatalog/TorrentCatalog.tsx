@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
-import { arrowForward, copyOutline, downloadOutline, searchOutline } from "ionicons/icons";
+import { arrowForward, copyOutline, downloadOutline, playCircleOutline, searchOutline } from "ionicons/icons";
 import { useLanguage } from "../../contexts/useLanguage";
 import { getAllContent } from "../../services/catalog/catalog.services";
-import { getAllTorrentSources, getTorrentReleaseGroup, getTorrentSourceProfile, isSafeMagnetLink, isSafeTorrentDownloadUrl, searchTorrentSources } from "../../services/torrents/torrent.services";
+import { getAllTorrentSources, getTorrentReleaseGroup, getTorrentSourceProfile, isSafeBrowserStream, isSafeMagnetLink, isSafeTorrentDownloadUrl, searchTorrentSources } from "../../services/torrents/torrent.services";
 import type { TorrentSource } from "../../domain/downloads/torrent.types";
 import "./TorrentCatalog.css";
 
@@ -24,10 +24,13 @@ function formatBytes(bytes: number): string {
 
 function TorrentRow({ source, labels }: { source: TorrentSource; labels: ReturnType<typeof useLanguage>["translation"]["torrentCatalog"] }) {
   const [feedback, setFeedback] = useState("");
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const group = getTorrentReleaseGroup(source.name) ?? source.sourceName;
   const content = getAllContent().find(item => item.id === source.contentId);
   const canCopy = !source.isDemo && isSafeMagnetLink(source.magnetUri);
   const canDownload = !source.isDemo && isSafeTorrentDownloadUrl(source.torrentUrl);
+  const canPlay = !source.isDemo && isSafeBrowserStream(source.streamUrl, source.streamMimeType);
+  const validationLabel = source.mediaValidationStatus === "verified" ? labels.mediaVerified : source.mediaValidationStatus === "failed" ? labels.mediaFailed : labels.mediaUnknown;
 
   async function copyMagnet() {
     if (!canCopy || !source.magnetUri || !navigator.clipboard?.writeText) return;
@@ -55,6 +58,11 @@ function TorrentRow({ source, labels }: { source: TorrentSource; labels: ReturnT
         <div><dt>{labels.leechers}</dt><dd>{source.leechers.toLocaleString()}</dd></div>
         <div><dt>{labels.quality}</dt><dd>{source.quality}</dd></div>
       </dl>
+      <dl className="torrent-row__media">
+        <div><dt>{labels.audio}</dt><dd>{source.audioLanguages?.length ? source.audioLanguages.join(", ") : labels.mediaUnknown}</dd></div>
+        <div><dt>{labels.subtitles}</dt><dd>{source.subtitleLanguages?.length ? source.subtitleLanguages.join(", ") : labels.mediaUnknown}</dd></div>
+        <div><dt>{labels.mediaValidation}</dt><dd>{validationLabel}</dd></div>
+      </dl>
       <div className="torrent-row__actions">
         <button type="button" onClick={() => void copyMagnet()} disabled={!canCopy} title={canCopy ? undefined : labels.unavailable}>
           <IonIcon icon={copyOutline} aria-hidden="true" />{labels.copyMagnet}
@@ -68,8 +76,19 @@ function TorrentRow({ source, labels }: { source: TorrentSource; labels: ReturnT
             <IonIcon icon={downloadOutline} aria-hidden="true" />{labels.downloadTorrent}
           </button>
         )}
+        <button type="button" onClick={() => setIsPlayerOpen(value => !value)} disabled={!canPlay} title={canPlay ? labels.player : labels.playerUnavailable}>
+          <IonIcon icon={playCircleOutline} aria-hidden="true" />{labels.player}
+        </button>
         {feedback ? <span role="status">{feedback === "copied" ? "✓" : "!"}</span> : null}
       </div>
+      {isPlayerOpen && canPlay ? (
+        <div className="torrent-row__player">
+          <p>{labels.playerHelp}</p>
+          <video controls preload="none" playsInline controlsList="nodownload">
+            <source src={source.streamUrl!} type={source.streamMimeType} />
+          </video>
+        </div>
+      ) : null}
     </article>
   );
 }
