@@ -14,7 +14,6 @@ const ContentDetails = lazy(() =>
   })),
 );
 
-import "./pages/ContentDetails/ContentDetails.css";
 
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
