@@ -31,7 +31,7 @@ function Discover() {
               <IonIcon icon={arrowForward} aria-hidden="true" />
             </Link>
           </header>
-          /* catalog*/
+          {/* Catálogo será implementado aqui. */}
         </article>
 
         <article className="DiscoverSerie DiscoverArtcle">
@@ -46,7 +46,7 @@ function Discover() {
               <IonIcon icon={arrowForward} aria-hidden="true" />
             </Link>
           </header>
-          /* catalog*/
+          {/* Catálogo será implementado aqui. */}
         </article>
 
         <article className="DiscoverAnimation DiscoverArtcle">
@@ -61,7 +61,7 @@ function Discover() {
               <IonIcon icon={arrowForward} aria-hidden="true" />
             </Link>
           </header>
-          /* catalog*/
+          {/* Catálogo será implementado aqui. */}
         </article>
 
       </section>

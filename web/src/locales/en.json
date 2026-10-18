@@ -44,7 +44,7 @@
       "subtitle2": "Your new search tool for digital content, bringing together information on movies, series, books, music, and much more."
     },
 
-    "homeSectcion2": {
+    "homeSection2": {
       "title": "What is Korevax?",
       "span": "About the project",
       "description1": "Korevax is an open-source ecosystem designed to facilitate the discovery, organization, and exploration of digital content. Focused on the preservation of and access to information, the project aims to bring together various types of content within an open, structured framework, enabling users to find, explore, and establish connections between works, entities, and information in a simple and organized manner.",
@@ -57,7 +57,7 @@
       "description": "Korevax was designed to organize different forms of digital content into a single, connected structure.",
       "content": {
         "Movie": "Movies",
-        "Serie": "Séries",
+        "Serie": "Series",
         "Anime": "Animes",
         "Animation": "Animations",
         "Book": "Books",

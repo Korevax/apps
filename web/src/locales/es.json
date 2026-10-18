@@ -44,7 +44,7 @@
       "subtitle2": "Tu nuevo buscador de contenidos digitales, que reúne información sobre películas, series, libros, música y mucho más."
     },
 
-    "homeSectcion2": {
+    "homeSection2": {
       "title": "¿Qué es Korevax?",
       "span": "Sobre el proyecto",
       "description1": "Korevax es un ecosistema de código abierto creado para facilitar el descubrimiento, la organización y la exploración de contenidos digitales. Con el objetivo de preservar y facilitar el acceso a la información, el proyecto busca reunir diversos tipos de contenido en una base abierta y estructurada, permitiendo que los usuarios encuentren, exploren y relacionen obras, entidades e información de manera sencilla y organizada.",
@@ -78,7 +78,7 @@
          "title1":"Código abierto",
          "desc1":"Un proyecto abierto, desarrollado de forma colaborativa y accesible para la comunidad.",
          "title2":"Datos estructurados",
-         "desc2":"Informações organizadas para facilitar la revelación, consulta y conexión entre conteúdos.",
+         "desc2":"Información organizada para facilitar el descubrimiento, la consulta y la conexión entre contenidos.",
          "title3":"Comunidad",
          "desc3":"Las personas pueden contribuir, evaluar información y ayudar en la evolución del ecosistema."
       }

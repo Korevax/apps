@@ -37,14 +37,14 @@ function Home() {
       <section className="home__section home__about" id="about">
         <div className="home__container">
           <span className="home__eyebrow">
-            {translation.home.homeSectcion2.span}
+            {translation.home.homeSection2.span}
           </span>
 
-          <h2>{translation.home.homeSectcion2.title}</h2>
+          <h2>{translation.home.homeSection2.title}</h2>
 
-          <p>{translation.home.homeSectcion2.description1}</p>
+          <p>{translation.home.homeSection2.description1}</p>
 
-          <p>{translation.home.homeSectcion2.description2}</p>
+          <p>{translation.home.homeSection2.description2}</p>
         </div>
       </section>
 
