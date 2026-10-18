@@ -12,20 +12,22 @@ function Discover(){
  const {translation}=useLanguage();
  const [query,setQuery]=useState("");
  const [type,setType]=useState<ContentType|"all">("all");
+ const [genre,setGenre]=useState("all");
  const [params]=useSearchParams();
  const sort=params.get("sort");
  const sorted=sort==="recent"||sort==="popular";
  const recent=getRecentContent(6),popular=getPopularContent(6),all=getAllContent();
+ const genres=[...new Set(all.flatMap(item=>item.genres))].sort((a,b)=>a.localeCompare(b));
  const results=useMemo(()=>{
-  const found=searchContent({query,type:type==="all"?undefined:type});
+  const found=searchContent({query,type:type==="all"?undefined:type,genre:genre==="all"?undefined:genre});
   if(sort==="recent"||sort==="popular"){
    const orderItems=sort==="recent"?getRecentContent(100):getPopularContent(100);
    const order=new Map(orderItems.map((item,index)=>[item.id,index]));
    return found.slice().sort((a,b)=>(order.get(a.id)??1000)-(order.get(b.id)??1000));
   }
   return found;
- },[query,type,sort]);
- const filtering=!!query.trim()||type!=="all"||sorted;
+ },[query,type,genre,sort]);
+ const filtering=!!query.trim()||type!=="all"||genre!=="all"||sorted;
  return <main className="discover-page">
   <section className="discover-page__hero"><div className="discover-page__hero-inner">
    <p className="discover-page__eyebrow">{translation.main.navigation.discover}</p>
@@ -39,6 +41,12 @@ function Discover(){
     <select value={type} onChange={e=>setType(e.currentTarget.value as ContentType|"all")}>
      <option value="all">{translation.catalog.allTypes}</option>
      {CONTENT_TYPES.map(item=><option key={item} value={item}>{translation.catalog.types[item]}</option>)}
+    </select>
+   </label>
+   <label className="discover-filter"><span>{translation.catalog.filterGenre}</span>
+    <select value={genre} onChange={e=>setGenre(e.currentTarget.value)}>
+     <option value="all">{translation.catalog.allGenres}</option>
+     {genres.map(item=><option key={item} value={item}>{item}</option>)}
     </select>
    </label>
   </div></section>
