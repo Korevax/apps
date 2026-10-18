@@ -219,13 +219,10 @@
   "footer": {
     "tagline": "Descubre, organiza y conecta contenido digital.",
     "ecosystem": "Ecosistema",
-    "discover": "Explorar catálogo",
     "popular": "Torrents populares",
     "torrents": "Explorar torrents",
     "status": "Estado del servidor",
     "statusUnknown": "Monitorización aún no configurada",
-    "domains": "Otros dominios",
-    "domainsSoon": "No hay dominios adicionales publicados",
     "wiki": "Wiki y guías",
     "wikiHome": "Centro de conocimiento",
     "contribute": "Contribuir en GitHub",
