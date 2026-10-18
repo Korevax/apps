@@ -176,7 +176,8 @@
     "torrentDemo": "Dados ilustrativos — fontes e métricas não são reais.",
     "torrentEmpty": "Nenhuma fonte de torrent foi cadastrada para este conteúdo.",
     "torrentSource": "Fonte",
-    "torrentStatus": "Disponibilidade"
+    "torrentStatus": "Disponibilidade",
+    "demoNotice": "Os registros exibidos neste catálogo são dados demonstrativos. A API própria e a base editorial ainda não estão disponíveis."
   },
   "torrentCatalog": {
     "popularTitle": "Torrents populares",
