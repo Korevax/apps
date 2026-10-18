@@ -16,7 +16,8 @@ const routeTypes: Record<string, ContentType> = {
 export default function CatalogTypePage() {
   const { pathname } = useLocation();
   const { translation } = useLanguage();
-  const type = routeTypes[pathname] ?? "movie";
+  const normalizedPath = pathname.replace(/\\/+$/, "") || "/";
+  const type = routeTypes[normalizedPath] ?? "movie";
   const items = getContentByType(type);
   const title = translation.catalog.types[type];
 
