@@ -306,7 +306,9 @@
         "path": "/games"
       }
     ],
-    "footerNote": "Documentación comunitaria en evolución. Verifica la información antes de confiar en ella."
+    "footerNote": "Documentación comunitaria en evolución. Verifica la información antes de confiar en ella.",
+    "koreTitle": "Kore: el núcleo planificado del ecosistema",
+    "koreDescription": "Kore es el nombre propuesto para la API base que podrá centralizar contratos, validación y acceso a los datos de Korevax. Aún no se ha publicado una API propia; esta sección describe una dirección planificada, no una capacidad disponible."
   },
   "collections": {
     "title": "Colecciones",
