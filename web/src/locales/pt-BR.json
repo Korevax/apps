@@ -262,7 +262,51 @@
       "Fontes rastreáveis e correções comunitárias.",
       "Não hospedamos arquivos nem garantimos a segurança de fontes externas.",
       "Respeito à legislação e aos direitos dos titulares."
-    ]
+    ],
+    "navHome": "Início",
+    "navCatalog": "Catálogo",
+    "navCollections": "Coleções",
+    "navContribute": "Contribuir",
+    "welcome": "Bem-vindo à Wiki do Korevax",
+    "quickStartTitle": "Antes de começar",
+    "quickStart": [
+      {
+        "title": "Explore o catálogo",
+        "description": "Encontre obras, consulte metadados e navegue pelas relações registradas."
+      },
+      {
+        "title": "Confira a qualidade dos dados",
+        "description": "Observe avisos de validação e diferencie dados demonstrativos de informações confirmadas."
+      },
+      {
+        "title": "Contribua com responsabilidade",
+        "description": "Reporte erros e proponha melhorias com contexto e fontes rastreáveis."
+      }
+    ],
+    "directoryTitle": "Diretório do ecossistema",
+    "directory": [
+      {
+        "title": "Filmes e séries",
+        "description": "Obras audiovisuais, metadados e relações entre franquias.",
+        "path": "/movies"
+      },
+      {
+        "title": "Música",
+        "description": "Obras musicais individuais e metadados relacionados.",
+        "path": "/music"
+      },
+      {
+        "title": "Mangás",
+        "description": "Catálogo de mangás e relações com autores e edições.",
+        "path": "/manga"
+      },
+      {
+        "title": "Jogos",
+        "description": "Jogos, plataformas e modos de jogo.",
+        "path": "/games"
+      }
+    ],
+    "footerNote": "Documentação comunitária em evolução. Verifique as informações antes de confiar nelas."
   },
   "collections": {
     "title": "Coleções",
