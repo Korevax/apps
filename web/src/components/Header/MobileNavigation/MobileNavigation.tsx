@@ -5,8 +5,8 @@ import { IonIcon } from "@ionic/react";
 import {
    compassOutline,
    flameOutline,
-   timeOutline,
-   gridOutline,
+   pulseOutline,
+   bookOutline,
 } from "ionicons/icons";
 
 import { useLanguage, } from "../../../contexts/useLanguage";
@@ -70,11 +70,11 @@ function MobileNavigation({
             <li className="mobile-navigation__item">
                <a
                   className="mobile-navigation__link"
-                  href="/recent"
+                  href="/torrents"
                   onClick={onNavigate}
                >
                   <IonIcon
-                     icon={timeOutline}
+                     icon={pulseOutline}
                      aria-hidden="true"
                   />
 
@@ -85,15 +85,15 @@ function MobileNavigation({
             <li className="mobile-navigation__item">
                <a
                   className="mobile-navigation__link"
-                  href="/collections"
+                  href="/wiki"
                   onClick={onNavigate}
                >
                   <IonIcon
-                     icon={gridOutline}
+                     icon={bookOutline}
                      aria-hidden="true"
                   />
 
-                  <span>{translation.header.navigation.collections}</span>
+                  <span>{translation.header.navigation.wiki}</span>
                </a>
             </li>
 
