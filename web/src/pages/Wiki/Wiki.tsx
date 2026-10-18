@@ -67,6 +67,12 @@ export default function Wiki() {
             </ol>
           </section>
 
+          <section className="korevax-wiki__kore" id="kore" aria-labelledby="wiki-kore-title">
+            <p className="korevax-wiki__eyebrow">Kore / API</p>
+            <h2 id="wiki-kore-title">{labels.koreTitle}</h2>
+            <p>{labels.koreDescription}</p>
+          </section>
+
           <section aria-labelledby="wiki-directory-title">
             <p className="korevax-wiki__eyebrow">02 / Korevax</p>
             <h2 id="wiki-directory-title">{labels.directoryTitle}</h2>
