@@ -5,8 +5,9 @@
       "label": "Navegación principal",
       "discover": "Descubrir",
       "popular": "Popular",
-      "recent": "Recientes",
-      "collections": "Colecciones"
+      "recent": "Torrents",
+      "collections": "Colecciones",
+      "wiki": "Wiki"
     },
     "searchbox": {
       "search": "Buscar",
@@ -157,5 +158,71 @@
     "torrentEmpty": "No se han registrado fuentes torrent para este contenido.",
     "torrentSource": "Fuente",
     "torrentStatus": "Disponibilidad"
+  },
+  "torrentCatalog": {
+    "popularTitle": "Torrents populares",
+    "popularDescription": "Explora fuentes ordenadas por actividad reportada. Las métricas de demostración no representan una red en tiempo real.",
+    "allTitle": "Explorar torrents",
+    "allDescription": "Busca por título, calidad o nombre de la fuente. Usa [NombreFuente] para encontrar lanzamientos atribuidos a un grupo.",
+    "searchPlaceholder": "Título, calidad o [Judas]",
+    "searchLabel": "Buscar fuentes torrent",
+    "sort": "Ordenar por",
+    "seedersSort": "Más seeders",
+    "sizeSort": "Mayor tamaño",
+    "nameSort": "Nombre",
+    "filterQuality": "Calidad",
+    "allQualities": "Todas las calidades",
+    "results": "Resultados",
+    "noResults": "Ninguna fuente coincide con la búsqueda.",
+    "demoNotice": "Demostración: los nombres y las métricas son ficticios. No hay enlaces reales.",
+    "sourceProfile": "Perfil de la fuente",
+    "sourceCount": "fuentes listadas",
+    "seeders": "Seeders",
+    "leechers": "Leechers",
+    "size": "Tamaño",
+    "quality": "Calidad",
+    "openContent": "Ver contenido",
+    "unavailable": "Enlace no disponible",
+    "clear": "Limpiar búsqueda",
+    "providerHint": "Consejo: escribe [Judas] para filtrar por distribuidor."
+  },
+  "footer": {
+    "tagline": "Descubre, organiza y conecta contenido digital.",
+    "ecosystem": "Ecosistema",
+    "discover": "Explorar catálogo",
+    "popular": "Torrents populares",
+    "torrents": "Explorar torrents",
+    "status": "Estado del servidor",
+    "statusUnknown": "Monitorización aún no configurada",
+    "domains": "Otros dominios",
+    "domainsSoon": "No hay dominios adicionales publicados",
+    "wiki": "Wiki y guías",
+    "wikiHome": "Centro de conocimiento",
+    "contribute": "Contribuir en GitHub",
+    "copyright": "Korevax — ecosistema de código abierto."
+  },
+  "wiki": {
+    "eyebrow": "Wiki de Korevax",
+    "title": "Centro de conocimiento",
+    "description": "Guías comunitarias para entender el ecosistema, explorar el catálogo y contribuir responsablemente.",
+    "noticeTitle": "Antes de empezar",
+    "notice": "Los metadatos pueden estar incompletos o desactualizados. Verifica las fuentes, respeta los derechos de autor y evita archivos ejecutables o enlaces sospechosos.",
+    "exploreTitle": "Explora el ecosistema",
+    "catalogTitle": "Catálogo y metadatos",
+    "catalogText": "Cómo se organizan títulos, géneros, tipos y relaciones en Korevax.",
+    "torrentsTitle": "Fuentes e identificadores",
+    "torrentsText": "Conoce la calidad, seeders, leechers y la convención [NombreFuente] para identificar grupos de lanzamiento.",
+    "safetyTitle": "Seguridad y privacidad",
+    "safetyText": "Buenas prácticas para reconocer enlaces, proteger tus dispositivos y preservar la privacidad.",
+    "communityTitle": "Comunidad y contribuciones",
+    "communityText": "Sugiere correcciones, reporta datos incorrectos y sigue el desarrollo abierto.",
+    "contribute": "Ver repositorio en GitHub",
+    "principlesTitle": "Principios",
+    "principles": [
+      "Transparencia sobre datos verificados y demostrativos.",
+      "Fuentes rastreables y correcciones comunitarias.",
+      "No alojamos archivos ni garantizamos la seguridad de fuentes externas.",
+      "Respeto a la legislación y a los titulares de derechos."
+    ]
   }
 }
