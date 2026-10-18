@@ -40,8 +40,8 @@ function isValidSource(source: TorrentSource): boolean {
     Number.isFinite(Date.parse(source.updatedAt));
 
   if (!metadataValid || source.status !== "active") return false;
-  if (source.isDemo) return source.magnetUri === null && source.torrentUrl === null;
-  return isSafeMagnetUri(source.magnetUri) || isSafeTorrentUrl(source.torrentUrl);
+  if (source.isDemo) return source.magnetUri === null && source.torrentUrl === null && source.streamUrl == null;
+  return isSafeMagnetUri(source.magnetUri) || isSafeTorrentUrl(source.torrentUrl) || isSafeBrowserStream(source.streamUrl, source.streamMimeType);
 }
 
 export function getTorrentSourcesForContent(contentId: string): TorrentSource[] {
