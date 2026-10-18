@@ -184,7 +184,9 @@
     "openContent": "Ver contenido",
     "unavailable": "Enlace no disponible",
     "clear": "Limpiar búsqueda",
-    "providerHint": "Consejo: escribe [Judas] para filtrar por distribuidor."
+    "providerHint": "Consejo: escribe [Judas] para filtrar por distribuidor.",
+    "copyMagnet": "Copiar magnet",
+    "downloadTorrent": "Descargar .torrent"
   },
   "footer": {
     "tagline": "Descubre, organiza y conecta contenido digital.",
