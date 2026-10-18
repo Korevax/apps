@@ -1,4 +1,4 @@
-import { useMemo,useState } from "react";
+import { useEffect,useMemo,useState } from "react";
 import { Link,useSearchParams } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { arrowForward } from "ionicons/icons";
@@ -65,11 +65,12 @@ function Discover() {
 
 function Discover(){
  const {translation}=useLanguage();
- const [query,setQuery]=useState("");
+ const [query,setQuery]=useState(()=>params.get("q")??"");
  const [type,setType]=useState<ContentType|"all">("all");
  const [genre,setGenre]=useState("all");
  const [params]=useSearchParams();
  const sort=params.get("sort");
+ useEffect(()=>{setQuery(params.get("q")??"");},[params]);
  const sorted=sort==="recent"||sort==="popular";
  const recent=getRecentContent(6),popular=getPopularContent(6),all=getAllContent();
  const genres=[...new Set(all.flatMap(item=>item.genres))].sort((a,b)=>a.localeCompare(b));
