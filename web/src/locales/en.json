@@ -74,6 +74,25 @@
       "span": "About the project",
       "description1": "Korevax is an open-source ecosystem designed to facilitate the discovery, organization, and exploration of digital content. Focused on the preservation of and access to information, the project aims to bring together various types of content within an open, structured framework, enabling users to find, explore, and establish connections between works, entities, and information in a simple and organized manner.",
       "description2": "This structure allows for the connection of works, entities, and information, creating a foundation that can be explored by individuals, collaborators, and various applications."
+    },
+    "homeSection5": {
+      "span": "What makes us different",
+      "title": "What makes Korevax different?",
+      "description": "Korevax is designed as an open, connected foundation — not just a list of titles.",
+      "items": [
+        {
+          "title": "A connected catalog",
+          "description": "Works, people, characters, editions, and franchises can be linked through structured data."
+        },
+        {
+          "title": "Transparent data",
+          "description": "We distinguish demo, pending-review, and verified information without inventing metrics or sources."
+        },
+        {
+          "title": "An open ecosystem",
+          "description": "A foundation designed for APIs, community tools, and independent integrations."
+        }
+      ]
     }
   },
   "NotFoundPage": {
@@ -186,7 +205,16 @@
     "clear": "Clear search",
     "providerHint": "Tip: type [Judas] to filter by distributor.",
     "copyMagnet": "Copy magnet",
-    "downloadTorrent": "Download .torrent"
+    "downloadTorrent": "Download .torrent",
+    "audio": "Audio",
+    "subtitles": "Subtitles",
+    "mediaValidation": "Media validation",
+    "mediaUnknown": "Not verified yet",
+    "mediaVerified": "Media metadata verified",
+    "mediaFailed": "Validation failed",
+    "player": "Web player",
+    "playerUnavailable": "Player unavailable: no compatible media source is configured.",
+    "playerHelp": "The player will only be enabled for a validated HTTPS source supported by the browser."
   },
   "footer": {
     "tagline": "Discover, organize, and connect digital content.",
@@ -201,7 +229,16 @@
     "wiki": "Wiki and guides",
     "wikiHome": "Knowledge base",
     "contribute": "Contribute on GitHub",
-    "copyright": "Korevax — open-source ecosystem."
+    "copyright": "Korevax — open-source ecosystem.",
+    "kore": "Kore — ecosystem core",
+    "koreDescription": "Base API planned; not published yet.",
+    "news": "What's new",
+    "discoverHeading": "Discover",
+    "discoverCatalog": "Full catalog",
+    "music": "Music",
+    "games": "Games",
+    "manga": "Manga",
+    "site": "Korevax website"
   },
   "wiki": {
     "eyebrow": "Korevax Wiki",
@@ -226,5 +263,17 @@
       "We do not host files or guarantee the safety of external sources.",
       "Respect for laws and rights holders."
     ]
+  },
+  "collections": {
+    "title": "Collections",
+    "description": "Movie franchises connected through explicit catalog relationships.",
+    "emptyTitle": "No collections published yet",
+    "emptyDescription": "A collection appears when at least two published movies are linked to the same franchise. We do not show groups without verified relationships."
+  },
+  "newsPage": {
+    "title": "What's new",
+    "description": "Follow changes and development across the Korevax ecosystem.",
+    "emptyTitle": "Release notes are being prepared",
+    "emptyDescription": "Updates will appear here once the project maintains a changelog."
   }
 }
