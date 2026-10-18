@@ -23,7 +23,7 @@ export function SearchBar({ onSearch }: SearchBarProps) {
       onSearch(normalizedQuery);
       return;
     }
-    const destination = /^\\s*\\[[^\\]]{1,48}\\]/u.test(normalizedQuery) ? "/torrents" : "/discover";
+    const destination = /^\s*\[[^\]]{1,48}\]/u.test(normalizedQuery) ? "/torrents" : "/discover";
     navigate(destination + "?q=" + encodeURIComponent(normalizedQuery));
   }
 
