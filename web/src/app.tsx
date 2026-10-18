@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Discover = lazy(() => import("./pages/Discover/Discover"));
+const TorrentCatalog = lazy(() => import("./pages/TorrentCatalog/TorrentCatalog"));
+const Wiki = lazy(() => import("./pages/Wiki/Wiki"));
 
 const ContentDetails = lazy(() =>
   import("./pages/ContentDetails/ContentDetails").then((module) => ({
@@ -57,6 +59,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/discover" element={<Discover />} />
+              <Route path="/popular" element={<TorrentCatalog />} />
+              <Route path="/torrents" element={<TorrentCatalog />} />
+              <Route path="/wiki" element={<Wiki />} />
               <Route path="/content/:slug" element={<ContentDetails />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>

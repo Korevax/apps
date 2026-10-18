@@ -1,0 +1,30 @@
+.korevax-wiki{min-height:100%;color:var(--color-text)}
+.korevax-wiki__hero{position:relative;isolation:isolate;overflow:hidden;padding:clamp(3rem,8vw,6rem) 0 4rem}
+.korevax-wiki__hero::before{position:absolute;z-index:-1;inset:0;content:"";background:radial-gradient(ellipse at 20% 0%,var(--color-purple-darker-01),transparent 65%),linear-gradient(180deg,var(--color-surface),var(--color-background))}
+.korevax-wiki__hero-inner,.korevax-wiki__content{width:min(100% - 2.5rem,var(--content-width));margin-inline:auto}
+.korevax-wiki__hero-inner{display:grid;justify-items:start;gap:1rem}
+.korevax-wiki__eyebrow{margin:0;color:var(--color-purple-light);font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.korevax-wiki h1{margin:0;font-size:clamp(2.25rem,6vw,4rem);line-height:1.05;letter-spacing:-.04em}
+.korevax-wiki__hero-inner>p:not(.korevax-wiki__eyebrow){max-width:46rem;margin:0;color:var(--color-text-muted);line-height:1.8}
+.korevax-wiki__primary{display:inline-flex;align-items:center;min-height:2.7rem;margin-top:.5rem;padding:.7rem 1rem;border-radius:var(--radius-md);background:var(--color-purple);color:white;font-weight:650;text-decoration:none}
+.korevax-wiki__primary:hover{background:var(--color-purple-dark)}
+.korevax-wiki__content{display:grid;gap:2.5rem;padding-block:2rem 5rem}
+.korevax-wiki__notice{display:flex;align-items:flex-start;gap:1rem;padding:1.1rem;border:1px solid #6e4a16;border-radius:var(--radius-lg);background:rgba(130,85,18,.12)}
+.korevax-wiki__notice>ion-icon{flex-shrink:0;margin-top:.15rem;color:#e7b65b;font-size:1.4rem}
+.korevax-wiki__notice h2,.korevax-wiki__notice p{margin:0}
+.korevax-wiki__notice h2{font-size:1rem}
+.korevax-wiki__notice p{margin-top:.35rem;color:var(--color-text-muted);line-height:1.7}
+.korevax-wiki__content section>h2{margin:.25rem 0 1.25rem;font-size:clamp(1.5rem,3vw,2rem)}
+.korevax-wiki__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.korevax-wiki__card{display:flex;align-items:flex-start;flex-direction:column;gap:.75rem;min-width:0;padding:1.25rem;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface);transition:border-color var(--transition-fast),transform var(--transition-fast)}
+.korevax-wiki__card:hover{border-color:var(--color-purple-dark);transform:translateY(-2px)}
+.korevax-wiki__card-icon{display:grid;place-items:center;width:2.5rem;height:2.5rem;border-radius:var(--radius-md);background:var(--color-purple-darker-02);color:var(--color-purple-light);font-size:1.2rem}
+.korevax-wiki__card h3,.korevax-wiki__card p{margin:0}
+.korevax-wiki__card h3{font-size:1.05rem}
+.korevax-wiki__card p{color:var(--color-text-muted);line-height:1.7}
+.korevax-wiki__card>a{margin-top:auto;color:var(--color-purple-light);font-size:.85rem;text-decoration:none}
+.korevax-wiki__card>a:hover{text-decoration:underline}
+.korevax-wiki__principles{padding:1.25rem;border:1px solid var(--color-border);border-radius:var(--radius-lg)}
+.korevax-wiki__principles h2{margin:0 0 .75rem;font-size:1.2rem}
+.korevax-wiki__principles ul{display:grid;gap:.7rem;margin:0;padding-left:1.25rem;color:var(--color-text-muted);line-height:1.7}
+@media(max-width:650px){.korevax-wiki__hero-inner,.korevax-wiki__content{width:min(100% - 1.5rem,var(--content-width))}.korevax-wiki__grid{grid-template-columns:minmax(0,1fr)}}
