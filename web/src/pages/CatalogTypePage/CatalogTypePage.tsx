@@ -30,6 +30,7 @@ export default function CatalogTypePage() {
         </div>
       </header>
       <section className="catalog-type-page__container catalog-type-page__content" aria-label={title}>
+        <p className="catalog-type-page__notice" role="note">{translation.catalog.demoNotice}</p>
         <div className="catalog-type-page__summary">
           <h2>{title}</h2>
           <span>{items.length} {translation.catalog.results.toLocaleLowerCase()}</span>
