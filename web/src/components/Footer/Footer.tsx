@@ -33,7 +33,7 @@ export default function Footer() {
             <IonIcon icon={logoGithub} aria-hidden="true" /> GitHub
           </a>
           <a className="site-footer__external" href="https://korevax.netlify.app/" target="_blank" rel="noopener noreferrer">
-            <IonIcon icon={compassOutline} aria-hidden="true" /> {labels.site}
+            <IonIcon icon={compassOutline} aria-hidden="true" /> korevax.netlify.app
           </a>
         </section>
 
