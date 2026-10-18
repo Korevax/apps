@@ -96,3 +96,18 @@ export function getTorrentSourceProfile(name: string): { name: string; count: nu
   );
   return matches.length ? { name: normalized, count: matches.length } : null;
 }
+
+/**
+ * A browser player accepts only HTTPS media endpoints with an explicit supported MIME type.
+ * This is URL hygiene, not proof that the remote server or media is trustworthy.
+ */
+export function isSafeBrowserStream(value: unknown, mimeType: unknown): value is string {
+  if (typeof value !== "string" || value.length > 2048 || /[\\u0000-\\u0020\\u007F]/.test(value)) return false;
+  if (mimeType !== "video/mp4" && mimeType !== "video/webm" && mimeType !== "application/vnd.apple.mpegurl") return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && Boolean(url.hostname) && !url.username && !url.password;
+  } catch {
+    return false;
+  }
+}
