@@ -5,7 +5,7 @@ import "./ContentRating.css";
 interface ContentRatingProps { rating: ContentRatingSummary }
 export function ContentRating({rating}:ContentRatingProps) {
  const hasRating=rating.average!==null&&rating.count>0;
- const average=hasRating?Math.min(10,Math.max(0,rating.average)):0;
+ const average=rating.average!==null&&rating.count>0?Math.min(10,Math.max(0,rating.average)):0;
  const count=new Intl.NumberFormat().format(rating.count);
  return <section className="content-rating" aria-label="Avaliação da comunidade">
   <div className="content-rating__score"><span className="content-rating__value">{hasRating?average.toFixed(1):"—"}</span><span className="content-rating__scale">{hasRating?"/10":"Sem avaliações"}</span></div>
