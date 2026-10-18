@@ -24,7 +24,7 @@ function isSafeTorrentUrl(value: unknown): value is string {
   if (typeof value !== "string" || value.length > 2048 || /[\u0000-\u001F\u007F]/.test(value)) return false;
   try {
     const url = new URL(value);
-    return (url.protocol === "https:" || url.protocol === "http:") &&
+    return url.protocol === "https:" &&
       Boolean(url.hostname) && !url.username && !url.password;
   } catch { return false; }
 }
