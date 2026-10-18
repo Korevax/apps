@@ -1,66 +1,72 @@
 import { Link } from "react-router-dom";
 import "./Discover.css";
 
-function Discover(){
-    return(
-        <main className="Discover_container">
-            <section className="DiscoverBanner"></section>
-            
-            <section className="DiscoverCOntent">
+import { IonIcon } from "@ionic/react";
+import { arrowForward } from "ionicons/icons";
 
-                <article className="DiscoverMOvie DiscoverArtcle">
-                    <header className="Art-Header">
-                        <h2>Discover</h2>
+import {
+   useLanguage,
+} from "../../contexts/useLanguage";
 
-                        <Link to="#">Ver Mais</Link>
-                    </header>
+function Discover() {
 
-                    /* catalog*/
-                </article>
+     const {
+      translation,
+   } = useLanguage();
 
-                <article className="DiscoverSerie DiscoverArtcle">
-                    <header className="Art-Header">
-                        <h2>Discover</h2>
+  return (
+    <main className="Discover_container">
+      <section className="DiscoverBanner"></section>
 
-                        <Link to="#">Ver Mais</Link>
-                    </header>
+      <section className="DiscoverCOntent">
+        <article className="DiscoverMOvie DiscoverArtcle">
+          <header className="Art-Header">
+            <div className="DiscoverBox">
+              <span className="discover__linebrow"></span>
+              <h2 className="discover__eyebrow">{translation.main.navigation.recent}</h2>
+            </div>
 
-                    /* catalog*/
-                </article>
+            <Link className="discoverLink" to="/discover/recent">
+            {translation.main.navigation.seeMore}
+              <IonIcon icon={arrowForward} aria-hidden="true" />
+            </Link>
+          </header>
+          /* catalog*/
+        </article>
 
-                <article className="DiscoverAnimation DiscoverArtcle">
-                    <header className="Art-Header">
-                        <h2>Discover</h2>
+        <article className="DiscoverSerie DiscoverArtcle">
+          <header className="Art-Header">
+            <div className="DiscoverBox">
+              <span className="discover__linebrow"></span>
+              <h2 className="discover__eyebrow">{translation.main.navigation.popular}</h2>
+            </div>
 
-                        <Link to="#">Ver Mais</Link>
-                    </header>
+            <Link className="discoverLink" to="/discover/popular">
+             {translation.main.navigation.seeMore}
+              <IonIcon icon={arrowForward} aria-hidden="true" />
+            </Link>
+          </header>
+          /* catalog*/
+        </article>
 
-                    /* catalog*/
-                </article>
+        <article className="DiscoverAnimation DiscoverArtcle">
+          <header className="Art-Header">
+            <div className="DiscoverBox">
+              <span className="discover__linebrow"></span>
+              <h2 className="discover__eyebrow">{translation.main.navigation.tops}</h2>
+            </div>
 
-                <article className="DiscoverMusic DiscoverArtcle">
-                    <header className="Art-Header">
-                        <h2>Discover</h2>
+            <Link className="discoverLink" to="#">
+              {translation.main.navigation.seeMore}
+              <IonIcon icon={arrowForward} aria-hidden="true" />
+            </Link>
+          </header>
+          /* catalog*/
+        </article>
 
-                        <Link to="#">Ver Mais</Link>
-                    </header>
-
-                    /* catalog*/
-                </article>
-
-                <article className="DiscoverCollection DiscoverArtcle">
-                    <header className="Art-Header">
-                        <h2>Discover</h2>
-
-                        <Link to="#">Ver Mais</Link>
-                    </header>
-
-                    /* catalog*/
-                </article>
-
-            </section>
-        </main>
-    );
+      </section>
+    </main>
+  );
 }
 
-export default Discover
+export default Discover;

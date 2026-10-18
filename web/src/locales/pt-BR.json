@@ -1,28 +1,93 @@
 {
-   "header": {
-      "home": "Korevax - Página inicial",
+  "header": {
+    "home": "Korevax - Página inicial",
 
-      "navigation": {
-         "label": "Navegação principal",
-         "discover": "Descobrir",
-         "popular": "Popular",
-         "recent": "Recentes",
-         "collections": "Coleções"
-      },
+    "navigation": {
+      "label": "Navegação principal",
+      "discover": "Descobrir",
+      "popular": "Popular",
+      "recent": "Recentes",
+      "collections": "Coleções"
+    },
 
-      "searchbox": {
-         "search": "Pesquisar",
-         "searchlab": "Pesquisar conteúdos..."
-      },
+    "searchbox": {
+      "search": "Pesquisar",
+      "searchlab": "Pesquisar conteúdos..."
+    },
 
-      "language": {
-         "select": "Selecionar idioma",
-         "available": "Idiomas disponíveis"
-      },
+    "language": {
+      "select": "Selecionar idioma",
+      "available": "Idiomas disponíveis"
+    },
 
-      "mobileMenu": {
-         "open": "Abrir menu",
-         "close": "Fechar menu"
+    "mobileMenu": {
+      "open": "Abrir menu",
+      "close": "Fechar menu"
+    }
+  },
+
+  "main": {
+    "navigation": {
+      "discover": "Descobrir",
+      "popular": "Popular",
+      "recent": "Recentes",
+      "tops": "Melhores",
+      "collections": "Coleções",
+      "seeMore": "Ver Mais"
+    }
+  },
+
+  "home": {
+    "homeSection1": {
+      "title": "Korevax",
+      "subtitle": "Descubra, organize e conecte conteúdos.",
+      "subtitle2": "Seu novo buscador de conteúdos digitais, reunindo informações sobre filmes, séries, livros, músicas e muito mais."
+    },
+
+    "homeSectcion2": {
+      "title": "O que é o Korevax?",
+      "span": "Sobre o projeto",
+      "description1": "O Korevax é um ecossistema open-source criado para facilitar a descoberta, organização e exploração de conteúdos digitais. Visando a preservação e o acesso a informações, o projeto busca reunir diferentes tipos de conteúdo em uma base aberta e estruturada, permitindo que pessoas possam encontrar, explorar e relacionar obras, entidades e informações de forma simples e organizada.",
+      "description2": "Essa estrutura permite conectar obras, entidades e informações, criando uma base que pode ser explorada por pessoas, colaboradores e diferentes aplicações."
+    },
+
+    "homeSection3": {
+      "title": "Um espaço para diferentes tipos de conteúdo",
+      "span": "Conteúdos",
+      "description": "O Korevax foi pensado para organizar diferentes formas de conteúdo digital em uma estrutura única e conectada.",
+      "content": {
+        "Movie": "Filmes",
+        "Serie": "Séries",
+        "Anime": "Animes",
+        "Animation": "Animações",
+        "Book": "Livros",
+        "Manga": "Mangás",
+        "Manhwa": "Manhwas",
+        "Music": "Músicas",
+        "Podcast": "Podcast",
+        "Games": "Jogos",
+        "Documentaries": "Documentários"
       }
-   }
+    },
+
+    "homeSection4": {
+      "title": "Construído para crescer de forma aberta",
+      "span":"Ecossistema",
+      "description": {
+         "desc":"O Korevax é um projeto open-source pensado para conectar pessoas, dados e aplicações em torno de conteúdos digitais.",
+         "title1":"Código aberto",
+         "desc1":"Um projeto aberto, desenvolvido de forma colaborativa e acessível para a comunidade.",
+         "title2":"Dados estruturados",
+         "desc2":"Informações organizadas para facilitar a descoberta, consulta e conexão entre conteúdos.",
+         "title3":"Comunidade",
+         "desc3":"Pessoas podem contribuir, avaliar informações e ajudar na evolução do ecossistema."
+      }
+    }
+  },
+
+  "NotFoundPage":{
+   "title": "Página não encontrada",
+   "desc": "O endereço acessado não corresponde a uma página disponível.",
+   "link": "Voltar ao início"
+  }
 }

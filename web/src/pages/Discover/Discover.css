@@ -1,13 +1,25 @@
 .Discover_container{
-    border: 1px solid red;
 }
 /* Banner */
-.DiscoverBanner{
+.DiscoverBanner {
     height: 35vh;
-    border: 1px solid white;
+    display: flex;
+    position: relative;
+    overflow: hidden;
 }
-.DiscoverBanner-gradient{
-    background: rgba(255, 255, 255, 0) rgba(0, 0, 0, 0.75);
+
+.DiscoverBanner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 10%,
+        rgba(0, 0, 0, 1) 90%
+    );
+
+    pointer-events: none;
 }
 
 /* Artcle*/
@@ -17,12 +29,45 @@
     margin: 1rem 0;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgb(200, 255, 0);
 }
 .Art-Header{
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid red;
+}
+.DiscoverBox{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+}
+.discover__linebrow{
+    height: 2px;
+    width: 1rem;
+    background: var(--color-purple-light);
+}
+.discover__eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-purple-light);
+}
+.discoverLink{
+    padding: .25rem .5rem;
+    font-size: 0.90rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    background: var(--bg-02);
+    border-radius: var(--radius-md);
+    transition: var(--transition-normal);
+}
+.discoverLink:hover{
+    color: var(--hl-01);
+    background: var(--color-purple-darker-02);
 }

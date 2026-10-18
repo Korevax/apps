@@ -3,7 +3,7 @@
   position: relative;
   isolation: isolate;
   overflow: clip;
-  color: var(--text-color, #fff);
+  color: var(--color-text);
 }
 
 .content-details__backdrop {

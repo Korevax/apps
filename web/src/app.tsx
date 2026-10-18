@@ -9,28 +9,39 @@ const ContentDetails = lazy(() =>
   })),
 );
 
+import "./pages/ContentDetails/ContentDetails.css";
+
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 /* Layout & Pages*/
 import AppLayout from "./layouts/AppLayout";
 
 import { LanguageProvider } from "./contexts/LanguageProvider";
+import {
+   useLanguage,
+} from "./contexts/useLanguage";
+
 
 import { home } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 
 function NotFoundPage() {
+
+  const {
+      translation,
+   } = useLanguage();
+
   return (
     <main className="content-details">
       <div className="content-details__container">
         <span className="noPage">404</span>
-        <h1>Página não encontrada</h1>
+        <h1>{translation.NotFoundPage.title}</h1>
         <p className="cd-txt">
-          O endereço acessado não corresponde a uma página disponível.
+          {translation.NotFoundPage.desc}
         </p>
         <Link className="cd-Link" to="/">
           <IonIcon icon={home} aria-hidden="true" />
-          Voltar ao início
+          {translation.NotFoundPage.link}
         </Link>
       </div>
     </main>
