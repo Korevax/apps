@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   verify-web:
-    name: Typecheck, build and lint
+    name: Typecheck, build, contract tests and lint
     runs-on: ubuntu-latest
     defaults:
       run:
