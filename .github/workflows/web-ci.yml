@@ -18,8 +18,9 @@ permissions:
 
 jobs:
   verify-web:
-    name: Typecheck, build and lint
+    name: Typecheck, build, contract tests and lint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: web
@@ -34,7 +35,11 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - name: Install dependencies
         run: npm ci
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
       - name: Build and typecheck
         run: npm run build
+      - name: Runtime contract tests
+        run: npm run test:contracts
       - name: Lint
         run: npm run lint
