@@ -1,5 +1,6 @@
 import type { Content } from "./content.types";
 import { getContentValidationErrors, isContent } from "./content.validation";
+import { getTaxonomyReferenceErrors } from "../../services/catalog/taxonomy.services";
 
 const normalize = (value: string) => value.trim().normalize("NFKC").toLocaleLowerCase();
 const duplicates = (items: string[]) => new Set(items.map(normalize)).size !== items.length;
@@ -7,6 +8,9 @@ const duplicates = (items: string[]) => new Set(items.map(normalize)).size !== i
 export function getContentBusinessRuleErrors(content: Content): string[] {
   const errors: string[] = [];
 
+  if (duplicates(content.genreIds)) errors.push("genreIds não pode conter referências duplicadas.");
+  if (duplicates(content.tagIds)) errors.push("tagIds não pode conter referências duplicadas.");
+  errors.push(...getTaxonomyReferenceErrors(content.genreIds, content.tagIds));
   if (duplicates(content.genres)) errors.push("genres não pode conter gêneros duplicados.");
   if (duplicates(content.tags)) errors.push("tags não pode conter etiquetas duplicadas.");
   if (duplicates(content.classificationIds)) {
