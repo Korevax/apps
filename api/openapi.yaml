@@ -1,0 +1,811 @@
+openapi: 3.1.0
+info:
+  title: Kore API
+  version: 1.0.0
+  summary: First-party API for the Korevax catalog.
+  description: >
+    The Kore API is the canonical read/write boundary for Korevax data.
+    External metadata providers are optional adapters and are never the source
+    of truth for content identity or published catalog records.
+servers:
+  - url: /
+    description: Same-origin deployment or local development proxy.
+tags:
+  - name: Health
+  - name: Content
+  - name: Search
+  - name: Taxonomy
+  - name: Collections
+paths:
+  /health/live:
+    get:
+      tags: [Health]
+      operationId: getLiveness
+      summary: Check whether the API process is alive.
+      responses:
+        '200':
+          description: Process is alive.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /health/ready:
+    get:
+      tags: [Health]
+      operationId: getReadiness
+      summary: Check whether the API can serve requests.
+      description: Returns ready only after required dependencies, including PostgreSQL, are reachable.
+      responses:
+        '200':
+          description: API is ready.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: API is alive but not ready to serve requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+  /api/v1/content:
+    get:
+      tags: [Content]
+      operationId: listContent
+      summary: List published catalog records.
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - name: type
+          in: query
+          schema:
+            $ref: '#/components/schemas/ContentType'
+        - name: genreId
+          in: query
+          schema:
+            type: string
+            maxLength: 128
+        - name: tagId
+          in: query
+          schema:
+            type: string
+            maxLength: 128
+        - name: classificationId
+          in: query
+          schema:
+            type: string
+            maxLength: 128
+      responses:
+        '200':
+          description: Published records matching the filters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    post:
+      tags: [Content]
+      operationId: createContent
+      summary: Create a content record for editorial review.
+      description: Requires contributor or moderator authorization. The server assigns the canonical ID and defaults the editorial status to draft.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentCreate'
+      responses:
+        '201':
+          description: Content record created.
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/RequestId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentRecord'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/content/{slug}:
+    get:
+      tags: [Content]
+      operationId: getContentBySlug
+      summary: Get one published content record by slug.
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+            maxLength: 160
+      responses:
+        '200':
+          description: Published content record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentRecord'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/content/{id}:
+    patch:
+      tags: [Content]
+      operationId: updateContent
+      summary: Update a content record.
+      description: Requires contributor authorization for permitted fields or moderator authorization for editorial transitions. Server-side validation is mandatory.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^[a-z0-9][a-z0-9._:-]*$'
+            maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentUpdate'
+      responses:
+        '200':
+          description: Updated content record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentRecord'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/search:
+    get:
+      tags: [Search]
+      operationId: searchCatalog
+      summary: Search published catalog content.
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 200
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+        - name: type
+          in: query
+          schema:
+            $ref: '#/components/schemas/ContentType'
+        - name: genreId
+          in: query
+          schema:
+            type: string
+            maxLength: 128
+        - name: tagId
+          in: query
+          schema:
+            type: string
+            maxLength: 128
+        - name: classificationId
+          in: query
+          schema:
+            type: string
+            maxLength: 128
+      responses:
+        '200':
+          description: Search results and pagination cursor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/taxonomy/{kind}:
+    get:
+      tags: [Taxonomy]
+      operationId: listTaxonomy
+      summary: List active localized taxonomy entities.
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [genre, tag, classification, language, region, age-rating, format]
+        - name: locale
+          in: query
+          schema:
+            type: string
+            enum: [pt-BR, en, es, ru]
+            default: pt-BR
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Taxonomy entities for the requested kind.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaxonomyPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/collections:
+    get:
+      tags: [Collections]
+      operationId: listCollections
+      summary: List published collections.
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Cursor'
+      responses:
+        '200':
+          description: Published collections.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionPage'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /api/v1/collections/{slug}:
+    get:
+      tags: [Collections]
+      operationId: getCollectionBySlug
+      summary: Get a published collection and its ordered content.
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+            maxLength: 160
+      responses:
+        '200':
+          description: Published collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionRecord'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/InternalError'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+    Cursor:
+      name: cursor
+      in: query
+      description: Opaque server-generated pagination cursor. Do not construct or modify it client-side.
+      schema:
+        type: string
+        maxLength: 512
+  headers:
+    RequestId:
+      description: Server-generated request identifier for support and audit correlation.
+      schema:
+        type: string
+        maxLength: 128
+  responses:
+    BadRequest:
+      description: Request parameters or payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Unauthorized:
+      description: Authentication is required or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Forbidden:
+      description: The authenticated actor is not allowed to perform this operation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    NotFound:
+      description: The requested published resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    Conflict:
+      description: The operation conflicts with existing identity or integrity constraints.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    PayloadTooLarge:
+      description: Request body exceeds the configured limit.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    RateLimited:
+      description: Rate limit exceeded. Retry after the interval in Retry-After.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+            minimum: 1
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+    InternalError:
+      description: Unexpected server error. Internal stack traces and secrets are never returned.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorEnvelope'
+  schemas:
+    ContentType:
+      type: string
+      enum: [movie, series, animation, book, manga, manhwa, music, podcast, game, documentary]
+    EditorialStatus:
+      type: string
+      enum: [draft, review, published, archived]
+    HealthResponse:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [ok, ready]
+        requestId:
+          type: string
+          maxLength: 128
+      additionalProperties: false
+    ExternalContentReference:
+      type: object
+      required: [provider, externalId]
+      properties:
+        provider:
+          type: string
+          pattern: '^[a-z0-9][a-z0-9._-]{0,63}$'
+          maxLength: 64
+        externalId:
+          type: string
+          minLength: 1
+          maxLength: 256
+        url:
+          type: [string, 'null']
+          format: uri
+          maxLength: 2048
+      additionalProperties: false
+    ContentRecord:
+      type: object
+      required: [id, slug, title, type, status, genreIds, tagIds, classificationIds, alternativeTitles, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+          pattern: '^[a-z0-9][a-z0-9._:-]*$'
+          maxLength: 128
+        slug:
+          type: string
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          maxLength: 160
+        title:
+          type: string
+          minLength: 1
+          maxLength: 300
+        originalTitle:
+          type: [string, 'null']
+          maxLength: 300
+        alternativeTitles:
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+            maxLength: 300
+        synopsis:
+          type: [string, 'null']
+          maxLength: 20000
+        type:
+          $ref: '#/components/schemas/ContentType'
+        status:
+          $ref: '#/components/schemas/EditorialStatus'
+        releaseDate:
+          type: [string, 'null']
+          format: date
+        originalLanguage:
+          type: [string, 'null']
+          pattern: '^[A-Za-z]{2,8}(-[A-Za-z0-9]{1,8})*$'
+        franchiseId:
+          type: [string, 'null']
+          maxLength: 128
+        genreIds:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            maxLength: 128
+        tagIds:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            maxLength: 128
+        classificationIds:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+            maxLength: 128
+        externalReferences:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/ExternalContentReference'
+        posterUrl:
+          type: [string, 'null']
+          maxLength: 2048
+        backdropUrl:
+          type: [string, 'null']
+          maxLength: 2048
+        metadata:
+          type: object
+          description: Type-specific metadata validated against the selected ContentType by the server.
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    ContentCreate:
+      type: object
+      required: [title, type]
+      properties:
+        slug:
+          type: string
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          maxLength: 160
+        title:
+          type: string
+          minLength: 1
+          maxLength: 300
+        originalTitle:
+          type: [string, 'null']
+          maxLength: 300
+        alternativeTitles:
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+            maxLength: 300
+        synopsis:
+          type: [string, 'null']
+          maxLength: 20000
+        type:
+          $ref: '#/components/schemas/ContentType'
+        releaseDate:
+          type: [string, 'null']
+          format: date
+        originalLanguage:
+          type: [string, 'null']
+          pattern: '^[A-Za-z]{2,8}(-[A-Za-z0-9]{1,8})*$'
+        franchiseId:
+          type: [string, 'null']
+          maxLength: 128
+        genreIds:
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          items:
+            type: string
+            maxLength: 128
+        tagIds:
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          items:
+            type: string
+            maxLength: 128
+        classificationIds:
+          type: array
+          uniqueItems: true
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 128
+        externalReferences:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/ExternalContentReference'
+        posterUrl:
+          type: [string, 'null']
+          maxLength: 2048
+        backdropUrl:
+          type: [string, 'null']
+          maxLength: 2048
+        metadata:
+          type: object
+          additionalProperties: true
+      additionalProperties: false
+    ContentUpdate:
+      type: object
+      minProperties: 1
+      properties:
+        slug:
+          type: string
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          maxLength: 160
+        title:
+          type: string
+          minLength: 1
+          maxLength: 300
+        originalTitle:
+          type: [string, 'null']
+          maxLength: 300
+        alternativeTitles:
+          type: array
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+            maxLength: 300
+        synopsis:
+          type: [string, 'null']
+          maxLength: 20000
+        releaseDate:
+          type: [string, 'null']
+          format: date
+        originalLanguage:
+          type: [string, 'null']
+          pattern: '^[A-Za-z]{2,8}(-[A-Za-z0-9]{1,8})*$'
+        franchiseId:
+          type: [string, 'null']
+          maxLength: 128
+        genreIds:
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          items:
+            type: string
+            maxLength: 128
+        tagIds:
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          items:
+            type: string
+            maxLength: 128
+        classificationIds:
+          type: array
+          uniqueItems: true
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 128
+        externalReferences:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/ExternalContentReference'
+        posterUrl:
+          type: [string, 'null']
+          maxLength: 2048
+        backdropUrl:
+          type: [string, 'null']
+          maxLength: 2048
+        metadata:
+          type: object
+          additionalProperties: true
+      additionalProperties: false
+    TaxonomyEntity:
+      type: object
+      required: [id, kind, labels, active, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+          pattern: '^[a-z0-9][a-z0-9._:-]*$'
+          maxLength: 128
+        kind:
+          type: string
+          enum: [genre, tag, classification, language, region, age-rating, format]
+        slug:
+          type: string
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          maxLength: 160
+        labels:
+          type: object
+          minProperties: 1
+          additionalProperties:
+            type: string
+            minLength: 1
+            maxLength: 160
+        aliases:
+          type: object
+          additionalProperties:
+            type: array
+            maxItems: 50
+            items:
+              type: string
+              minLength: 1
+              maxLength: 160
+        active:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      additionalProperties: false
+    CollectionRecord:
+      type: object
+      required: [id, slug, title, status, items]
+      properties:
+        id:
+          type: string
+          maxLength: 128
+        slug:
+          type: string
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          maxLength: 160
+        title:
+          type: string
+          minLength: 1
+          maxLength: 300
+        description:
+          type: [string, 'null']
+          maxLength: 20000
+        status:
+          $ref: '#/components/schemas/EditorialStatus'
+        items:
+          type: array
+          minItems: 2
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/ContentRecord'
+      additionalProperties: false
+    ContentPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentRecord'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+      additionalProperties: false
+    TaxonomyPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyEntity'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+      additionalProperties: false
+    CollectionPage:
+      type: object
+      required: [data, page]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionRecord'
+        page:
+          $ref: '#/components/schemas/PageInfo'
+      additionalProperties: false
+    PageInfo:
+      type: object
+      required: [limit, hasMore]
+      properties:
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+        nextCursor:
+          type: [string, 'null']
+          maxLength: 512
+        hasMore:
+          type: boolean
+      additionalProperties: false
+    ErrorEnvelope:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message, requestId]
+          properties:
+            code:
+              type: string
+              pattern: '^[A-Z][A-Z0-9_]{1,63}$'
+            message:
+              type: string
+              maxLength: 500
+            requestId:
+              type: string
+              maxLength: 128
+            details:
+              type: array
+              maxItems: 50
+              items:
+                type: object
+                required: [field, issue]
+                properties:
+                  field:
+                    type: string
+                    maxLength: 256
+                  issue:
+                    type: string
+                    maxLength: 500
+                additionalProperties: false
+          additionalProperties: false
+      additionalProperties: false
