@@ -6,6 +6,8 @@ import { Link,useParams } from "react-router-dom";
 import { getContentBySlug } from "../../services/catalog/catalog.services";
 import { getContentRatingSummary } from "../../services/ratings/ratings.services";
 import type { Content } from "../../domain/catalog/content.types";
+import type { LocaleCode } from "../../domain/catalog/taxonomy.types";
+import { getTagById, getTagLabel } from "../../services/catalog/taxonomy.services";
 import { ContentRating } from "../../components/Content/ContentRating/ContentRating";
 import { GenreList } from "../../components/Content/GenreList/GenreList";
 import { useLanguage } from "../../contexts/useLanguage";
@@ -81,7 +83,7 @@ export function ContentDetails(){
      <ul className="content-hero__metadata" aria-label={translation.catalog.basicInformation}>
       {year?<li>{year}</li>:null}<li>{typeLabel}</li>{content.originalLanguage?<li>{content.originalLanguage}</li>:null}
      </ul>
-     <GenreList genres={content.genres}/><div className="content-hero__rating"><ContentRating rating={rating}/></div>
+     <GenreList genreIds={content.genreIds} locale={locale as LocaleCode}/><div className="content-hero__rating"><ContentRating rating={rating}/></div>
      <div className="content-hero__actions">
       <button type="button" className="content-hero__button content-hero__button--primary" disabled aria-label={translation.catalog.ratingComingSoon}>
        <IonIcon icon={bookmarkOutline} aria-hidden="true"/>{translation.catalog.ratingComingSoon}
@@ -102,7 +104,7 @@ export function ContentDetails(){
    </section>
    <TorrentSources contentId={content.id}/>
    <section className="content-details__section"><h2>{translation.catalog.tags}</h2>
-    {content.tags.length?<ul className="content-details__tags">{content.tags.map(tag=><li key={tag}>{tag}</li>)}</ul>:<p className="content-details__muted">{translation.catalog.notAvailable}</p>}
+    {content.tagIds.length?<ul className="content-details__tags">{content.tagIds.map(id=>getTagById(id)).filter((tag):tag is NonNullable<typeof tag>=>Boolean(tag)).map(tag=><li key={tag.id}>{getTagLabel(tag,locale as LocaleCode)}</li>)}</ul>:<p className="content-details__muted">{translation.catalog.notAvailable}</p>}
    </section>
   </div>
  </main>;
