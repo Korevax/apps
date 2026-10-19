@@ -1,6 +1,6 @@
 import type { Content } from "./content.types";
 import { getContentValidationErrors, isContent } from "./content.validation";
-import { getTaxonomyReferenceErrors } from "../../services/catalog/taxonomy.services";
+import { getTaxonomyReferenceErrors } from "./taxonomy.rules";
 
 const normalize = (value: string) => value.trim().normalize("NFKC").toLocaleLowerCase();
 const duplicates = (items: string[]) => new Set(items.map(normalize)).size !== items.length;
