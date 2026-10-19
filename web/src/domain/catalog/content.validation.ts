@@ -92,6 +92,13 @@ function strings(value: unknown): value is string[] {
     value.every(item => nonEmpty(item) && item.length <= 200);
 }
 
+function referenceIdentifiers(value: unknown): value is string[] {
+  return Array.isArray(value) &&
+    value.length <= 200 &&
+    value.every(item => typeof item === "string" && IDENTIFIER.test(item) && item.length <= 128) &&
+    new Set(value).size === value.length;
+}
+
 function classificationIdentifiers(value: unknown): value is ClassificationId[] {
   return Array.isArray(value) &&
     value.length <= 100 &&
@@ -292,6 +299,8 @@ export function getContentValidationErrors(value: unknown): string[] {
     (typeof value.synopsis !== "string" || value.synopsis.length > 20000)) {
     errors.push("synopsis deve ser string de até 20000 caracteres ou null.");
   }
+  if (!referenceIdentifiers(value.genreIds)) errors.push("genreIds deve conter referências de gênero válidas e únicas.");
+  if (!referenceIdentifiers(value.tagIds)) errors.push("tagIds deve conter referências de tag válidas e únicas.");
   if (!strings(value.genres)) errors.push("genres deve ser lista de strings não vazias.");
   if (!strings(value.tags)) errors.push("tags deve ser lista de strings não vazias.");
   if (!classificationIdentifiers(value.classificationIds)) {
