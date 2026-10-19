@@ -130,6 +130,14 @@ assert.match(
 assert.match(
   taxonomyValidation.module.getTaxonomyValidationErrors({
     ...validGenre,
+    aliases: { "pt-BR": ["Café", "cafe"] },
+  }).join(" "),
+  /aliases.*duplicados após normalização/i,
+  "alias duplicates should be accent-insensitive",
+);
+assert.match(
+  taxonomyValidation.module.getTaxonomyValidationErrors({
+    ...validGenre,
     updatedAt: "2026-02-31T00:00:00Z",
   }).join(" "),
   /updatedAt/i,
