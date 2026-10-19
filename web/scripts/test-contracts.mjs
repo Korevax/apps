@@ -37,7 +37,6 @@ const taxonomyRules = await loadTypeScript("taxonomy.rules.ts", {
 });
 const contentRules = await loadTypeScript("content.rules.ts", {
   "./content.validation": contentValidation.url,
-  "./taxonomy.rules": taxonomyRules.url,
 });
 
 const validContent = {
@@ -64,7 +63,7 @@ assert.equal(contentValidation.module.isContent({ ...validContent, type: "anime"
 assert.equal(contentValidation.module.isContent({ ...validContent, genreIds: ["genre.drama", "genre.drama"] }), false, "duplicate taxonomy references should be rejected");
 assert.equal(contentValidation.module.isContent({ ...validContent, releaseDate: "2026-02-31" }), false, "impossible release dates should be rejected");
 assert.match(
-  contentRules.module.getContentIntegrityErrors({ ...validContent, genreIds: ["genre.missing"] }).join(" "),
+  taxonomyRules.module.getTaxonomyReferenceErrors(["genre.missing"], []).join(" "),
   /gênero inexistente/i,
   "unknown taxonomy references should fail catalog integrity",
 );
