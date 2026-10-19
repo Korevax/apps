@@ -11,8 +11,6 @@ export function getContentBusinessRuleErrors(content: Content): string[] {
   if (duplicates(content.genreIds)) errors.push("genreIds não pode conter referências duplicadas.");
   if (duplicates(content.tagIds)) errors.push("tagIds não pode conter referências duplicadas.");
   errors.push(...getTaxonomyReferenceErrors(content.genreIds, content.tagIds));
-  if (duplicates(content.genres)) errors.push("genres não pode conter gêneros duplicados.");
-  if (duplicates(content.tags)) errors.push("tags não pode conter etiquetas duplicadas.");
   if (duplicates(content.classificationIds)) {
     errors.push("classificationIds não pode conter classificações duplicadas.");
   }
