@@ -72,6 +72,7 @@ for (const type of types.module.CONTENT_TYPES) {
   );
 }
 assert.equal(contentValidation.module.isContent({ ...validContent, title: "x".repeat(301) }), false, "title length limit should be enforced");
+assert.equal(contentValidation.module.isContent({ ...validContent, id: "bad id" }), false, "canonical IDs must use the stable identifier format");
 assert.equal(contentValidation.module.isContent({ ...validContent, createdAt: "2026-01-01T00:00:00" }), false, "timestamps without timezone should be rejected");
 assert.equal(contentValidation.module.isContent({ ...validContent, posterUrl: "javascript:alert(1)" }), false, "unsafe image protocols should be rejected");
 assert.match(
