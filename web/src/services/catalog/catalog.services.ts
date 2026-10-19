@@ -2,6 +2,7 @@ import { mockContents } from "../../data/mockContent";
 import type { ClassificationId, Content, ContentType } from "../../domain/catalog/content.types";
 import { getContentIntegrityErrors, isContentBusinessValid } from "../../domain/catalog/content.rules";
 import { getContentRatingSummary } from "../ratings/ratings.services";
+import { getGenreById, getTagById, getTaxonomySearchTerms, matchesTaxonomyTerm } from "./taxonomy.services";
 
 /** Mock data is the current read-only adapter; persistence will replace this boundary. */
 const source: readonly unknown[] = mockContents;
@@ -59,8 +60,10 @@ export function searchContent(options: ContentSearchOptions = {}): Content[] {
   return getAllContent().filter(content => {
     if (options.type && content.type !== options.type) return false;
     if (options.classificationId && !content.classificationIds.includes(options.classificationId)) return false;
-    if (genre && !content.genres.some(value => normalize(value) === genre)) return false;
-    if (tag && !content.tags.some(value => normalize(value) === tag)) return false;
+    if (genre && !content.genreIds.some(id => matchesTaxonomyTerm(getGenreById(id), options.genre ?? "")) &&
+      !content.genres.some(value => normalize(value) === genre)) return false;
+    if (tag && !content.tagIds.some(id => matchesTaxonomyTerm(getTagById(id), options.tag ?? "")) &&
+      !content.tags.some(value => normalize(value) === tag)) return false;
     if (!query) return true;
 
     return [
@@ -71,6 +74,7 @@ export function searchContent(options: ContentSearchOptions = {}): Content[] {
       ...content.genres,
       ...content.tags,
       ...content.classificationIds,
+      ...getTaxonomySearchTerms(content.genreIds, content.tagIds),
     ].some(value => normalize(value).includes(query));
   });
 }
