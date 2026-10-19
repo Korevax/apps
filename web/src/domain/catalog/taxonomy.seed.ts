@@ -8,7 +8,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "ambient",
     "active": true,
     "labels": {
-      "pt-BR": "Ambient"
+      "pt-BR": "Ambient",
+      "en": "Ambient",
+      "es": "Ambient",
+      "ru": "Эмбиент"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -19,7 +22,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "aventura",
     "active": true,
     "labels": {
-      "pt-BR": "Aventura"
+      "pt-BR": "Aventura",
+      "en": "Adventure",
+      "es": "Aventura",
+      "ru": "Приключения"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -30,7 +36,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "cultura",
     "active": true,
     "labels": {
-      "pt-BR": "Cultura"
+      "pt-BR": "Cultura",
+      "en": "Culture",
+      "es": "Cultura",
+      "ru": "Культура"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -41,7 +50,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "documentario",
     "active": true,
     "labels": {
-      "pt-BR": "Documentário"
+      "pt-BR": "Documentário",
+      "en": "Documentary",
+      "es": "Documental",
+      "ru": "Документальный"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -52,7 +64,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "drama",
     "active": true,
     "labels": {
-      "pt-BR": "Drama"
+      "pt-BR": "Drama",
+      "en": "Drama",
+      "es": "Drama",
+      "ru": "Драма"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -63,7 +78,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "eletronica",
     "active": true,
     "labels": {
-      "pt-BR": "Eletrônica"
+      "pt-BR": "Eletrônica",
+      "en": "Electronic music",
+      "es": "Música electrónica",
+      "ru": "Электронная музыка"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -74,7 +92,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "familia",
     "active": true,
     "labels": {
-      "pt-BR": "Família"
+      "pt-BR": "Família",
+      "en": "Family",
+      "es": "Familiar",
+      "ru": "Семейный"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -85,7 +106,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "fantasia",
     "active": true,
     "labels": {
-      "pt-BR": "Fantasia"
+      "pt-BR": "Fantasia",
+      "en": "Fantasy",
+      "es": "Fantasía",
+      "ru": "Фэнтези"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -96,7 +120,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "ficcao-cientifica",
     "active": true,
     "labels": {
-      "pt-BR": "Ficção científica"
+      "pt-BR": "Ficção científica",
+      "en": "Science fiction",
+      "es": "Ciencia ficción",
+      "ru": "Научная фантастика"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -107,7 +134,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "historia",
     "active": true,
     "labels": {
-      "pt-BR": "História"
+      "pt-BR": "História",
+      "en": "History",
+      "es": "Historia",
+      "ru": "История"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -118,7 +148,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "misterio",
     "active": true,
     "labels": {
-      "pt-BR": "Mistério"
+      "pt-BR": "Mistério",
+      "en": "Mystery",
+      "es": "Misterio",
+      "ru": "Мистика"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -129,7 +162,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "puzzle",
     "active": true,
     "labels": {
-      "pt-BR": "Puzzle"
+      "pt-BR": "Puzzle",
+      "en": "Puzzle",
+      "es": "Rompecabezas",
+      "ru": "Головоломка"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -140,7 +176,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "slice-of-life",
     "active": true,
     "labels": {
-      "pt-BR": "Slice of life"
+      "pt-BR": "Slice of life",
+      "en": "Slice of life",
+      "es": "Recuentos de la vida",
+      "ru": "Повседневность"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -151,7 +190,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "suspense",
     "active": true,
     "labels": {
-      "pt-BR": "Suspense"
+      "pt-BR": "Suspense",
+      "en": "Thriller",
+      "es": "Suspense",
+      "ru": "Триллер"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -162,7 +204,10 @@ export const catalogGenres: readonly Genre[] = [
     "slug": "tecnologia",
     "active": true,
     "labels": {
-      "pt-BR": "Tecnologia"
+      "pt-BR": "Tecnologia",
+      "en": "Technology",
+      "es": "Tecnología",
+      "ru": "Технологии"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -176,7 +221,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "amizade",
     "active": true,
     "labels": {
-      "pt-BR": "amizade"
+      "pt-BR": "amizade",
+      "en": "Friendship",
+      "es": "Amistad",
+      "ru": "Дружба"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -187,7 +235,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "arquivo",
     "active": true,
     "labels": {
-      "pt-BR": "arquivo"
+      "pt-BR": "arquivo",
+      "en": "Archive",
+      "es": "Archivo",
+      "ru": "Архив"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -198,7 +249,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "cartografia",
     "active": true,
     "labels": {
-      "pt-BR": "cartografia"
+      "pt-BR": "cartografia",
+      "en": "Cartography",
+      "es": "Cartografía",
+      "ru": "Картография"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -209,7 +263,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "cidade",
     "active": true,
     "labels": {
-      "pt-BR": "cidade"
+      "pt-BR": "cidade",
+      "en": "City",
+      "es": "Ciudad",
+      "ru": "Город"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -220,7 +277,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "comunicacao",
     "active": true,
     "labels": {
-      "pt-BR": "comunicação"
+      "pt-BR": "comunicação",
+      "en": "Communication",
+      "es": "Comunicación",
+      "ru": "Коммуникация"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -231,7 +291,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "comunidade",
     "active": true,
     "labels": {
-      "pt-BR": "comunidade"
+      "pt-BR": "comunidade",
+      "en": "Community",
+      "es": "Comunidad",
+      "ru": "Сообщество"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -242,7 +305,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "conspiracao",
     "active": true,
     "labels": {
-      "pt-BR": "conspiração"
+      "pt-BR": "conspiração",
+      "en": "Conspiracy",
+      "es": "Conspiración",
+      "ru": "Заговор"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -253,7 +319,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "cotidiano",
     "active": true,
     "labels": {
-      "pt-BR": "cotidiano"
+      "pt-BR": "cotidiano",
+      "en": "Everyday life",
+      "es": "Vida cotidiana",
+      "ru": "Повседневность"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -264,7 +333,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "criatividade",
     "active": true,
     "labels": {
-      "pt-BR": "criatividade"
+      "pt-BR": "criatividade",
+      "en": "Creativity",
+      "es": "Creatividad",
+      "ru": "Творчество"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -275,7 +347,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "curtas",
     "active": true,
     "labels": {
-      "pt-BR": "curtas"
+      "pt-BR": "curtas",
+      "en": "Short films",
+      "es": "Cortometrajes",
+      "ru": "Короткометражки"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -286,7 +361,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "energia",
     "active": true,
     "labels": {
-      "pt-BR": "energia"
+      "pt-BR": "energia",
+      "en": "Energy",
+      "es": "Energía",
+      "ru": "Энергия"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -297,7 +375,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "enigmas",
     "active": true,
     "labels": {
-      "pt-BR": "enigmas"
+      "pt-BR": "enigmas",
+      "en": "Riddles",
+      "es": "Acertijos",
+      "ru": "Загадки"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -308,7 +389,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "entrevista",
     "active": true,
     "labels": {
-      "pt-BR": "entrevista"
+      "pt-BR": "entrevista",
+      "en": "Interview",
+      "es": "Entrevista",
+      "ru": "Интервью"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -319,7 +403,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "equipe",
     "active": true,
     "labels": {
-      "pt-BR": "equipe"
+      "pt-BR": "equipe",
+      "en": "Team",
+      "es": "Equipo",
+      "ru": "Команда"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -330,7 +417,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "espaco",
     "active": true,
     "labels": {
-      "pt-BR": "espaço"
+      "pt-BR": "espaço",
+      "en": "Space",
+      "es": "Espacio",
+      "ru": "Космос"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -341,7 +431,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "exploracao",
     "active": true,
     "labels": {
-      "pt-BR": "exploração"
+      "pt-BR": "exploração",
+      "en": "Exploration",
+      "es": "Exploración",
+      "ru": "Исследование"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -352,7 +445,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "ferrovia",
     "active": true,
     "labels": {
-      "pt-BR": "ferrovia"
+      "pt-BR": "ferrovia",
+      "en": "Railway",
+      "es": "Ferrocarril",
+      "ru": "Железная дорога"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -363,7 +459,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "futuro",
     "active": true,
     "labels": {
-      "pt-BR": "futuro"
+      "pt-BR": "futuro",
+      "en": "Future",
+      "es": "Futuro",
+      "ru": "Будущее"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -374,7 +473,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "instrumental",
     "active": true,
     "labels": {
-      "pt-BR": "instrumental"
+      "pt-BR": "instrumental",
+      "en": "Instrumental",
+      "es": "Instrumental",
+      "ru": "Инструментальная музыка"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -385,7 +487,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "investigacao",
     "active": true,
     "labels": {
-      "pt-BR": "investigação"
+      "pt-BR": "investigação",
+      "en": "Investigation",
+      "es": "Investigación",
+      "ru": "Расследование"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -396,7 +501,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "jardim",
     "active": true,
     "labels": {
-      "pt-BR": "jardim"
+      "pt-BR": "jardim",
+      "en": "Garden",
+      "es": "Jardín",
+      "ru": "Сад"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -407,7 +515,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "jornada",
     "active": true,
     "labels": {
-      "pt-BR": "jornada"
+      "pt-BR": "jornada",
+      "en": "Journey",
+      "es": "Viaje",
+      "ru": "Путешествие"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -418,7 +529,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "memoria",
     "active": true,
     "labels": {
-      "pt-BR": "memória"
+      "pt-BR": "memória",
+      "en": "Memory",
+      "es": "Memoria",
+      "ru": "Память"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -429,7 +543,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "mensagens",
     "active": true,
     "labels": {
-      "pt-BR": "mensagens"
+      "pt-BR": "mensagens",
+      "en": "Messages",
+      "es": "Mensajes",
+      "ru": "Сообщения"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -440,7 +557,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "misterio",
     "active": true,
     "labels": {
-      "pt-BR": "mistério"
+      "pt-BR": "mistério",
+      "en": "Mystery",
+      "es": "Misterio",
+      "ru": "Тайна"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -451,7 +571,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "narrativa",
     "active": true,
     "labels": {
-      "pt-BR": "narrativa"
+      "pt-BR": "narrativa",
+      "en": "Narrative",
+      "es": "Narrativa",
+      "ru": "Повествование"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -462,7 +585,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "noturno",
     "active": true,
     "labels": {
-      "pt-BR": "noturno"
+      "pt-BR": "noturno",
+      "en": "Nocturnal",
+      "es": "Nocturno",
+      "ru": "Ночной"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -473,7 +599,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "oceano",
     "active": true,
     "labels": {
-      "pt-BR": "oceano"
+      "pt-BR": "oceano",
+      "en": "Ocean",
+      "es": "Océano",
+      "ru": "Океан"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -484,7 +613,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "pesquisa",
     "active": true,
     "labels": {
-      "pt-BR": "pesquisa"
+      "pt-BR": "pesquisa",
+      "en": "Research",
+      "es": "Investigación",
+      "ru": "Исследование"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -495,7 +627,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "radio",
     "active": true,
     "labels": {
-      "pt-BR": "rádio"
+      "pt-BR": "rádio",
+      "en": "Radio",
+      "es": "Radio",
+      "ru": "Радио"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -506,7 +641,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "sobrevivencia",
     "active": true,
     "labels": {
-      "pt-BR": "sobrevivência"
+      "pt-BR": "sobrevivência",
+      "en": "Survival",
+      "es": "Supervivencia",
+      "ru": "Выживание"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -517,7 +655,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "tecnologia",
     "active": true,
     "labels": {
-      "pt-BR": "tecnologia"
+      "pt-BR": "tecnologia",
+      "en": "Technology",
+      "es": "Tecnología",
+      "ru": "Технологии"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
@@ -528,7 +669,10 @@ export const catalogTags: readonly Tag[] = [
     "slug": "tripulacao",
     "active": true,
     "labels": {
-      "pt-BR": "tripulação"
+      "pt-BR": "tripulação",
+      "en": "Crew",
+      "es": "Tripulación",
+      "ru": "Экипаж"
     },
     "createdAt": "2026-01-01T00:00:00Z",
     "updatedAt": "2026-01-01T00:00:00Z"
