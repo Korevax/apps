@@ -59,3 +59,16 @@ URL validation in the frontend is defense-in-depth, not a server-side SSRF contr
 4. Add migration tests before removing compatibility paths.
 5. Treat breaking schema changes as explicit migrations; never infer identity from titles or silently discard fields.
 6. The mock catalog is demonstration data, not the production source of truth. Persistence and API work belong to issues #7 and #6 respectively.
+
+## Taxonomy entity contract
+
+The initial shared contracts live in `web/src/domain/catalog/taxonomy.types.ts`; runtime checks live in `taxonomy.validation.ts`.
+
+- `Genre`, `Tag`, and `Classification` are distinct entity kinds even when their display labels overlap.
+- `CatalogLanguage` uses a language tag; `Region` uses a stable region code; `AgeRating` references a region and keeps its jurisdiction-specific rating code; `ContentFormat` describes packaging/edition rather than a genre.
+- Each entity has a stable `id`, optional route `slug`, lifecycle flag, timestamps, localized `labels`, and optional locale-scoped `aliases`.
+- IDs are canonical and independent from localized labels. Localized labels may change without changing identity.
+- Aliases are for discovery and input normalization, not for automatic identity merging. Normalize with Unicode NFKC and case folding before duplicate comparisons.
+- Editorial status (`draft | review | published | archived`) is separate from a work's release/publication lifecycle (`upcoming | ongoing | released | cancelled | unknown`). Do not infer cancellation from missing or stale metadata.
+
+**Migration note:** `Content.genres` and `Content.tags` are still legacy label arrays in this PR. The next migration step must introduce taxonomy IDs on content, add a curated seed vocabulary, migrate fixtures and search/detail consumers, and preserve labels for display. Issue #13 remains open until that migration and runtime tests are complete.
