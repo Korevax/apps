@@ -35,6 +35,8 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - name: Install dependencies
         run: npm ci
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
       - name: Build and typecheck
         run: npm run build
       - name: Runtime contract tests
