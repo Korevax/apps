@@ -45,42 +45,32 @@ function localizedMapErrors(
   if (!isRecord(value)) return [`${field} deve ser um objeto por idioma.`];
 
   const errors: string[] = [];
-  const normalizedNames = new Map<string, string>();
-
   for (const [locale, entry] of Object.entries(value)) {
     if (!LOCALE.test(locale)) {
       errors.push(`${field} contém código de idioma inválido: ${locale}.`);
       continue;
     }
 
-    const values = field === "labels" ? [entry] : entry;
-    if (field === "aliases" && (!Array.isArray(values) || values.length > ALIAS_LIMIT)) {
-      errors.push(`aliases.${locale} deve ser uma lista com até ${ALIAS_LIMIT} itens.`);
-      continue;
-    }
-
-    if (!Array.isArray(values)) {
-      if (!isText(values)) errors.push(`labels.${locale} deve ser um texto não vazio.`);
-      else {
-        const key = normalize(values);
-        const previousLocale = normalizedNames.get(key);
-        if (previousLocale) {
-          errors.push(`Rótulo duplicado após normalização entre ${previousLocale} e ${locale}.`);
-        } else {
-          normalizedNames.set(key, locale);
-        }
+    if (field === "labels") {
+      if (!isText(entry)) {
+        errors.push(`labels.${locale} deve ser um texto não vazio de até ${LABEL_LIMIT} caracteres.`);
       }
       continue;
     }
 
+    if (!Array.isArray(entry) || entry.length > ALIAS_LIMIT) {
+      errors.push(`aliases.${locale} deve ser uma lista com até ${ALIAS_LIMIT} itens.`);
+      continue;
+    }
+
     const seen = new Set<string>();
-    for (const alias of values) {
+    for (const alias of entry) {
       if (!isText(alias)) {
         errors.push(`aliases.${locale} contém um alias inválido.`);
         continue;
       }
       const key = normalize(alias);
-      if (seen.has(key)) errors.push(`aliases.${locale} contém aliases duplicados.`);
+      if (seen.has(key)) errors.push(`aliases.${locale} contém aliases duplicados após normalização.`);
       seen.add(key);
     }
   }
@@ -100,12 +90,15 @@ export function getTaxonomyValidationErrors(value: unknown): string[] {
     (!isText(value.slug, 160) || !SLUG.test(value.slug))) {
     errors.push("slug deve conter letras minúsculas, números e hífens.");
   }
-  if (typeof value.active !== "boolean") errors.push("active deve ser booleano.");
+  if (typeof value.active !== "boolean) errors.push("active deve ser booleano.");
   if (!isTimestamp(value.createdAt)) errors.push("createdAt deve ser ISO 8601 com fuso explícito.");
   if (!isTimestamp(value.updatedAt)) errors.push("updatedAt deve ser ISO 8601 com fuso explícito.");
   if (isTimestamp(value.createdAt) && isTimestamp(value.updatedAt) &&
     Date.parse(value.updatedAt) < Date.parse(value.createdAt)) {
     errors.push("updatedAt não pode ser anterior a createdAt.");
+  }
+  if (!isRecord(value.labels) || Object.keys(value.labels).length === 0) {
+    errors.push("labels deve conter pelo menos um nome localizado.");
   }
 
   errors.push(...localizedMapErrors(value.labels, "labels"));
