@@ -42,8 +42,12 @@ export interface ContentBase {
   franchiseId?: string | null;
   alternativeTitles: string[];
   synopsis: string | null;
-  /** Legacy label arrays are migrated to taxonomy entity references in issue #13. */
+  /** Stable taxonomy references; canonical for filtering and relationships. */
+  genreIds: string[];
+  tagIds: string[];
+  /** @deprecated Transitional display cache; remove after all consumers use taxonomy services. */
   genres: string[];
+  /** @deprecated Transitional display cache; remove after all consumers use taxonomy services. */
   tags: string[];
   /** Stable classification IDs, independent from ContentType. */
   classificationIds: ClassificationId[];
