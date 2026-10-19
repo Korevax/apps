@@ -625,7 +625,8 @@ components:
           format: date
         originalLanguage:
           type: [string, 'null']
-          pattern: '^[A-Za-z]{2,8}(-[A-Za-z0-9]{1,8})*        franchiseId:
+          pattern: '^[A-Za-z]{2,8}(-[A-Za-z0-9]{1,8})*$'
+        franchiseId:
           type: [string, 'null']
           maxLength: 128
         genreIds:
