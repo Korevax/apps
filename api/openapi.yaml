@@ -666,45 +666,6 @@ components:
           additionalProperties: true
       additionalProperties: false
 
-        franchiseId:
-          type: [string, 'null']
-          maxLength: 128
-        genreIds:
-          type: array
-          uniqueItems: true
-          maxItems: 200
-          items:
-            type: string
-            maxLength: 128
-        tagIds:
-          type: array
-          uniqueItems: true
-          maxItems: 200
-          items:
-            type: string
-            maxLength: 128
-        classificationIds:
-          type: array
-          uniqueItems: true
-          maxItems: 100
-          items:
-            type: string
-            maxLength: 128
-        externalReferences:
-          type: array
-          maxItems: 50
-          items:
-            $ref: '#/components/schemas/ExternalContentReference'
-        posterUrl:
-          type: [string, 'null']
-          maxLength: 2048
-        backdropUrl:
-          type: [string, 'null']
-          maxLength: 2048
-        metadata:
-          type: object
-          additionalProperties: true
-      additionalProperties: false
     TaxonomyEntity:
       type: object
       required: [id, kind, labels, active, createdAt, updatedAt]
