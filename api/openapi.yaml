@@ -125,7 +125,7 @@ paths:
           $ref: '#/components/responses/RateLimited'
         '500':
           $ref: '#/components/responses/InternalError'
-  /api/v1/content/{slug}:
+  /api/v1/content/by-slug/{slug}:
     get:
       tags: [Content]
       operationId: getContentBySlug
@@ -617,12 +617,54 @@ components:
         synopsis:
           type: [string, 'null']
           maxLength: 20000
+        status:
+          $ref: '#/components/schemas/EditorialStatus'
+          description: Only moderators may change editorial status.
         releaseDate:
           type: [string, 'null']
           format: date
         originalLanguage:
           type: [string, 'null']
-          pattern: '^[A-Za-z]{2,8}(-[A-Za-z0-9]{1,8})*$'
+          pattern: '^[A-Za-z]{2,8}(-[A-Za-z0-9]{1,8})*        franchiseId:
+          type: [string, 'null']
+          maxLength: 128
+        genreIds:
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          items:
+            type: string
+            maxLength: 128
+        tagIds:
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          items:
+            type: string
+            maxLength: 128
+        classificationIds:
+          type: array
+          uniqueItems: true
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 128
+        externalReferences:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/ExternalContentReference'
+        posterUrl:
+          type: [string, 'null']
+          maxLength: 2048
+        backdropUrl:
+          type: [string, 'null']
+          maxLength: 2048
+        metadata:
+          type: object
+          additionalProperties: true
+      additionalProperties: false
+
         franchiseId:
           type: [string, 'null']
           maxLength: 128
@@ -684,6 +726,10 @@ components:
             type: string
             minLength: 1
             maxLength: 160
+        attributes:
+          type: object
+          description: Kind-specific metadata validated by the server.
+          additionalProperties: true
         aliases:
           type: object
           additionalProperties:
