@@ -45,10 +45,6 @@ export interface ContentBase {
   /** Stable taxonomy references; canonical for filtering and relationships. */
   genreIds: string[];
   tagIds: string[];
-  /** @deprecated Transitional display cache; remove after all consumers use taxonomy services. */
-  genres: string[];
-  /** @deprecated Transitional display cache; remove after all consumers use taxonomy services. */
-  tags: string[];
   /** Stable classification IDs, independent from ContentType. */
   classificationIds: ClassificationId[];
   externalReferences?: ExternalContentReference[];
