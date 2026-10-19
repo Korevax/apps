@@ -1,7 +1,7 @@
 import { catalogGenres, catalogTags } from "../../domain/catalog/taxonomy.seed";
 import type { Genre, LocaleCode, Tag } from "../../domain/catalog/taxonomy.types";
 
-const normalize = (value: string) => value.normalize("NFKC").trim().toLocaleLowerCase();
+const normalize = (value: string) => value.normalize("NFKD").replace(/\p{M}/gu, "").trim().toLocaleLowerCase();
 
 export function getGenreById(id: string): Genre | undefined {
   return catalogGenres.find(genre => genre.id === id);
