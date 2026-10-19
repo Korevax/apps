@@ -36,7 +36,7 @@ function specificFacts(content:Content,labels:Record<keyof typeof import("../../
    ...(content.metadata.platforms?.length?[{label:labels.platforms,value:content.metadata.platforms.join(", ")}]:[]),
    ...(content.metadata.gameModes?.length?[{label:labels.gameModes,value:content.metadata.gameModes.join(", ")}]:[])
   ]:[];
-  case "animation": case "anime": return content.metadata?.animationMedium?[{label:labels.animationMedium,value:content.metadata.animationMedium}]:[];
+  case "animation": return content.metadata?.animationMedium?[{label:labels.animationMedium,value:content.metadata.animationMedium}]:[];
  }
 }
 
