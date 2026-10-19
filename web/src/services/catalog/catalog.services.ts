@@ -1,6 +1,8 @@
 import { mockContents } from "../../data/mockContent";
 import type { ClassificationId, Content, ContentType } from "../../domain/catalog/content.types";
 import { getContentIntegrityErrors, isContentBusinessValid } from "../../domain/catalog/content.rules";
+import { getTaxonomyReferenceErrors } from "../../domain/catalog/taxonomy.rules";
+import { isContent } from "../../domain/catalog/content.validation";
 import { getContentRatingSummary } from "../ratings/ratings.services";
 import { getGenreById, getTagById, getTaxonomySearchTerms, matchesTaxonomyTerm } from "./taxonomy.services";
 
@@ -8,7 +10,9 @@ import { getGenreById, getTagById, getTaxonomySearchTerms, matchesTaxonomyTerm }
 const source: readonly unknown[] = mockContents;
 
 function validCatalog(): Content[] {
-  const valid = source.filter(isContentBusinessValid);
+  const valid = source
+    .filter(isContentBusinessValid)
+    .filter(content => getTaxonomyReferenceErrors(content.genreIds, content.tagIds).length === 0);
   const ids = new Map<string, number>();
   const slugs = new Map<string, number>();
 
@@ -97,5 +101,9 @@ export function getPopularContent(limit = 8): Content[] {
 }
 
 export function validateCatalogRecord(value: unknown): string[] {
-  return getContentIntegrityErrors(value);
+  const errors = getContentIntegrityErrors(value);
+  if (!errors.length && isContent(value)) {
+    errors.push(...getTaxonomyReferenceErrors(value.genreIds, value.tagIds));
+  }
+  return errors;
 }
