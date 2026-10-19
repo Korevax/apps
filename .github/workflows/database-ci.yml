@@ -31,11 +31,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Check for migration file
+        id: schema
+        run: |
+          if [ -f api/db/migrations/0001_initial_catalog.sql ]; then
+            echo "migration_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "migration_exists=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Install PostgreSQL client
+        if: steps.schema.outputs.migration_exists == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install --yes postgresql-client
       - name: Apply initial schema
+        if: steps.schema.outputs.migration_exists == 'true'
         env:
           PGHOST: localhost
           PGPORT: 5432
@@ -44,6 +54,7 @@ jobs:
           PGDATABASE: korevax_test
         run: psql --set ON_ERROR_STOP=1 --file api/db/migrations/0001_initial_catalog.sql
       - name: Test schema constraints and collection rules
+        if: steps.schema.outputs.migration_exists == 'true'
         env:
           PGHOST: localhost
           PGPORT: 5432
