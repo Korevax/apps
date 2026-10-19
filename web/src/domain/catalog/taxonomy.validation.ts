@@ -90,7 +90,7 @@ export function getTaxonomyValidationErrors(value: unknown): string[] {
     (!isText(value.slug, 160) || !SLUG.test(value.slug))) {
     errors.push("slug deve conter letras minúsculas, números e hífens.");
   }
-  if (typeof value.active !== "boolean" errors.push("active deve ser booleano.");
+  if (typeof value.active !== "boolean") errors.push("active deve ser booleano.");
   if (!isTimestamp(value.createdAt)) errors.push("createdAt deve ser ISO 8601 com fuso explícito.");
   if (!isTimestamp(value.updatedAt)) errors.push("updatedAt deve ser ISO 8601 com fuso explícito.");
   if (isTimestamp(value.createdAt) && isTimestamp(value.updatedAt) &&
