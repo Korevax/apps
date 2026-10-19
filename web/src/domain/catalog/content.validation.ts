@@ -301,8 +301,6 @@ export function getContentValidationErrors(value: unknown): string[] {
   }
   if (!referenceIdentifiers(value.genreIds)) errors.push("genreIds deve conter referências de gênero válidas e únicas.");
   if (!referenceIdentifiers(value.tagIds)) errors.push("tagIds deve conter referências de tag válidas e únicas.");
-  if (!strings(value.genres)) errors.push("genres deve ser lista de strings não vazias.");
-  if (!strings(value.tags)) errors.push("tags deve ser lista de strings não vazias.");
   if (!classificationIdentifiers(value.classificationIds)) {
     errors.push("classificationIds deve conter identificadores válidos e únicos.");
   } else if (new Set(value.classificationIds).size !== value.classificationIds.length) {
