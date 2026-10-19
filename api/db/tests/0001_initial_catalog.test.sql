@@ -47,7 +47,7 @@ BEGIN
 
   BEGIN
     INSERT INTO content_taxonomy (content_id, taxonomy_id, taxonomy_kind)
-    VALUES ('movie.example-one', 'tag.misterio', 'genre');
+    VALUES ('movie.example-two', 'tag.misterio', 'genre');
     RAISE EXCEPTION 'Expected taxonomy kind mismatch to be rejected';
   EXCEPTION WHEN foreign_key_violation THEN
     NULL;
