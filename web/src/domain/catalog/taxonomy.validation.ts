@@ -54,7 +54,7 @@ function isTimestamp(value: unknown): value is string {
 }
 
 function normalize(value: string): string {
-  return value.normalize("NFKC").trim().toLocaleLowerCase();
+  return value.normalize("NFKD").replace(/\p{M}/gu, "").trim().toLocaleLowerCase();
 }
 
 function localizedMapErrors(
