@@ -1,7 +1,7 @@
 import type { Content } from "./content.types";
 import { getContentValidationErrors, isContent } from "./content.validation";
 
-const normalize = (value: string) => value.trim().normalize("NFKC").toLocaleLowerCase();
+const normalize = (value: string) => value.normalize("NFKD").replace(/\p{M}/gu, "").trim().toLocaleLowerCase();
 const duplicates = (items: string[]) => new Set(items.map(normalize)).size !== items.length;
 
 export function getContentBusinessRuleErrors(content: Content): string[] {
