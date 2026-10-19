@@ -44,7 +44,7 @@ function specificFacts(content:Content,labels:Record<keyof typeof import("../../
 
 export function ContentDetails(){
  const {slug}=useParams<{slug:string}>();
- const {translation}=useLanguage();
+ const {translation,locale}=useLanguage();
  const [shareMessage,setShareMessage]=useState("");
  const content=slug?getContentBySlug(slug):undefined;
  if(!content)return <main className="content-details"><div className="content-details__container">
