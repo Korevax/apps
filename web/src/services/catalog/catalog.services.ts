@@ -60,10 +60,8 @@ export function searchContent(options: ContentSearchOptions = {}): Content[] {
   return getAllContent().filter(content => {
     if (options.type && content.type !== options.type) return false;
     if (options.classificationId && !content.classificationIds.includes(options.classificationId)) return false;
-    if (genre && !content.genreIds.some(id => matchesTaxonomyTerm(getGenreById(id), options.genre ?? "")) &&
-      !content.genres.some(value => normalize(value) === genre)) return false;
-    if (tag && !content.tagIds.some(id => matchesTaxonomyTerm(getTagById(id), options.tag ?? "")) &&
-      !content.tags.some(value => normalize(value) === tag)) return false;
+    if (genre && !content.genreIds.some(id => matchesTaxonomyTerm(getGenreById(id), options.genre ?? ""))) return false;
+    if (tag && !content.tagIds.some(id => matchesTaxonomyTerm(getTagById(id), options.tag ?? ""))) return false;
     if (!query) return true;
 
     return [
@@ -71,8 +69,6 @@ export function searchContent(options: ContentSearchOptions = {}): Content[] {
       content.originalTitle ?? "",
       ...content.alternativeTitles,
       content.synopsis ?? "",
-      ...content.genres,
-      ...content.tags,
       ...content.classificationIds,
       ...getTaxonomySearchTerms(content.genreIds, content.tagIds),
     ].some(value => normalize(value).includes(query));
