@@ -104,6 +104,24 @@ export function getTaxonomyValidationErrors(value: unknown): string[] {
   errors.push(...localizedMapErrors(value.labels, "labels"));
   errors.push(...localizedMapErrors(value.aliases, "aliases"));
 
+  if (isRecord(value.labels) && isRecord(value.aliases)) {
+    for (const locale of Object.keys(value.labels)) {
+      const label = value.labels[locale];
+      if (!isText(label)) continue;
+      const seen = new Set([normalize(label)]);
+      const aliases = value.aliases[locale];
+      if (!Array.isArray(aliases)) continue;
+      for (const alias of aliases) {
+        if (!isText(alias)) continue;
+        const key = normalize(alias);
+        if (seen.has(key)) {
+          errors.push(`labels.${locale} et aliases.${locale} ne doivent pas se répéter após normalização.`);
+        }
+        seen.add(key);
+      }
+    }
+  }
+
   if (value.kind === "language" &&
     (typeof value.languageTag !== "string" || !/^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/.test(value.languageTag))) {
     errors.push("languageTag deve ser uma tag de idioma válida.");
