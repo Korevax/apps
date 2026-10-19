@@ -49,3 +49,18 @@ export function getTaxonomySearchTerms(genreIds: readonly string[], tagIds: read
     }),
   ];
 }
+
+/** Referential-integrity check for the current seeded vocabulary adapter. */
+export function getTaxonomyReferenceErrors(
+  genreIds: readonly string[],
+  tagIds: readonly string[],
+): string[] {
+  const errors: string[] = [];
+  for (const id of genreIds) {
+    if (!getGenreById(id)) errors.push(`Referência de gênero inexistente: ${id}.`);
+  }
+  for (const id of tagIds) {
+    if (!getTagById(id)) errors.push(`Referência de tag inexistente: ${id}.`);
+  }
+  return errors;
+}
