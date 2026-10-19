@@ -46,7 +46,7 @@ export interface ContentBase {
   genres: string[];
   tags: string[];
   /** Stable classification IDs, independent from ContentType. */
-  classificationIds: string[];
+  classificationIds: ClassificationId[];
   externalReferences?: ExternalContentReference[];
   status: ContentStatus;
   releaseDate?: string | null;
