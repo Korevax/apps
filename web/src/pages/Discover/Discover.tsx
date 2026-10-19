@@ -4,13 +4,15 @@ import { IonIcon } from "@ionic/react";
 import { arrowForward, searchOutline } from "ionicons/icons";
 import { useLanguage } from "../../contexts/useLanguage";
 import { CONTENT_TYPES, type ContentType } from "../../domain/catalog/content.types";
+import type { LocaleCode } from "../../domain/catalog/taxonomy.types";
+import { getGenreById, getGenreLabel } from "../../services/catalog/taxonomy.services";
 import { getAllContent, getPopularContent, getRecentContent, searchContent } from "../../services/catalog/catalog.services";
 import { getContentRatingSummary } from "../../services/ratings/ratings.services";
 import { ContentCard } from "../../components/Content/ContentCard/ContentCard";
 import "./Discover.css";
 
 function Discover() {
-  const { translation } = useLanguage();
+  const { translation, locale } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
   const [type, setType] = useState<ContentType | "all">("all");
@@ -19,7 +21,11 @@ function Discover() {
   const all = getAllContent();
   const recent = getRecentContent(6);
   const popular = getPopularContent(6);
-  const genres = [...new Set(all.flatMap(item => item.genres))].sort((a, b) => a.localeCompare(b));
+  const genres = [...new Set(all.flatMap(item => item.genreIds))]
+    .map(id => getGenreById(id))
+    .filter((genre): genre is NonNullable<typeof genre> => Boolean(genre))
+    .map(genre => ({ id: genre.id, label: getGenreLabel(genre, locale as LocaleCode) }))
+    .sort((a, b) => a.label.localeCompare(b.label, locale));
 
   useEffect(() => {
     setQuery(searchParams.get("q") ?? "");
@@ -94,7 +100,7 @@ function Discover() {
               <span>{translation.catalog.filterGenre}</span>
               <select value={genre} onChange={event => setGenre(event.currentTarget.value)}>
                 <option value="all">{translation.catalog.allGenres}</option>
-                {genres.map(item => <option key={item} value={item}>{item}</option>)}
+                {genres.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}
               </select>
             </label>
             {filtering ? <button className="discover-clear" type="button" onClick={clearFilters}>{translation.catalog.clear}</button> : null}
