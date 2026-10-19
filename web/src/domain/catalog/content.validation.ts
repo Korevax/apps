@@ -1,4 +1,5 @@
 import {
+  CLASSIFICATION_IDS,
   CONTENT_STATUSES,
   CONTENT_TYPES,
   type Content,
@@ -8,6 +9,7 @@ import {
 
 const TYPES: ReadonlySet<string> = new Set(CONTENT_TYPES);
 const STATUSES: ReadonlySet<string> = new Set(CONTENT_STATUSES);
+const CLASSIFICATIONS: ReadonlySet<string> = new Set(CLASSIFICATION_IDS);
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const IDENTIFIER = /^[a-z0-9][a-z0-9._:-]*$/;
 const LANGUAGE = /^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/;
@@ -89,14 +91,21 @@ function strings(value: unknown): value is string[] {
     value.every(item => nonEmpty(item) && item.length <= 200);
 }
 
-function identifiers(value: unknown): value is string[] {
+function classificationIdentifiers(value: unknown): value is string[] {
   return Array.isArray(value) &&
     value.length <= 100 &&
-    value.every(item =>
-      typeof item === "string" &&
-      item.length <= 128 &&
-      IDENTIFIER.test(item),
-    );
+    value.every(item => typeof item === "string" && CLASSIFICATIONS.has(item));
+}
+
+function isSafeHttpUrl(value: unknown): value is string {
+  if (typeof value !== "string" || value.length > 2048 || value.trim() !== value) return false;
+  try {
+    const url = new URL(value);
+    return (url.protocol === "https:" || url.protocol === "http:") &&
+      Boolean(url.hostname) && !url.username && !url.password;
+  } catch {
+    return false;
+  }
 }
 
 function positive(value: unknown): boolean {
@@ -144,7 +153,7 @@ function externalReferencesErrors(value: unknown): string[] {
     if (
       reference.url !== undefined &&
       reference.url !== null &&
-      (typeof reference.url !== "string" || !isSafeImageUrl(reference.url))
+      !isSafeHttpUrl(reference.url)
     ) errors.push(`${prefix}.url deve ser uma URL HTTP(S) segura.`);
   });
 
@@ -284,7 +293,7 @@ export function getContentValidationErrors(value: unknown): string[] {
   }
   if (!strings(value.genres)) errors.push("genres deve ser lista de strings não vazias.");
   if (!strings(value.tags)) errors.push("tags deve ser lista de strings não vazias.");
-  if (!identifiers(value.classificationIds)) {
+  if (!classificationIdentifiers(value.classificationIds)) {
     errors.push("classificationIds deve conter identificadores válidos e únicos.");
   } else if (new Set(value.classificationIds).size !== value.classificationIds.length) {
     errors.push("classificationIds não pode conter duplicatas.");
