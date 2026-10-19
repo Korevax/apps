@@ -54,7 +54,7 @@ export interface ContentSearchOptions {
   tag?: string;
 }
 
-const normalize = (value: string) => value.trim().normalize("NFKC").toLocaleLowerCase();
+const normalize = (value: string) => value.normalize("NFKD").replace(/\p{M}/gu, "").trim().toLocaleLowerCase();
 
 export function searchContent(options: ContentSearchOptions = {}): Content[] {
   const query = typeof options.query === "string" ? normalize(options.query) : "";
