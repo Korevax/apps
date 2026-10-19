@@ -36,7 +36,7 @@ The discriminant controls the permitted `metadata` fields. Common fields stay on
 
 ## Taxonomy migration
 
-The current `genres` and `tags` string arrays are transitional. Issue #13 will replace free-form labels with stable taxonomy references:
+The `genreIds` and `tagIds` arrays are the canonical content references. The `genres` and `tags` string arrays remain as a deprecated display cache during migration and must be removed after all consumers use taxonomy services. The current demo fixtures use stable taxonomy IDs and the seeded vocabulary. Issue #13 still requires migration tests, localized labels for the supported locales, and removal of the legacy arrays:
 
 - **Genre** expresses a recognized thematic/content category.
 - **Tag** is a flexible, curated descriptor for a specific topic, attribute or discovery facet.
@@ -71,4 +71,4 @@ The initial shared contracts live in `web/src/domain/catalog/taxonomy.types.ts`;
 - Aliases are for discovery and input normalization, not for automatic identity merging. Normalize with Unicode NFKC and case folding before duplicate comparisons.
 - Editorial status (`draft | review | published | archived`) is separate from a work's release/publication lifecycle (`upcoming | ongoing | released | cancelled | unknown`). Do not infer cancellation from missing or stale metadata.
 
-**Migration note:** `Content.genres` and `Content.tags` are still legacy label arrays in this PR. The next migration step must introduce taxonomy IDs on content, add a curated seed vocabulary, migrate fixtures and search/detail consumers, and preserve labels for display. Issue #13 remains open until that migration and runtime tests are complete.
+**Migration note:** `Content.genreIds` and `Content.tagIds` are now canonical references, and synthetic fixtures have been migrated to a curated seed vocabulary. `genres` and `tags` remain only as transitional display caches. Remove them after UI consumers use localized taxonomy services. Issue #13 remains open until runtime tests, referential-integrity tests, and full consumer migration are complete.
