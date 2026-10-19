@@ -270,7 +270,7 @@ export function getContentValidationErrors(value: unknown): string[] {
   if (!record(value)) return ["O conteúdo precisa ser um objeto."];
 
   const errors: string[] = [];
-  if (!nonEmpty(value.id) || value.id.length > 128 || value.id.trim() !== value.id) {
+  if (!nonEmpty(value.id) || value.id.length > 128 || value.id.trim() !== value.id || !IDENTIFIER.test(value.id)) {
     errors.push("id deve ser string não vazia, sem espaços externos, de até 128 caracteres.");
   }
   if (!nonEmpty(value.slug) || value.slug.length > 160 || !SLUG.test(value.slug)) {
