@@ -35,6 +35,9 @@ const taxonomySeed = await loadTypeScript("taxonomy.seed.ts");
 const taxonomyRules = await loadTypeScript("taxonomy.rules.ts", {
   "./taxonomy.seed": taxonomySeed.url,
 });
+const taxonomyServices = await loadTypeScript("../../services/catalog/taxonomy.services.ts", {
+  "../../domain/catalog/taxonomy.seed": taxonomySeed.url,
+});
 const contentRules = await loadTypeScript("content.rules.ts", {
   "./content.validation": contentValidation.url,
 });
@@ -111,6 +114,22 @@ const validGenre = {
   updatedAt: "2026-01-02T00:00:00Z",
 };
 assert.deepEqual(taxonomyValidation.module.getTaxonomyValidationErrors(validGenre), [], "valid localized taxonomy should pass");
+assert.equal(
+  taxonomyServices.module.matchesTaxonomyTerm(
+    taxonomyServices.module.getGenreById("genre.ficcao-cientifica"),
+    "ficcao cientifica",
+  ),
+  true,
+  "taxonomy search should ignore accent differences",
+);
+assert.equal(
+  taxonomyServices.module.getGenreLabel(
+    taxonomyServices.module.getGenreById("genre.ficcao-cientifica"),
+    "en",
+  ),
+  "Science fiction",
+  "taxonomy labels should resolve by locale",
+);
 assert.match(
   taxonomyValidation.module.getTaxonomyValidationErrors({
     ...validGenre,
