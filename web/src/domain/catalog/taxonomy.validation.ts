@@ -135,7 +135,7 @@ export function getTaxonomyValidationErrors(value: unknown): string[] {
         if (!isText(alias)) continue;
         const key = normalize(alias);
         if (seen.has(key)) {
-          errors.push(`labels.${locale} et aliases.${locale} não devem se repetir após a normalização.`);
+          errors.push(`labels.${locale} e aliases.${locale} não devem se repetir após a normalização.`);
         }
         seen.add(key);
       }
