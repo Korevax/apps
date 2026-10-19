@@ -2,6 +2,7 @@ import {
   CLASSIFICATION_IDS,
   CONTENT_STATUSES,
   CONTENT_TYPES,
+  type ClassificationId,
   type Content,
   type ContentStatus,
   type ContentType,
@@ -91,7 +92,7 @@ function strings(value: unknown): value is string[] {
     value.every(item => nonEmpty(item) && item.length <= 200);
 }
 
-function classificationIdentifiers(value: unknown): value is string[] {
+function classificationIdentifiers(value: unknown): value is ClassificationId[] {
   return Array.isArray(value) &&
     value.length <= 100 &&
     value.every(item => typeof item === "string" && CLASSIFICATIONS.has(item));
