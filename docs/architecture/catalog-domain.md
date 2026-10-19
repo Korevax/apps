@@ -36,7 +36,7 @@ The discriminant controls the permitted `metadata` fields. Common fields stay on
 
 ## Taxonomy migration
 
-The `genreIds` and `tagIds` arrays are the canonical content references. The free-form `genres` and `tags` string arrays have been removed from the content contract and demo fixtures. UI labels and search terms are resolved through taxonomy services. The current demo fixtures use stable taxonomy IDs and a curated seed vocabulary. Issue #13 still requires migration tests, broader localized labels, and runtime referential-integrity tests:
+The `genreIds` and `tagIds` arrays are the canonical content references. The free-form `genres` and `tags` string arrays have been removed from the content contract and demo fixtures. UI labels and search terms are resolved through taxonomy services. The current demo fixtures use stable taxonomy IDs and a curated seed vocabulary with pt-BR, English, Spanish and Russian labels. Issue #13 still requires broader runtime tests, alias review and persistent taxonomy storage:
 
 - **Genre** expresses a recognized thematic/content category.
 - **Tag** is a flexible, curated descriptor for a specific topic, attribute or discovery facet.
@@ -71,4 +71,4 @@ The initial shared contracts live in `web/src/domain/catalog/taxonomy.types.ts`;
 - Aliases are for discovery and input normalization, not for automatic identity merging. Normalize with Unicode NFKC and case folding before duplicate comparisons.
 - Editorial status (`draft | review | published | archived`) is separate from a work's release/publication lifecycle (`upcoming | ongoing | released | cancelled | unknown`). Do not infer cancellation from missing or stale metadata.
 
-**Migration note:** `Content.genreIds` and `Content.tagIds` are canonical references, and synthetic fixtures plus the discovery, card, and detail UI use the seeded taxonomy services. Issue #13 remains open until runtime tests, referential-integrity tests, localized vocabulary coverage, and complete acceptance criteria are verified.
+**Migration note:** `Content.genreIds` and `Content.tagIds` are canonical references, and synthetic fixtures plus the discovery, card, and detail UI use the seeded taxonomy services. Issue #13 remains open until runtime tests, referential-integrity tests, alias normalization coverage, persistent taxonomy storage and complete acceptance criteria are verified.
