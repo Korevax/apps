@@ -1,0 +1,61 @@
+name: Catalog gateway checks
+
+on:
+  pull_request:
+    paths:
+      - "web/server/**"
+      - "web/src/services/catalog/external-catalog.client.ts"
+      - "web/scripts/test-gateway.mjs"
+      - "web/scripts/test-contracts.mjs"
+      - "web/package.json"
+      - "web/package-lock.json"
+      - ".github/workflows/catalog-gateway.yml"
+  push:
+    branches: ["main"]
+    paths:
+      - "web/server/**"
+      - "web/src/services/catalog/external-catalog.client.ts"
+      - "web/scripts/test-gateway.mjs"
+      - "web/scripts/test-contracts.mjs"
+      - "web/package.json"
+      - "web/package-lock.json"
+      - ".github/workflows/catalog-gateway.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catalog-gateway-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Domain contract tests
+        run: npm run test:contracts
+
+      - name: Gateway security tests
+        run: npm run test:gateway
