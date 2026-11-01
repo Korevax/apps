@@ -141,14 +141,17 @@ function normalizeResult(item, mediaType) {
   const title = mediaType === "movie" ? item.title : item.name;
   if (typeof title !== "string" || !title.trim()) return null;
 
+  const originalTitle = mediaType === "movie" ? item.original_title : item.original_name;
+  const releaseDate = mediaType === "movie" ? item.release_date : item.first_air_date;
+
   return {
     provider: "tmdb",
     externalId: String(item.id),
     mediaType,
     title: title.trim().slice(0, 300),
-    originalTitle: (mediaType === "movie" ? item.original_title : item.original_name) || null,
+    originalTitle: typeof originalTitle === "string" ? originalTitle.slice(0, 300) : null,
     synopsis: typeof item.overview === "string" ? item.overview.slice(0, 20_000) : null,
-    releaseDate: (mediaType === "movie" ? item.release_date : item.first_air_date) || null,
+    releaseDate: typeof releaseDate === "string" && /^\\d{4}-\\d{2}-\\d{2}$/.test(releaseDate) ? releaseDate : null,
     originalLanguage: typeof item.original_language === "string" ? item.original_language : null,
     posterUrl: safeImageUrl(item.poster_path),
     backdropUrl: safeImageUrl(item.backdrop_path),
@@ -226,6 +229,7 @@ async function tmdbRequest(path, parameters) {
       signal: controller.signal,
     });
     if (!result.ok) {
+      await result.body?.cancel().catch(() => {});
       const error = new Error("The metadata provider returned an unsuccessful response.");
       error.status = result.status === 404 ? 404 : 502;
       throw error;
@@ -277,8 +281,8 @@ async function handleCatalogRequest(url) {
   const body = {
     provider: "tmdb",
     page: Number.isSafeInteger(data.page) ? data.page : validated.page,
-    totalPages: Number.isSafeInteger(data.total_pages) ? Math.min(data.total_pages, MAX_PAGE) : 1,
-    totalResults: Number.isSafeInteger(data.total_results) ? data.total_results : results.length,
+    totalPages: Number.isSafeInteger(data.total_pages) ? Math.max(1, Math.min(data.total_pages, MAX_PAGE)) : 1,
+    totalResults: Number.isSafeInteger(data.total_results) ? Math.max(0, data.total_results) : results.length,
     results,
   };
   cacheSet(cacheKey, body);
