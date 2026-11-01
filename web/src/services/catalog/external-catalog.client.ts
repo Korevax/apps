@@ -37,11 +37,11 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function isCandidate(value: unknown): value is ExternalCatalogCandidate {
+function isAllowedUrl(value: unknown, hostname: string): value is string {\n  if (typeof value !== "string") return false;\n  try {\n    const url = new URL(value);\n    return url.protocol === "https:" && url.hostname === hostname && !url.username && !url.password;\n  } catch {\n    return false;\n  }\n}\n\nfunction isCandidate(value: unknown, expectedType: "movie" | "series"): value is ExternalCatalogCandidate {
   if (!isRecord(value)) return false;
   return value.provider === "tmdb" &&
     typeof value.externalId === "string" &&
-    (value.mediaType === "movie" || value.mediaType === "series") &&
+    value.mediaType === expectedType &&
     typeof value.title === "string" &&
     (value.originalTitle === null || typeof value.originalTitle === "string") &&
     (value.synopsis === null || typeof value.synopsis === "string") &&
@@ -123,7 +123,7 @@ export async function searchExternalCatalog(
     !Number.isSafeInteger(payload.totalPages) ||
     !Number.isSafeInteger(payload.totalResults) ||
     !Array.isArray(payload.results) ||
-    !payload.results.every(isCandidate)
+    !payload.results.every((candidate) => isCandidate(candidate, options.type))
   ) {
     throw new Error("External catalog returned an invalid response.");
   }
