@@ -33,6 +33,11 @@ export interface ExternalCatalogSearchOptions {
 const DEFAULT_GATEWAY_URL = "http://127.0.0.1:8787";
 const MAX_QUERY_LENGTH = 120;
 
+export function isExternalCatalogConfigured(): boolean {
+  const configured = import.meta.env.VITE_CATALOG_GATEWAY_URL;
+  return !import.meta.env.PROD || (typeof configured === "string" && configured.trim().length > 0);
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -81,7 +86,12 @@ function gatewayBaseUrl(): string {
     ? configured.trim()
     : DEFAULT_GATEWAY_URL;
 
-  const url = new URL(raw);
+  let url: URL;
+  try {
+    url = new URL(raw);
+  } catch {
+    throw new Error("Catalog gateway URL is invalid.");
+  }
   if (url.protocol !== "http:" && url.protocol !== "https:") {
     throw new Error("Catalog gateway URL must use HTTP or HTTPS.");
   }
