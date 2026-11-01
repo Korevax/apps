@@ -105,6 +105,7 @@
     "description": "Explore obras, encontre novos conteúdos e descubra conexões.",
     "searchPlaceholder": "Pesquisar títulos, gêneros e etiquetas...",
     "searchLabel": "Pesquisar no catálogo",
+    "loading": "Carregando...",
     "clear": "Limpar",
     "filterType": "Filtrar por tipo",
     "allTypes": "Todos os tipos",

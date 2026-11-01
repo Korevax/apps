@@ -105,6 +105,7 @@
     "description": "Explore works, find new content, and discover connections.",
     "searchPlaceholder": "Search titles, genres, and tags...",
     "searchLabel": "Search the catalog",
+    "loading": "Loading...",
     "clear": "Clear",
     "filterType": "Filter by type",
     "allTypes": "All types",

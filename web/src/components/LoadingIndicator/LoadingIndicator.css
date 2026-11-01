@@ -1,0 +1,37 @@
+.loading-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.loading-indicator__spinner {
+  display: inline-block;
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: 0 0 auto;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--hl-01);
+  border-radius: 50%;
+  animation: korevax-loading-spin 800ms linear infinite;
+}
+
+.loading-indicator__label {
+  line-height: 1.4;
+}
+
+@keyframes korevax-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-indicator__spinner {
+    animation: none;
+    border-top-color: var(--hl-01);
+    border-right-color: var(--hl-01);
+  }
+}

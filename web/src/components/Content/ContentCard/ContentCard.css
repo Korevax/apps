@@ -11,3 +11,11 @@
 .content-card__meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.35rem;color:var(--color-text-muted);font-size:.78rem}
 .content-card__rating{color:var(--color-purple-light);font-variant-numeric:tabular-nums}
 .content-card__genres{margin:0;overflow:hidden;color:var(--color-text-muted);font-size:.78rem;text-overflow:ellipsis;white-space:nowrap}
+
+.content-card__poster-loader {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: flex;
+  background: rgba(0, 0, 0, 0.55);
+}

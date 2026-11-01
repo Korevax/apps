@@ -1,0 +1,33 @@
+name: Security Baseline CI
+
+on:
+  pull_request:
+    paths:
+      - "web/public/_headers"
+      - "web/scripts/test-security-headers.mjs"
+      - ".github/workflows/security-ci.yml"
+      - "SECURITY.md"
+      - "docs/security/**"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-security-baseline:
+    name: Verify browser security headers
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Check for header policy and test
+        id: policy
+        run: |
+          if [ -f web/public/_headers ] && [ -f web/scripts/test-security-headers.mjs ]; then
+            echo "policy_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "policy_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Test security headers
+        if: steps.policy.outputs.policy_exists == 'true'
+        run: node web/scripts/test-security-headers.mjs

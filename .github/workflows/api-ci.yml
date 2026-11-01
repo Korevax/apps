@@ -1,0 +1,31 @@
+name: API Contract CI
+
+on:
+  pull_request:
+    paths:
+      - "api/openapi.yaml"
+      - "api/scripts/**"
+      - ".github/workflows/api-ci.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-api-contract:
+    name: Validate Kore API contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Check for OpenAPI contract
+        id: contract
+        run: |
+          if [ -f api/openapi.yaml ] && [ -f api/scripts/validate-openapi.rb ]; then
+            echo "contract_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "contract_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Validate OpenAPI YAML, paths and internal references
+        if: steps.contract.outputs.contract_exists == 'true'
+        run: ruby api/scripts/validate-openapi.rb
