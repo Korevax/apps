@@ -186,7 +186,8 @@
     "externalUnavailable": "Não foi possível consultar o catálogo externo. Verifique se o gateway está disponível e tente novamente.",
     "externalNoResults": "Nenhum resultado externo encontrado.",
     "externalOpenSource": "Ver no TMDB",
-    "externalNoPoster": "Sem pôster disponível"
+    "externalNoPoster": "Sem pôster disponível",
+    "externalAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB."
   },
   "torrentCatalog": {
     "popularTitle": "Torrents populares",
