@@ -82,7 +82,7 @@ export default function Footer() {
           </a>
           <p className="site-footer__small-note">{labels.tmdbAttribution}</p>
           <a href="https://www.themoviedb.org/about/logos-attribution" target="_blank" rel="noopener noreferrer">
-            {labels.credits}
+            {labels.tmdbGuidelines}
           </a>
         </section>
       </div>
