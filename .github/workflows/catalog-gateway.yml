@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "web/server/**"
+      - "web/src/**"
+      - "web/.env.example"
       - "web/src/services/catalog/external-catalog.client.ts"
       - "web/scripts/test-gateway.mjs"
       - "web/scripts/test-contracts.mjs"
