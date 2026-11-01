@@ -13,7 +13,7 @@ The gateway deliberately does not create canonical Korevax IDs, slugs, taxonomy 
 
 ## Requirements
 
-- Node.js 20.11 or newer (native `fetch` support).
+- Node.js 22.9 or newer (native `fetch` support).
 - A TMDB API Read Access Token.
 - No additional npm dependency.
 
@@ -48,9 +48,9 @@ Returns process health only. It does not make a provider request.
 - CORS is not authentication. Add application authentication and abuse protection before public deployment.
 - The in-memory rate limiter and cache are per-process and reset on restart; use a shared store when horizontally scaling.
 - Do not trust forwarded IP headers unless the gateway is behind a specifically configured trusted proxy.
-- Add provider attribution and comply with TMDB's current API terms and display requirements before public launch or commercial use.
+- For non-commercial developer use, TMDB requires its approved logo and the prominent notice: “This product uses the TMDB API but is not endorsed or certified by TMDB.” The attribution belongs in an About/Credits section. Commercial use requires contacting TMDB for a license. The current frontend does not yet expose TMDB results, so implement the required attribution UI before connecting this provider to public-facing screens.
 - Search candidates are not automatically imported or published. Validate and review them against the Korevax domain contract first.
 
-## Automated verification
+## TMDB attribution\n\nOfficial requirements: display an approved TMDB logo and the notice “This product uses the TMDB API but is not endorsed or certified by TMDB.” Place the attribution in an About/Credits section. The TMDB logo must be less prominent than the Korevax brand and must not imply endorsement. Commercial use requires a separate license from TMDB. See the [official TMDB FAQ](https://developer.themoviedb.org/docs/faq).\n\n## Automated verification
 
 Run `npm run build`, `npm run lint`, `npm run test:contracts`, and `npm run test:gateway` from `web/`. The gateway test starts a local process with a dummy token and checks health, invalid input handling, methods, routes, and CORS without contacting TMDB.
