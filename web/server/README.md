@@ -50,3 +50,7 @@ Returns process health only. It does not make a provider request.
 - Do not trust forwarded IP headers unless the gateway is behind a specifically configured trusted proxy.
 - Add provider attribution and comply with TMDB's current API terms and display requirements before public launch or commercial use.
 - Search candidates are not automatically imported or published. Validate and review them against the Korevax domain contract first.
+
+## Automated verification
+
+Run `npm run build`, `npm run lint`, `npm run test:contracts`, and `npm run test:gateway` from `web/`. The gateway test starts a local process with a dummy token and checks health, invalid input handling, methods, routes, and CORS without contacting TMDB.
