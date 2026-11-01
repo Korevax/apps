@@ -1,5 +1,5 @@
 export interface ExternalCatalogCandidate {
-  provider: string;
+  provider: "tmdb";
   externalId: string;
   mediaType: "movie" | "series";
   title: string;
@@ -48,6 +48,7 @@ function isAllowedUrl(value: unknown, hostname: string): value is string {
     const url = new URL(value);
     return url.protocol === "https:" &&
       url.hostname === hostname &&
+      url.port === "" &&
       !url.username &&
       !url.password;
   } catch {
@@ -63,21 +64,24 @@ function isCandidate(
 
   return value.provider === "tmdb" &&
     typeof value.externalId === "string" &&
-    value.externalId.length > 0 &&
+    /^[1-9]\\d{0,19}$/.test(value.externalId) &&
     value.mediaType === expectedType &&
     typeof value.title === "string" &&
     value.title.trim().length > 0 &&
-    (value.originalTitle === null || typeof value.originalTitle === "string") &&
-    (value.synopsis === null || typeof value.synopsis === "string") &&
-    (value.releaseDate === null || typeof value.releaseDate === "string") &&
-    (value.originalLanguage === null || typeof value.originalLanguage === "string") &&
+    value.title.length <= 300 &&
+    (value.originalTitle === null || (typeof value.originalTitle === "string" && value.originalTitle.length <= 300)) &&
+    (value.synopsis === null || (typeof value.synopsis === "string" && value.synopsis.length <= 20_000)) &&
+    (value.releaseDate === null || (typeof value.releaseDate === "string" && /^\\d{4}-\\d{2}-\\d{2}$/.test(value.releaseDate))) &&
+    (value.originalLanguage === null || (typeof value.originalLanguage === "string" && value.originalLanguage.length <= 10)) &&
     (value.posterUrl === null || isAllowedUrl(value.posterUrl, "image.tmdb.org")) &&
     (value.backdropUrl === null || isAllowedUrl(value.backdropUrl, "image.tmdb.org")) &&
-    (value.popularity === null || (typeof value.popularity === "number" && Number.isFinite(value.popularity))) &&
-    (value.voteAverage === null || (typeof value.voteAverage === "number" && Number.isFinite(value.voteAverage))) &&
+    (value.popularity === null || (typeof value.popularity === "number" && Number.isFinite(value.popularity) && value.popularity >= 0)) &&
+    (value.voteAverage === null || (typeof value.voteAverage === "number" && Number.isFinite(value.voteAverage) && value.voteAverage >= 0 && value.voteAverage <= 10)) &&
     Number.isSafeInteger(value.voteCount) &&
     Number(value.voteCount) >= 0 &&
-    isAllowedUrl(value.sourceUrl, "www.themoviedb.org");
+    Number(value.voteCount) <= 2_147_483_647 &&
+    isAllowedUrl(value.sourceUrl, "www.themoviedb.org") &&
+    /^\\/(?:movie|tv)\\/[1-9]\\d*$/.test(new URL(value.sourceUrl).pathname);
 }
 
 function gatewayBaseUrl(): string {
@@ -94,6 +98,9 @@ function gatewayBaseUrl(): string {
   }
   if (url.protocol !== "http:" && url.protocol !== "https:") {
     throw new Error("Catalog gateway URL must use HTTP or HTTPS.");
+  }
+  if (url.username || url.password || url.search || url.hash || url.pathname !== "/") {
+    throw new Error("Catalog gateway URL must be an origin without credentials, path, query, or fragment.");
   }
   if (import.meta.env.PROD && url.protocol !== "https:") {
     throw new Error("Production catalog gateway must use HTTPS.");
