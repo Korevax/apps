@@ -74,6 +74,7 @@ assert.equal(sharedValidation.module.isIsoTimestampWithTimezone("2026-01-01T00:0
 assert.equal(sharedValidation.module.isIsoTimestampWithTimezone("2026-01-01T00:00:00"), false, "timestamps without timezone should fail");
 assert.equal(contentValidation.module.isContent({ ...validContent, title: "unsafe\nname" }), false, "control characters in titles should be rejected");
 assert.equal(contentValidation.module.isContent({ ...validContent, synopsis: "unsafe\u0000text" }), false, "control characters in synopsis should be rejected");
+assert.equal(contentValidation.module.isContent({ ...validContent, synopsis: "First line\nSecond line" }), true, "line breaks in synopsis should remain valid");
 assert.equal(contentValidation.module.isContent({ ...validContent, alternativeTitles: [" title "] }), false, "alternative titles with surrounding whitespace should be rejected");
 
 const baseContent = { ...validContent };
