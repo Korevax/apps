@@ -146,7 +146,10 @@ export function isValidTorrentSource(value: unknown): value is TorrentSource {
 
   if (
     value.mediaValidationStatus !== undefined &&
-    typeof value.mediaValidationStatus !== "string" || !["verified", "unverified", "failed"].includes(value.mediaValidationStatus)
+    (
+      typeof value.mediaValidationStatus !== "string" ||
+      !["verified", "unverified", "failed"].includes(value.mediaValidationStatus)
+    )
   ) return false;
 
   if (value.isDemo) {
