@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { arrowForward, searchOutline } from "ionicons/icons";
 import { useLanguage } from "../../contexts/useLanguage";
@@ -34,8 +34,20 @@ function formatExternalDate(value: string | null, locale: string): string | null
 function Discover() {
   const { translation, locale } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
-  const [externalQuery, setExternalQuery] = useState(() => searchParams.get("q") ?? "");
+  const location = useLocation();
+  const urlQuery = searchParams.get("q") ?? "";
+  const [queryDraft, setQueryDraft] = useState(() => ({
+    locationKey: location.key,
+    value: urlQuery,
+  }));
+  const query = queryDraft.locationKey === location.key ? queryDraft.value : urlQuery;
+  const [externalQueryDraft, setExternalQueryDraft] = useState(() => ({
+    locationKey: location.key,
+    value: urlQuery.length <= 120 ? urlQuery : "",
+  }));
+  const externalQuery = externalQueryDraft.locationKey === location.key
+    ? externalQueryDraft.value
+    : urlQuery.length <= 120 ? urlQuery : "";
   const [externalSearch, setExternalSearch] = useState<ExternalSearchState>({
     status: "idle",
     results: [],
@@ -51,12 +63,6 @@ function Discover() {
     .filter((genre): genre is NonNullable<typeof genre> => Boolean(genre))
     .map(genre => ({ id: genre.id, label: getGenreLabel(genre, locale as LocaleCode) }))
     .sort((a, b) => a.label.localeCompare(b.label, locale));
-
-  useEffect(() => {
-    const nextQuery = searchParams.get("q") ?? "";
-    setQuery(nextQuery);
-    setExternalQuery(nextQuery.length <= 120 ? nextQuery : "");
-  }, [searchParams]);
 
   useEffect(() => {
     if (!externalQuery || !isExternalCatalogConfigured() || genre !== "all") {
@@ -131,8 +137,11 @@ function Discover() {
   function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const normalized = query.trim().slice(0, 200);
-    setQuery(normalized);
-    setExternalQuery(normalized.length <= 120 ? normalized : "");
+    setQueryDraft({ locationKey: location.key, value: normalized });
+    setExternalQueryDraft({
+      locationKey: location.key,
+      value: normalized.length <= 120 ? normalized : "",
+    });
     const next = new URLSearchParams(searchParams);
     if (normalized) next.set("q", normalized);
     else next.delete("q");
@@ -140,16 +149,16 @@ function Discover() {
   }
 
   function clearSearch() {
-    setQuery("");
-    setExternalQuery("");
+    setQueryDraft({ locationKey: location.key, value: "" });
+    setExternalQueryDraft({ locationKey: location.key, value: "" });
     const next = new URLSearchParams(searchParams);
     next.delete("q");
     setSearchParams(next);
   }
 
   function clearFilters() {
-    setQuery("");
-    setExternalQuery("");
+    setQueryDraft({ locationKey: location.key, value: "" });
+    setExternalQueryDraft({ locationKey: location.key, value: "" });
     setType("all");
     setGenre("all");
     setSearchParams({});
@@ -167,7 +176,10 @@ function Discover() {
             <input
               type="search"
               value={query}
-              onChange={event => { setQuery(event.currentTarget.value); setExternalQuery(""); }}
+              onChange={event => {
+                setQueryDraft({ locationKey: location.key, value: event.currentTarget.value });
+                setExternalQueryDraft({ locationKey: location.key, value: "" });
+              }}
               placeholder={translation.catalog.searchPlaceholder}
               aria-label={translation.catalog.searchLabel}
               maxLength={200}
