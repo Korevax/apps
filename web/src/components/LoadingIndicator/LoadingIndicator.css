@@ -2,9 +2,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   color: var(--color-text-muted);
-  font-size: 0.875rem;
 }
 
 .loading-indicator__spinner {
@@ -18,8 +16,17 @@
   animation: korevax-loading-spin 800ms linear infinite;
 }
 
-.loading-indicator__label {
-  line-height: 1.4;
+.loading-indicator--page {
+  display: flex;
+  width: 100%;
+  min-height: 8rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-indicator--page .loading-indicator__spinner {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 @keyframes korevax-loading-spin {
@@ -34,4 +41,16 @@
     border-top-color: var(--hl-01);
     border-right-color: var(--hl-01);
   }
+}
+
+.loading-indicator__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

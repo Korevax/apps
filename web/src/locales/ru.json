@@ -105,7 +105,7 @@
     "description": "Изучайте произведения, находите новое и открывайте связи.",
     "searchPlaceholder": "Поиск по названиям, жанрам и тегам...",
     "searchLabel": "Поиск по каталогу",
-    "loading": "Загрузка...",
+    "loading": "Загрузка изображения",
     "clear": "Очистить",
     "filterType": "Фильтр по типу",
     "allTypes": "Все типы",
@@ -178,7 +178,16 @@
     "torrentEmpty": "Для этого произведения источники torrent ещё не добавлены.",
     "torrentSource": "Источник",
     "torrentStatus": "Доступность",
-    "demoNotice": "Записи в каталоге являются демонстрационными данными. Собственный API и редакционная база пока недоступны."
+    "demoNotice": "Записи в каталоге являются демонстрационными данными. Собственный API и редакционная база пока недоступны.",
+    "externalEyebrow": "Внешний поиск",
+    "externalTitle": "Результаты фильмов и сериалов",
+    "externalDescription": "Результаты предоставлены TMDB. Это внешние предложения, они не входят в редакционный каталог Korevax.",
+    "externalLoading": "Поиск во внешнем каталоге",
+    "externalUnavailable": "Не удалось подключиться к внешнему каталогу. Проверьте доступность шлюза и повторите попытку.",
+    "externalNoResults": "Внешние результаты не найдены.",
+    "externalOpenSource": "Открыть на TMDB",
+    "externalNoPoster": "Постер недоступен",
+    "externalAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB."
   },
   "torrentCatalog": {
     "popularTitle": "Популярные торренты",
@@ -237,7 +246,10 @@
     "music": "Музыка",
     "games": "Игры",
     "manga": "Манга",
-    "site": "Сайт Korevax"
+    "site": "Сайт Korevax",
+    "credits": "Источники и благодарности",
+    "tmdbAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
+    "tmdbGuidelines": "Правила использования бренда TMDB"
   },
   "wiki": {
     "eyebrow": "Вики Korevax",

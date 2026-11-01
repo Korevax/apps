@@ -28,6 +28,7 @@ import {
 
 import { home } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import { LoadingIndicator } from "./components/LoadingIndicator/LoadingIndicator";
 
 function NotFoundPage() {
 
@@ -54,7 +55,7 @@ function NotFoundPage() {
 
 function App() {
   return (
-    <Suspense fallback={<div role="status">Carregando página...</div>}>
+    <Suspense fallback={<LoadingIndicator className="loading-indicator--page" label="Abrindo página" />}>
       <LanguageProvider>
         <BrowserRouter>
           <AppLayout>

@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:gateway": "node --env-file-if-exists=.env.local server/catalog-gateway.mjs",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test:contracts": "node scripts/test-contracts.mjs"
+    "test:contracts": "node scripts/test-contracts.mjs",
+    "test:gateway": "node scripts/test-gateway.mjs"
   },
   "dependencies": {
     "@ionic/core": "^9.0.7",
@@ -26,5 +28,8 @@
     "oxlint": "^1.79.0",
     "typescript": "~6.0.2",
     "vite": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=22.9.0"
   }
 }

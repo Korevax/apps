@@ -65,6 +65,27 @@ export default function Footer() {
           <Link to="/wiki">{labels.wikiHome}</Link>
           <a href="https://github.com/Korevax/apps" target="_blank" rel="noopener noreferrer">{labels.contribute}</a>
         </nav>
+        <section className="site-footer__column site-footer__credits" aria-labelledby="site-footer-credits">
+          <h2 id="site-footer-credits">{labels.credits}</h2>
+          <a
+            className="site-footer__tmdb-link"
+            href="https://www.themoviedb.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TMDB — The Movie Database"
+          >
+            <img
+              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
+              alt="TMDB"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+            />
+          </a>
+          <p className="site-footer__small-note">{labels.tmdbAttribution}</p>
+          <a href="https://www.themoviedb.org/about/logos-attribution" target="_blank" rel="noopener noreferrer">
+            {labels.tmdbGuidelines}
+          </a>
+        </section>
       </div>
       <div className="site-footer__bottom">
         <span>{labels.copyright}</span>
