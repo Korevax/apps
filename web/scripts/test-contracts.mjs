@@ -27,8 +27,13 @@ async function loadTypeScript(relativePath, replacements = {}) {
 }
 
 const types = await loadTypeScript("content.types.ts");
+const sharedValidation = await loadTypeScript("../shared/string.validation.ts");
 const contentValidation = await loadTypeScript("content.validation.ts", {
   "./content.types": types.url,
+  "../shared/string.validation": sharedValidation.url,
+});
+const torrentServices = await loadTypeScript("../../services/torrents/torrent.services.ts", {
+  "../../domain/shared/string.validation": sharedValidation.url,
 });
 const taxonomyValidation = await loadTypeScript("taxonomy.validation.ts");
 const taxonomySeed = await loadTypeScript("taxonomy.seed.ts");
@@ -61,6 +66,15 @@ const validContent = {
 };
 
 assert.equal(contentValidation.module.isContent(validContent), true, "valid content should pass runtime validation");
+assert.equal(sharedValidation.module.hasControlCharacters("title\\nwith control"), true, "control characters should be detected");
+assert.equal(sharedValidation.module.hasControlCharacters("title without controls"), false, "ordinary text should pass control-character checks");
+assert.equal(sharedValidation.module.isValidCalendarDate("0096-02-29"), true, "calendar validation should handle leap years below year 100");
+assert.equal(sharedValidation.module.isValidCalendarDate("0099-02-29"), false, "non-leap years below year 100 should be rejected");
+assert.equal(sharedValidation.module.isIsoTimestampWithTimezone("2026-01-01T00:00:00Z"), true, "timestamps with explicit timezone should pass");
+assert.equal(sharedValidation.module.isIsoTimestampWithTimezone("2026-01-01T00:00:00"), false, "timestamps without timezone should fail");
+assert.equal(contentValidation.module.isContent({ ...validContent, title: "unsafe\\nname" }), false, "control characters in titles should be rejected");
+assert.equal(contentValidation.module.isContent({ ...validContent, synopsis: "unsafe\\u0000text" }), false, "control characters in synopsis should be rejected");
+assert.equal(contentValidation.module.isContent({ ...validContent, alternativeTitles: [" title "] }), false, "alternative titles with surrounding whitespace should be rejected");
 
 const baseContent = { ...validContent };
 delete baseContent.metadata;
@@ -85,6 +99,51 @@ assert.match(
 );
 assert.deepEqual(contentRules.module.getContentIntegrityErrors(validContent), [], "valid content should pass domain integrity");
 assert.equal(contentValidation.module.isContent({ ...validContent, type: "anime" }), false, "anime must not be a ContentType");
+
+assert.equal(
+  torrentServices.module.isSafeBrowserStream("https://media.example/video.mp4", "video/mp4"),
+  true,
+  "HTTPS streams with supported MIME types should pass",
+);
+assert.equal(
+  torrentServices.module.isSafeBrowserStream("https://media.example/video.mp4\\n", "video/mp4"),
+  false,
+  "stream URLs containing control characters should fail",
+);
+const demoTorrentSources = torrentServices.module.getAllTorrentSources();
+assert.ok(demoTorrentSources.length > 0, "demonstration torrent fixtures should be available");
+assert.equal(
+  demoTorrentSources.every(source => source.isDemo && source.magnetUri === null && source.torrentUrl === null),
+  true,
+  "demonstration sources must not expose download URLs",
+);
+const validMagnetSource = {
+  ...demoTorrentSources[0],
+  isDemo: false,
+  magnetUri: `magnet:?xt=urn:btih:${"a".repeat(40)}`,
+};
+assert.equal(
+  torrentServices.module.isValidTorrentSource(validMagnetSource),
+  true,
+  "a real source with a valid BitTorrent info hash should pass",
+);
+assert.equal(
+  torrentServices.module.isValidTorrentSource({
+    ...validMagnetSource,
+    torrentUrl: "https://user:password@media.example/file.torrent",
+  }),
+  false,
+  "unsafe secondary URLs must not be ignored when another transport is valid",
+);
+assert.equal(
+  torrentServices.module.isValidTorrentSource({
+    ...demoTorrentSources[0],
+    streamUrl: "https://media.example/video.mp4",
+    streamMimeType: "video/mp4",
+  }),
+  false,
+  "demonstration sources must not expose browser streams",
+);
 assert.equal(contentValidation.module.isContent({ ...validContent, genreIds: ["genre.drama", "genre.drama"] }), false, "duplicate taxonomy references should be rejected");
 assert.equal(contentValidation.module.isContent({ ...validContent, releaseDate: "2026-02-31" }), false, "impossible release dates should be rejected");
 assert.match(
