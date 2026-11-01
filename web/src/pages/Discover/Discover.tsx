@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useMemo, useState, type FormEvent } from "react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { IonIcon } from "@ionic/react";
 import { arrowForward, searchOutline } from "ionicons/icons";
 import { useLanguage } from "../../contexts/useLanguage";
@@ -14,7 +14,13 @@ import "./Discover.css";
 function Discover() {
   const { translation, locale } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
+  const location = useLocation();
+  const urlQuery = searchParams.get("q") ?? "";
+  const [queryDraft, setQueryDraft] = useState(() => ({
+    locationKey: location.key,
+    value: urlQuery,
+  }));
+  const query = queryDraft.locationKey === location.key ? queryDraft.value : urlQuery;
   const [type, setType] = useState<ContentType | "all">("all");
   const [genre, setGenre] = useState("all");
   const sort = searchParams.get("sort");
@@ -26,10 +32,6 @@ function Discover() {
     .filter((genre): genre is NonNullable<typeof genre> => Boolean(genre))
     .map(genre => ({ id: genre.id, label: getGenreLabel(genre, locale as LocaleCode) }))
     .sort((a, b) => a.label.localeCompare(b.label, locale));
-
-  useEffect(() => {
-    setQuery(searchParams.get("q") ?? "");
-  }, [searchParams]);
 
   const results = useMemo(() => {
     const found = searchContent({
@@ -55,7 +57,7 @@ function Discover() {
   function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const normalized = query.trim().slice(0, 200);
-    setQuery(normalized);
+    setQueryDraft({ locationKey: location.key, value: normalized });
     const next = new URLSearchParams(searchParams);
     if (normalized) next.set("q", normalized);
     else next.delete("q");
@@ -63,14 +65,14 @@ function Discover() {
   }
 
   function clearSearch() {
-    setQuery("");
+    setQueryDraft({ locationKey: location.key, value: "" });
     const next = new URLSearchParams(searchParams);
     next.delete("q");
     setSearchParams(next);
   }
 
   function clearFilters() {
-    setQuery("");
+    setQueryDraft({ locationKey: location.key, value: "" });
     setType("all");
     setGenre("all");
     setSearchParams({});
@@ -88,7 +90,7 @@ function Discover() {
             <input
               type="search"
               value={query}
-              onChange={event => setQuery(event.currentTarget.value)}
+              onChange={event => setQueryDraft({ locationKey: location.key, value: event.currentTarget.value })}
               placeholder={translation.catalog.searchPlaceholder}
               aria-label={translation.catalog.searchLabel}
               maxLength={200}
