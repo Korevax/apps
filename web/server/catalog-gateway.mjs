@@ -147,6 +147,40 @@ function validateQuery(url) {
   return { query, page };
 }
 
+async function readBoundedJson(response) {
+  if (!response.body) throw new Error("Provider response body is missing.");
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let bytes = 0;
+  let text = "";
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      bytes += value.byteLength;
+      if (bytes > MAX_PROVIDER_RESPONSE_BYTES) {
+        await reader.cancel();
+        const sizeError = new Error("Provider response exceeded the configured size limit.");
+        sizeError.status = 502;
+        throw sizeError;
+      }
+      text += decoder.decode(value, { stream: true });
+    }
+    text += decoder.decode();
+    return JSON.parse(text);
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      const parseError = new Error("Provider returned invalid JSON.");
+      parseError.status = 502;
+      throw parseError;
+    }
+    throw error;
+  } finally {
+    reader.releaseLock();
+  }
+}
+
 async function tmdbRequest(path, parameters) {
   const target = new URL(path, "https://api.themoviedb.org/3/");
   for (const [key, value] of Object.entries(parameters)) {
@@ -176,19 +210,7 @@ async function tmdbRequest(path, parameters) {
       sizeError.status = 502;
       throw sizeError;
     }
-    const rawBody = await result.text();
-    if (Buffer.byteLength(rawBody, "utf8") > MAX_PROVIDER_RESPONSE_BYTES) {
-      const sizeError = new Error("Provider response exceeded the configured size limit.");
-      sizeError.status = 502;
-      throw sizeError;
-    }
-    try {
-      return JSON.parse(rawBody);
-    } catch {
-      const parseError = new Error("Provider returned invalid JSON.");
-      parseError.status = 502;
-      throw parseError;
-    }
+    return await readBoundedJson(result);
   } catch (error) {
     if (error.name === "AbortError") {
       const timeoutError = new Error("The metadata provider timed out.");
