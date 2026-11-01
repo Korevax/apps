@@ -160,9 +160,12 @@ export async function searchExternalCatalog(
     !Number.isSafeInteger(payload.totalPages) ||
     !Number.isSafeInteger(payload.totalResults) ||
     Number(payload.page) < 1 ||
+    Number(payload.page) > 500 ||
     Number(payload.totalPages) < 1 ||
+    Number(payload.totalPages) > 500 ||
     Number(payload.totalResults) < 0 ||
     !Array.isArray(payload.results) ||
+    payload.results.length > 20 ||
     !payload.results.every((candidate) => isCandidate(candidate, options.type))
   ) {
     throw new Error("External catalog returned an invalid response.");
