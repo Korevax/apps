@@ -247,7 +247,8 @@
     "manga": "Mangás",
     "site": "Site do Korevax",
     "credits": "Créditos e fontes",
-    "tmdbAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB."
+    "tmdbAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
+    "tmdbGuidelines": "Diretrizes de marca do TMDB"
   },
   "wiki": {
     "eyebrow": "Korevax Wiki",
