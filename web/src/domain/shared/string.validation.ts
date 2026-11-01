@@ -46,7 +46,7 @@ export function isIsoTimestampWithTimezone(value: unknown): value is string {
   if (typeof value !== "string") return false;
 
   const match = TIMESTAMP_PATTERN.exec(value);
-  if (!match || !isValidCalendarDate(\${match[1]}-\${match[2]}-\${match[3]})) return false;
+  if (!match || !isValidCalendarDate(match[1] + "-" + match[2] + "-" + match[3])) return false;
 
   if (Number(match[4]) > 23 || Number(match[5]) > 59 || Number(match[6]) > 59) return false;
 
