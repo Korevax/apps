@@ -186,7 +186,8 @@
     "externalUnavailable": "Не удалось подключиться к внешнему каталогу. Проверьте доступность шлюза и повторите попытку.",
     "externalNoResults": "Внешние результаты не найдены.",
     "externalOpenSource": "Открыть на TMDB",
-    "externalNoPoster": "Постер недоступен"
+    "externalNoPoster": "Постер недоступен",
+    "externalAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB."
   },
   "torrentCatalog": {
     "popularTitle": "Популярные торренты",
