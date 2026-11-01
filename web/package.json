@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test:contracts": "node scripts/test-contracts.mjs"
+    "test:contracts": "node scripts/test-contracts.mjs",
+    "test:security": "node scripts/test-security-headers.mjs"
   },
   "dependencies": {
     "@ionic/core": "^9.0.7",
