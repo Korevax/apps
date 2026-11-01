@@ -151,7 +151,7 @@ function normalizeResult(item, mediaType) {
     title: title.trim().slice(0, 300),
     originalTitle: typeof originalTitle === "string" ? originalTitle.slice(0, 300) : null,
     synopsis: typeof item.overview === "string" ? item.overview.slice(0, 20_000) : null,
-    releaseDate: typeof releaseDate === "string" && /^\\d{4}-\\d{2}-\\d{2}$/.test(releaseDate) ? releaseDate : null,
+    releaseDate: typeof releaseDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(releaseDate) ? releaseDate : null,
     originalLanguage: typeof item.original_language === "string" ? item.original_language : null,
     posterUrl: safeImageUrl(item.poster_path),
     backdropUrl: safeImageUrl(item.backdrop_path),
