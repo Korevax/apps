@@ -26,13 +26,10 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: catalog-gateway-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: web
