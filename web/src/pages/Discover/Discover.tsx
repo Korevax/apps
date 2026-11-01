@@ -17,6 +17,8 @@ import { ContentCard } from "../../components/Content/ContentCard/ContentCard";
 import { LoadingIndicator } from "../../components/LoadingIndicator/LoadingIndicator";
 import "./Discover.css";
 
+const TMDB_LOGO_URL = "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";
+
 type ExternalSearchState = {
   status: "idle" | "loading" | "success" | "error";
   results: ExternalCatalogCandidate[];
@@ -243,7 +245,7 @@ function Discover() {
                           aria-label={translation.catalog.externalOpenSource + ": " + candidate.title}
                         >
                           {candidate.posterUrl ? (
-                            <img src={candidate.posterUrl} alt="" loading="lazy" decoding="async" />
+                            <img src={candidate.posterUrl} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer" />
                           ) : (
                             <span>{translation.catalog.externalNoPoster}</span>
                           )}
@@ -265,6 +267,10 @@ function Discover() {
                     ))}
                   </div>
                 ) : null}
+                <p className="external-results__attribution">
+                  <img src={TMDB_LOGO_URL} alt="TMDB" loading="lazy" referrerPolicy="no-referrer" />
+                  <span>{translation.catalog.externalAttribution}</span>
+                </p>
               </section>
             ) : null}
           </>
