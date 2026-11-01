@@ -20,7 +20,8 @@ import "./Discover.css";
 const TMDB_LOGO_URL = "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";
 
 type ExternalSearchState = {
-  status: "idle" | "loading" | "success" | "error";
+  requestKey: string;
+  status: "success" | "error";
   results: ExternalCatalogCandidate[];
 };
 
@@ -49,7 +50,8 @@ function Discover() {
     ? externalQueryDraft.value
     : urlQuery.length <= 120 ? urlQuery : "";
   const [externalSearch, setExternalSearch] = useState<ExternalSearchState>({
-    status: "idle",
+    requestKey: "",
+    status: "success",
     results: [],
   });
   const [type, setType] = useState<ContentType | "all">("all");
@@ -65,10 +67,7 @@ function Discover() {
     .sort((a, b) => a.label.localeCompare(b.label, locale));
 
   useEffect(() => {
-    if (!externalQuery || !isExternalCatalogConfigured() || genre !== "all") {
-      setExternalSearch({ status: "idle", results: [] });
-      return;
-    }
+    if (!externalQuery || !isExternalCatalogConfigured() || genre !== "all") return;
 
     const supportedTypes: Array<"movie" | "series"> =
       type === "movie" || type === "series"
@@ -77,13 +76,10 @@ function Discover() {
           ? ["movie", "series"]
           : [];
 
-    if (!supportedTypes.length) {
-      setExternalSearch({ status: "idle", results: [] });
-      return;
-    }
+    if (!supportedTypes.length) return;
 
+    const requestKey = JSON.stringify([externalQuery, supportedTypes]);
     const controller = new AbortController();
-    setExternalSearch({ status: "loading", results: [] });
 
     Promise.allSettled(
       supportedTypes.map(mediaType =>
@@ -100,11 +96,11 @@ function Discover() {
           .filter((response): response is PromiseFulfilledResult<Awaited<ReturnType<typeof searchExternalCatalog>>> => response.status === "fulfilled")
           .map(response => response.value);
         if (!successful.length) {
-          setExternalSearch({ status: "error", results: [] });
+          setExternalSearch({ requestKey, status: "error", results: [] });
           return;
         }
         const results = successful.flatMap(response => response.results);
-        setExternalSearch({ status: "success", results });
+        setExternalSearch({ requestKey, status: "success", results });
       });
 
     return () => controller.abort();
@@ -133,6 +129,10 @@ function Discover() {
   const externalSearchEnabled = isExternalCatalogConfigured() &&
     genre === "all" &&
     (type === "all" || type === "movie" || type === "series");
+  const externalRequestKey = JSON.stringify([
+    externalQuery,
+    type === "movie" || type === "series" ? [type] : ["movie", "series"],
+  ]);
 
   function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -237,16 +237,16 @@ function Discover() {
                   ) : null}
                 </div>
 
-                {externalSearch.status === "loading" ? (
+                {externalSearch.requestKey !== externalRequestKey ? (
                   <LoadingIndicator className="loading-indicator--page" label={translation.catalog.externalLoading} />
                 ) : null}
-                {externalSearch.status === "error" ? (
+                {externalSearch.requestKey === externalRequestKey && externalSearch.status === "error" ? (
                   <p className="discover-empty" role="status">{translation.catalog.externalUnavailable}</p>
                 ) : null}
-                {externalSearch.status === "success" && externalSearch.results.length === 0 ? (
+                {externalSearch.requestKey === externalRequestKey && externalSearch.status === "success" && externalSearch.results.length === 0 ? (
                   <p className="discover-empty" role="status">{translation.catalog.externalNoResults}</p>
                 ) : null}
-                {externalSearch.status === "success" && externalSearch.results.length > 0 ? (
+                {externalSearch.requestKey === externalRequestKey && externalSearch.status === "success" && externalSearch.results.length > 0 ? (
                   <div className="external-results__grid">
                     {externalSearch.results.map(candidate => (
                       <article className="external-result" key={candidate.mediaType + ":" + candidate.externalId}>
