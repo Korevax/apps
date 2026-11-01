@@ -1,4 +1,3 @@
-
 import {
   useEffect,
   useMemo,
@@ -63,6 +62,10 @@ export function LanguageProvider({
     () => getTranslation(locale),
     [locale],
   );
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   useEffect(() => {
     try {
