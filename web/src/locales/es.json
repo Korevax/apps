@@ -178,7 +178,15 @@
     "torrentEmpty": "No se han registrado fuentes torrent para este contenido.",
     "torrentSource": "Fuente",
     "torrentStatus": "Disponibilidad",
-    "demoNotice": "Los registros de este catálogo son datos de demostración. La API propia y la base editorial aún no están disponibles."
+    "demoNotice": "Los registros de este catálogo son datos de demostración. La API propia y la base editorial aún no están disponibles.",
+    "externalEyebrow": "Búsqueda externa",
+    "externalTitle": "Resultados de películas y series",
+    "externalDescription": "Resultados proporcionados por TMDB. Son sugerencias externas y no forman parte del catálogo editorial de Korevax.",
+    "externalLoading": "Consultando el catálogo externo",
+    "externalUnavailable": "No se pudo acceder al catálogo externo. Comprueba que la pasarela esté disponible e inténtalo de nuevo.",
+    "externalNoResults": "No se encontraron resultados externos.",
+    "externalOpenSource": "Ver en TMDB",
+    "externalNoPoster": "No hay póster disponible"
   },
   "torrentCatalog": {
     "popularTitle": "Torrents populares",
@@ -237,7 +245,9 @@
     "music": "Música",
     "games": "Juegos",
     "manga": "Mangas",
-    "site": "Sitio de Korevax"
+    "site": "Sitio de Korevax",
+    "credits": "Créditos y fuentes",
+    "tmdbAttribution": "This product uses the TMDB API but is not endorsed or certified by TMDB."
   },
   "wiki": {
     "eyebrow": "Wiki de Korevax",
