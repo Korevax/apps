@@ -55,11 +55,11 @@ function Discover() {
   useEffect(() => {
     const nextQuery = searchParams.get("q") ?? "";
     setQuery(nextQuery);
-    setExternalQuery(nextQuery);
+    setExternalQuery(nextQuery.length <= 120 ? nextQuery : "");
   }, [searchParams]);
 
   useEffect(() => {
-    if (!externalQuery || !isExternalCatalogConfigured()) {
+    if (!externalQuery || !isExternalCatalogConfigured() || genre !== "all") {
       setExternalSearch({ status: "idle", results: [] });
       return;
     }
@@ -102,7 +102,7 @@ function Discover() {
       });
 
     return () => controller.abort();
-  }, [externalQuery, type]);
+  }, [externalQuery, type, genre]);
 
   const results = useMemo(() => {
     const found = searchContent({
@@ -125,6 +125,7 @@ function Discover() {
   const filtering = Boolean(query.trim()) || type !== "all" || genre !== "all" ||
     sort === "recent" || sort === "popular";
   const externalSearchEnabled = isExternalCatalogConfigured() &&
+    genre === "all" &&
     (type === "all" || type === "movie" || type === "series");
 
   function submitSearch(event: FormEvent<HTMLFormElement>) {
