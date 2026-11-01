@@ -64,14 +64,14 @@ function isCandidate(
 
   return value.provider === "tmdb" &&
     typeof value.externalId === "string" &&
-    /^[1-9]\\d{0,19}$/.test(value.externalId) &&
+    /^[1-9]\d{0,19}$/.test(value.externalId) &&
     value.mediaType === expectedType &&
     typeof value.title === "string" &&
     value.title.trim().length > 0 &&
     value.title.length <= 300 &&
     (value.originalTitle === null || (typeof value.originalTitle === "string" && value.originalTitle.length <= 300)) &&
     (value.synopsis === null || (typeof value.synopsis === "string" && value.synopsis.length <= 20_000)) &&
-    (value.releaseDate === null || (typeof value.releaseDate === "string" && /^\\d{4}-\\d{2}-\\d{2}$/.test(value.releaseDate))) &&
+    (value.releaseDate === null || (typeof value.releaseDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value.releaseDate))) &&
     (value.originalLanguage === null || (typeof value.originalLanguage === "string" && value.originalLanguage.length <= 10)) &&
     (value.posterUrl === null || isAllowedUrl(value.posterUrl, "image.tmdb.org")) &&
     (value.backdropUrl === null || isAllowedUrl(value.backdropUrl, "image.tmdb.org")) &&
@@ -81,7 +81,7 @@ function isCandidate(
     Number(value.voteCount) >= 0 &&
     Number(value.voteCount) <= 2_147_483_647 &&
     isAllowedUrl(value.sourceUrl, "www.themoviedb.org") &&
-    /^\\/(?:movie|tv)\\/[1-9]\\d*$/.test(new URL(value.sourceUrl).pathname);
+    /^\/(?:movie|tv)\/[1-9]\d*$/.test(new URL(value.sourceUrl).pathname);
 }
 
 function gatewayBaseUrl(): string {
