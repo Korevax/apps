@@ -8,13 +8,38 @@ import type { LocaleCode } from "../../domain/catalog/taxonomy.types";
 import { getGenreById, getGenreLabel } from "../../services/catalog/taxonomy.services";
 import { getAllContent, getPopularContent, getRecentContent, searchContent } from "../../services/catalog/catalog.services";
 import { getContentRatingSummary } from "../../services/ratings/ratings.services";
+import {
+  isExternalCatalogConfigured,
+  searchExternalCatalog,
+  type ExternalCatalogCandidate,
+} from "../../services/catalog/external-catalog.client";
 import { ContentCard } from "../../components/Content/ContentCard/ContentCard";
+import { LoadingIndicator } from "../../components/LoadingIndicator/LoadingIndicator";
 import "./Discover.css";
+
+type ExternalSearchState = {
+  status: "idle" | "loading" | "success" | "error";
+  results: ExternalCatalogCandidate[];
+};
+
+const TMDB_LOGO_URL = "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";
+
+function formatExternalDate(value: string | null, locale: string): string | null {
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+  const date = new Date(`${value}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Intl.DateTimeFormat(locale, { year: "numeric", timeZone: "UTC" }).format(date);
+}
 
 function Discover() {
   const { translation, locale } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
+  const [externalQuery, setExternalQuery] = useState("");
+  const [externalSearch, setExternalSearch] = useState<ExternalSearchState>({
+    status: "idle",
+    results: [],
+  });
   const [type, setType] = useState<ContentType | "all">("all");
   const [genre, setGenre] = useState("all");
   const sort = searchParams.get("sort");
@@ -30,6 +55,49 @@ function Discover() {
   useEffect(() => {
     setQuery(searchParams.get("q") ?? "");
   }, [searchParams]);
+
+  useEffect(() => {
+    if (!externalQuery || !isExternalCatalogConfigured()) {
+      setExternalSearch({ status: "idle", results: [] });
+      return;
+    }
+
+    const supportedTypes: Array<"movie" | "series"> =
+      type === "movie" || type === "series"
+        ? [type]
+        : type === "all"
+          ? ["movie", "series"]
+          : [];
+
+    if (!supportedTypes.length) {
+      setExternalSearch({ status: "idle", results: [] });
+      return;
+    }
+
+    const controller = new AbortController();
+    setExternalSearch({ status: "loading", results: [] });
+
+    Promise.all(
+      supportedTypes.map(mediaType =>
+        searchExternalCatalog({
+          type: mediaType,
+          query: externalQuery,
+          signal: controller.signal,
+        }),
+      ),
+    )
+      .then(responses => {
+        if (controller.signal.aborted) return;
+        const results = responses.flatMap(response => response.results);
+        setExternalSearch({ status: "success", results });
+      })
+      .catch(error => {
+        if (controller.signal.aborted || (error instanceof Error && error.name === "AbortError")) return;
+        setExternalSearch({ status: "error", results: [] });
+      });
+
+    return () => controller.abort();
+  }, [externalQuery, type]);
 
   const results = useMemo(() => {
     const found = searchContent({
@@ -51,11 +119,14 @@ function Discover() {
 
   const filtering = Boolean(query.trim()) || type !== "all" || genre !== "all" ||
     sort === "recent" || sort === "popular";
+  const externalSearchEnabled = isExternalCatalogConfigured() &&
+    (type === "all" || type === "movie" || type === "series");
 
   function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const normalized = query.trim().slice(0, 200);
+    const normalized = query.trim().slice(0, 120);
     setQuery(normalized);
+    setExternalQuery(normalized);
     const next = new URLSearchParams(searchParams);
     if (normalized) next.set("q", normalized);
     else next.delete("q");
@@ -64,6 +135,7 @@ function Discover() {
 
   function clearSearch() {
     setQuery("");
+    setExternalQuery("");
     const next = new URLSearchParams(searchParams);
     next.delete("q");
     setSearchParams(next);
@@ -71,6 +143,7 @@ function Discover() {
 
   function clearFilters() {
     setQuery("");
+    setExternalQuery("");
     setType("all");
     setGenre("all");
     setSearchParams({});
@@ -91,7 +164,7 @@ function Discover() {
               onChange={event => setQuery(event.currentTarget.value)}
               placeholder={translation.catalog.searchPlaceholder}
               aria-label={translation.catalog.searchLabel}
-              maxLength={200}
+              maxLength={120}
             />
             {query ? <button type="button" onClick={clearSearch}>{translation.catalog.clear}</button> : null}
           </form>
@@ -118,19 +191,84 @@ function Discover() {
       <div className="discover-page__content">
         <p className="discover-demo-notice" role="note">{translation.catalog.demoNotice}</p>
         {filtering ? (
-          <section className="discover-section" aria-labelledby="discover-results-heading">
-            <div className="discover-section__header">
-              <div>
-                <p className="discover-page__eyebrow">{translation.catalog.results}</p>
-                <h2 id="discover-results-heading">
-                  {sort === "recent" ? translation.catalog.recentTitle : sort === "popular" ? translation.catalog.popularTitle : translation.catalog.results}
-                </h2>
+          <>
+            <section className="discover-section" aria-labelledby="discover-results-heading">
+              <div className="discover-section__header">
+                <div>
+                  <p className="discover-page__eyebrow">{translation.catalog.results}</p>
+                  <h2 id="discover-results-heading">
+                    {sort === "recent" ? translation.catalog.recentTitle : sort === "popular" ? translation.catalog.popularTitle : translation.catalog.results}
+                  </h2>
+                </div>
+                <span className="discover-section__count">{results.length}</span>
               </div>
-              <span className="discover-section__count">{results.length}</span>
-            </div>
-            {results.length ? <div className="content-grid">{results.map(item => <ContentCard key={item.id} content={item} />)}</div> :
-              <p className="discover-empty" role="status">{translation.catalog.noResults}</p>}
-          </section>
+              {results.length ? <div className="content-grid">{results.map(item => <ContentCard key={item.id} content={item} />)}</div> :
+                <p className="discover-empty" role="status">{translation.catalog.noResults}</p>}
+            </section>
+
+            {externalQuery && externalSearchEnabled ? (
+              <section className="discover-section external-results" aria-labelledby="external-results-heading">
+                <div className="discover-section__header">
+                  <div>
+                    <p className="discover-page__eyebrow">{translation.catalog.externalEyebrow}</p>
+                    <h2 id="external-results-heading">{translation.catalog.externalTitle}</h2>
+                    <p className="external-results__description">{translation.catalog.externalDescription}</p>
+                  </div>
+                  {externalSearch.status === "success" ? (
+                    <span className="discover-section__count">{externalSearch.results.length}</span>
+                  ) : null}
+                </div>
+
+                {externalSearch.status === "loading" ? (
+                  <LoadingIndicator className="loading-indicator--page" label={translation.catalog.externalLoading} />
+                ) : null}
+                {externalSearch.status === "error" ? (
+                  <p className="discover-empty" role="status">{translation.catalog.externalUnavailable}</p>
+                ) : null}
+                {externalSearch.status === "success" && externalSearch.results.length === 0 ? (
+                  <p className="discover-empty" role="status">{translation.catalog.externalNoResults}</p>
+                ) : null}
+                {externalSearch.status === "success" && externalSearch.results.length > 0 ? (
+                  <div className="external-results__grid">
+                    {externalSearch.results.map(candidate => (
+                      <article className="external-result" key={candidate.mediaType + ":" + candidate.externalId}>
+                        <a
+                          className="external-result__poster"
+                          href={candidate.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={translation.catalog.externalOpenSource + ": " + candidate.title}
+                        >
+                          {candidate.posterUrl ? (
+                            <img src={candidate.posterUrl} alt="" loading="lazy" decoding="async" />
+                          ) : (
+                            <span>{translation.catalog.externalNoPoster}</span>
+                          )}
+                        </a>
+                        <div className="external-result__body">
+                          <span className="external-result__type">
+                            {translation.catalog.types[candidate.mediaType]} · TMDB
+                          </span>
+                          <h3>{candidate.title}</h3>
+                          {formatExternalDate(candidate.releaseDate, locale) ? (
+                            <p className="external-result__date">{formatExternalDate(candidate.releaseDate, locale)}</p>
+                          ) : null}
+                          {candidate.synopsis ? <p className="external-result__synopsis">{candidate.synopsis}</p> : null}
+                          <a href={candidate.sourceUrl} target="_blank" rel="noopener noreferrer">
+                            {translation.catalog.externalOpenSource}
+                          </a>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                ) : null}
+                <p className="external-results__attribution">
+                  <img src={TMDB_LOGO_URL} alt="TMDB" loading="lazy" />
+                  <span>{translation.catalog.externalAttribution}</span>
+                </p>
+              </section>
+            ) : null}
+          </>
         ) : (
           <>
             <section className="discover-section" id="recent-content" aria-labelledby="recent-heading">
