@@ -51,7 +51,9 @@ function Discover() {
     .sort((a, b) => a.label.localeCompare(b.label, locale));
 
   useEffect(() => {
-    setQuery(searchParams.get("q") ?? "");
+    const nextQuery = searchParams.get("q") ?? "";
+    setQuery(nextQuery);
+    setExternalQuery(nextQuery);
   }, [searchParams]);
 
   useEffect(() => {
