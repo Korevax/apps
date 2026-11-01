@@ -13,6 +13,8 @@ const ALLOWED_ORIGINS = new Set(
 const REQUEST_TIMEOUT_MS = 8_000;
 const CACHE_TTL_MS = 60_000;
 const CACHE_MAX_ENTRIES = 200;
+const CACHE_MAX_BYTES = 32 * 1024 * 1024;
+const CACHE_MAX_ENTRY_BYTES = 512 * 1024;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 60;
 const RATE_LIMIT_MAX_CLIENTS = 10_000;
@@ -29,6 +31,7 @@ if (!TMDB_TOKEN || TMDB_TOKEN.length < 20) {
 }
 
 const cache = new Map();
+let cacheBytes = 0;
 const rateLimits = new Map();
 
 function json(response, status, payload, extraHeaders = {}) {
@@ -88,6 +91,7 @@ function cacheGet(key) {
   if (!entry) return undefined;
   if (entry.expiresAt <= Date.now()) {
     cache.delete(key);
+    cacheBytes -= entry.size;
     return undefined;
   }
   cache.delete(key);
@@ -96,11 +100,33 @@ function cacheGet(key) {
 }
 
 function cacheSet(key, value) {
-  cache.delete(key);
-  cache.set(key, { value, expiresAt: Date.now() + CACHE_TTL_MS });
-  while (cache.size > CACHE_MAX_ENTRIES) {
-    cache.delete(cache.keys().next().value);
+  const serialized = JSON.stringify(value);
+  const size = Buffer.byteLength(serialized, "utf8");
+  if (size > CACHE_MAX_ENTRY_BYTES) return;
+
+  const existing = cache.get(key);
+  if (existing) {
+    cache.delete(key);
+    cacheBytes -= existing.size;
   }
+
+  while (
+    cache.size >= CACHE_MAX_ENTRIES ||
+    cacheBytes + size > CACHE_MAX_BYTES
+  ) {
+    const oldestKey = cache.keys().next().value;
+    if (oldestKey === undefined) break;
+    const oldest = cache.get(oldestKey);
+    cache.delete(oldestKey);
+    cacheBytes -= oldest.size;
+  }
+
+  cache.set(key, {
+    value,
+    size,
+    expiresAt: Date.now() + CACHE_TTL_MS,
+  });
+  cacheBytes += size;
 }
 
 function safeImageUrl(path) {
@@ -206,6 +232,7 @@ async function tmdbRequest(path, parameters) {
     }
     const declaredLength = Number(result.headers.get("content-length") || 0);
     if (declaredLength > MAX_PROVIDER_RESPONSE_BYTES) {
+      await result.body?.cancel().catch(() => {});
       const sizeError = new Error("Provider response exceeded the configured size limit.");
       sizeError.status = 502;
       throw sizeError;
