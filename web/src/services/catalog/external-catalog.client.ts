@@ -37,22 +37,42 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function isAllowedUrl(value: unknown, hostname: string): value is string {\n  if (typeof value !== "string") return false;\n  try {\n    const url = new URL(value);\n    return url.protocol === "https:" && url.hostname === hostname && !url.username && !url.password;\n  } catch {\n    return false;\n  }\n}\n\nfunction isCandidate(value: unknown, expectedType: "movie" | "series"): value is ExternalCatalogCandidate {
+function isAllowedUrl(value: unknown, hostname: string): value is string {
+  if (typeof value !== "string") return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" &&
+      url.hostname === hostname &&
+      !url.username &&
+      !url.password;
+  } catch {
+    return false;
+  }
+}
+
+function isCandidate(
+  value: unknown,
+  expectedType: "movie" | "series",
+): value is ExternalCatalogCandidate {
   if (!isRecord(value)) return false;
+
   return value.provider === "tmdb" &&
     typeof value.externalId === "string" &&
+    value.externalId.length > 0 &&
     value.mediaType === expectedType &&
     typeof value.title === "string" &&
+    value.title.trim().length > 0 &&
     (value.originalTitle === null || typeof value.originalTitle === "string") &&
     (value.synopsis === null || typeof value.synopsis === "string") &&
     (value.releaseDate === null || typeof value.releaseDate === "string") &&
     (value.originalLanguage === null || typeof value.originalLanguage === "string") &&
-    (value.posterUrl === null || typeof value.posterUrl === "string") &&
-    (value.backdropUrl === null || typeof value.backdropUrl === "string") &&
-    (value.popularity === null || typeof value.popularity === "number") &&
-    (value.voteAverage === null || typeof value.voteAverage === "number") &&
+    (value.posterUrl === null || isAllowedUrl(value.posterUrl, "image.tmdb.org")) &&
+    (value.backdropUrl === null || isAllowedUrl(value.backdropUrl, "image.tmdb.org")) &&
+    (value.popularity === null || (typeof value.popularity === "number" && Number.isFinite(value.popularity))) &&
+    (value.voteAverage === null || (typeof value.voteAverage === "number" && Number.isFinite(value.voteAverage))) &&
     Number.isSafeInteger(value.voteCount) &&
-    typeof value.sourceUrl === "string";
+    Number(value.voteCount) >= 0 &&
+    isAllowedUrl(value.sourceUrl, "www.themoviedb.org");
 }
 
 function gatewayBaseUrl(): string {
@@ -122,6 +142,9 @@ export async function searchExternalCatalog(
     !Number.isSafeInteger(payload.page) ||
     !Number.isSafeInteger(payload.totalPages) ||
     !Number.isSafeInteger(payload.totalResults) ||
+    Number(payload.page) < 1 ||
+    Number(payload.totalPages) < 1 ||
+    Number(payload.totalResults) < 0 ||
     !Array.isArray(payload.results) ||
     !payload.results.every((candidate) => isCandidate(candidate, options.type))
   ) {
