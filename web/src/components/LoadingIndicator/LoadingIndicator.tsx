@@ -12,14 +12,9 @@ export function LoadingIndicator({
   const classes = ["loading-indicator", className].filter(Boolean).join(" ");
 
   return (
-    <div
-      className={classes}
-      role="status"
-      aria-live="polite"
-      aria-atomic="true"
-      aria-label={label}
-    >
+    <div className={classes} role="status" aria-live="polite" aria-atomic="true">
       <span className="loading-indicator__spinner" aria-hidden="true" />
+      <span className="loading-indicator__label">{label}</span>
     </div>
   );
 }
