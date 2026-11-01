@@ -15,6 +15,8 @@ const CACHE_TTL_MS = 60_000;
 const CACHE_MAX_ENTRIES = 200;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 60;
+const RATE_LIMIT_MAX_CLIENTS = 10_000;
+const MAX_PROVIDER_RESPONSE_BYTES = 2 * 1024 * 1024;
 const MAX_QUERY_LENGTH = 120;
 const MAX_PAGE = 500;
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
@@ -63,6 +65,14 @@ function consumeRateLimit(key) {
   const now = Date.now();
   const current = rateLimits.get(key);
   if (!current || current.resetAt <= now) {
+    if (rateLimits.size >= RATE_LIMIT_MAX_CLIENTS) {
+      for (const [client, entry] of rateLimits) {
+        if (entry.resetAt <= now) rateLimits.delete(client);
+      }
+      if (rateLimits.size >= RATE_LIMIT_MAX_CLIENTS) {
+        return { allowed: false, remaining: 0, resetAt: now + 5_000 };
+      }
+    }
     rateLimits.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
     return { allowed: true, remaining: RATE_LIMIT_MAX_REQUESTS - 1 };
   }
@@ -97,7 +107,7 @@ function safeImageUrl(path) {
   if (typeof path !== "string" || !/^\/[A-Za-z0-9/_-]+\.(?:jpg|jpeg|png|webp)$/i.test(path)) {
     return null;
   }
-  return new URL(path, IMAGE_BASE_URL).toString();
+  return `${IMAGE_BASE_URL}${path}`;
 }
 
 function normalizeResult(item, mediaType) {
@@ -160,7 +170,25 @@ async function tmdbRequest(path, parameters) {
       error.status = result.status === 404 ? 404 : 502;
       throw error;
     }
-    return await result.json();
+    const declaredLength = Number(result.headers.get("content-length") || 0);
+    if (declaredLength > MAX_PROVIDER_RESPONSE_BYTES) {
+      const sizeError = new Error("Provider response exceeded the configured size limit.");
+      sizeError.status = 502;
+      throw sizeError;
+    }
+    const rawBody = await result.text();
+    if (Buffer.byteLength(rawBody, "utf8") > MAX_PROVIDER_RESPONSE_BYTES) {
+      const sizeError = new Error("Provider response exceeded the configured size limit.");
+      sizeError.status = 502;
+      throw sizeError;
+    }
+    try {
+      return JSON.parse(rawBody);
+    } catch {
+      const parseError = new Error("Provider returned invalid JSON.");
+      parseError.status = 502;
+      throw parseError;
+    }
   } catch (error) {
     if (error.name === "AbortError") {
       const timeoutError = new Error("The metadata provider timed out.");
@@ -226,7 +254,7 @@ const server = createServer(async (request, response) => {
 
   let url;
   try {
-    url = new URL(request.url || "/", `http://${request.headers.host || "localhost"}`);
+    url = new URL(request.url || "/", "http://localhost");
   } catch {
     json(response, 400, { error: "Invalid request URL." });
     return;
