@@ -22,8 +22,6 @@ type ExternalSearchState = {
   results: ExternalCatalogCandidate[];
 };
 
-const TMDB_LOGO_URL = "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg";
-
 function formatExternalDate(value: string | null, locale: string): string | null {
   if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
   const date = new Date(`${value}T00:00:00Z`);
@@ -35,7 +33,7 @@ function Discover() {
   const { translation, locale } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(() => searchParams.get("q") ?? "");
-  const [externalQuery, setExternalQuery] = useState("");
+  const [externalQuery, setExternalQuery] = useState(() => searchParams.get("q") ?? "");
   const [externalSearch, setExternalSearch] = useState<ExternalSearchState>({
     status: "idle",
     results: [],
@@ -77,7 +75,7 @@ function Discover() {
     const controller = new AbortController();
     setExternalSearch({ status: "loading", results: [] });
 
-    Promise.all(
+    Promise.allSettled(
       supportedTypes.map(mediaType =>
         searchExternalCatalog({
           type: mediaType,
@@ -88,12 +86,15 @@ function Discover() {
     )
       .then(responses => {
         if (controller.signal.aborted) return;
-        const results = responses.flatMap(response => response.results);
+        const successful = responses
+          .filter((response): response is PromiseFulfilledResult<Awaited<ReturnType<typeof searchExternalCatalog>>> => response.status === "fulfilled")
+          .map(response => response.value);
+        if (!successful.length) {
+          setExternalSearch({ status: "error", results: [] });
+          return;
+        }
+        const results = successful.flatMap(response => response.results);
         setExternalSearch({ status: "success", results });
-      })
-      .catch(error => {
-        if (controller.signal.aborted || (error instanceof Error && error.name === "AbortError")) return;
-        setExternalSearch({ status: "error", results: [] });
       });
 
     return () => controller.abort();
@@ -262,10 +263,6 @@ function Discover() {
                     ))}
                   </div>
                 ) : null}
-                <p className="external-results__attribution">
-                  <img src={TMDB_LOGO_URL} alt="TMDB" loading="lazy" />
-                  <span>{translation.catalog.externalAttribution}</span>
-                </p>
               </section>
             ) : null}
           </>
