@@ -127,9 +127,9 @@ function Discover() {
 
   function submitSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const normalized = query.trim().slice(0, 120);
+    const normalized = query.trim().slice(0, 200);
     setQuery(normalized);
-    setExternalQuery(normalized);
+    setExternalQuery(normalized.length <= 120 ? normalized : "");
     const next = new URLSearchParams(searchParams);
     if (normalized) next.set("q", normalized);
     else next.delete("q");
@@ -164,10 +164,10 @@ function Discover() {
             <input
               type="search"
               value={query}
-              onChange={event => setQuery(event.currentTarget.value)}
+              onChange={event => { setQuery(event.currentTarget.value); setExternalQuery(""); }}
               placeholder={translation.catalog.searchPlaceholder}
               aria-label={translation.catalog.searchLabel}
-              maxLength={120}
+              maxLength={200}
             />
             {query ? <button type="button" onClick={clearSearch}>{translation.catalog.clear}</button> : null}
           </form>
