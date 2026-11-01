@@ -121,7 +121,7 @@ export function isValidTorrentSource(value: unknown): value is TorrentSource {
     (value.seeders as number) < 0 ||
     !Number.isSafeInteger(value.leechers) ||
     (value.leechers as number) < 0 ||
-    !["active", "reported", "removed"].includes(String(value.status)) ||
+    typeof value.status !== "string" || !["active", "reported", "removed"].includes(value.status) ||
     typeof value.isDemo !== "boolean" ||
     !isIsoTimestampWithTimezone(value.updatedAt)
   ) return false;
@@ -146,7 +146,7 @@ export function isValidTorrentSource(value: unknown): value is TorrentSource {
 
   if (
     value.mediaValidationStatus !== undefined &&
-    !["verified", "unverified", "failed"].includes(String(value.mediaValidationStatus))
+    typeof value.mediaValidationStatus !== "string" || !["verified", "unverified", "failed"].includes(value.mediaValidationStatus)
   ) return false;
 
   if (value.isDemo) {
