@@ -14,35 +14,23 @@ const ContentDetails = lazy(() =>
   })),
 );
 
-
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
-
-/* Layout & Pages*/
 import AppLayout from "./layouts/AppLayout";
-
 import { LanguageProvider } from "./contexts/LanguageProvider";
-import {
-   useLanguage,
-} from "./contexts/useLanguage";
-
-
+import { useLanguage } from "./contexts/useLanguage";
 import { home } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
+import { LoadingIndicator } from "./components/LoadingIndicator/LoadingIndicator";
 
 function NotFoundPage() {
-
-  const {
-      translation,
-   } = useLanguage();
+  const { translation } = useLanguage();
 
   return (
     <main className="content-details">
       <div className="content-details__container">
         <span className="noPage">404</span>
         <h1>{translation.NotFoundPage.title}</h1>
-        <p className="cd-txt">
-          {translation.NotFoundPage.desc}
-        </p>
+        <p className="cd-txt">{translation.NotFoundPage.desc}</p>
         <Link className="cd-Link" to="/">
           <IonIcon icon={home} aria-hidden="true" />
           {translation.NotFoundPage.link}
@@ -54,7 +42,7 @@ function NotFoundPage() {
 
 function App() {
   return (
-    <Suspense fallback={<div role="status">Carregando página...</div>}>
+    <Suspense fallback={<LoadingIndicator className="loading-indicator--page" label="Carregando página" />}>
       <LanguageProvider>
         <BrowserRouter>
           <AppLayout>
