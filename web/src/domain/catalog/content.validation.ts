@@ -1,3 +1,4 @@
+import { hasControlCharacters, isValidCalendarDate, isIsoTimestampWithTimezone } from "../shared/string.validation";
 import {
   CLASSIFICATION_IDS,
   CONTENT_STATUSES,
@@ -14,7 +15,6 @@ const CLASSIFICATIONS: ReadonlySet<string> = new Set(CLASSIFICATION_IDS);
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const IDENTIFIER = /^[a-z0-9][a-z0-9._:-]*$/;
 const LANGUAGE = /^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/;
-const TIMESTAMP = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,3})?(Z|([+-])(\d{2}):(\d{2}))$/;
 
 function record(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -37,31 +37,11 @@ function isStatus(value: unknown): value is ContentStatus {
 }
 
 function validDate(value: unknown): value is string {
-  if (typeof value !== "string") return false;
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
-  if (!match) return false;
-
-  const year = Number(match[1]);
-  const month = Number(match[2]);
-  const day = Number(match[3]);
-
-  return year >= 1 && month >= 1 && month <= 12 &&
-    day >= 1 && day <= new Date(Date.UTC(year, month, 0)).getUTCDate();
+  return isValidCalendarDate(value);
 }
 
 function validTimestamp(value: unknown): value is string {
-  if (typeof value !== "string") return false;
-  const match = TIMESTAMP.exec(value);
-  if (!match || !validDate(`${match[1]}-${match[2]}-${match[3]}`)) return false;
-  if (Number(match[4]) > 23 || Number(match[5]) > 59 || Number(match[6]) > 59) return false;
-
-  if (match[7] !== "Z" && (
-    Number(match[9]) > 14 ||
-    Number(match[10]) > 59 ||
-    (Number(match[9]) === 14 && Number(match[10]) !== 0)
-  )) return false;
-
-  return Number.isFinite(Date.parse(value));
+  return isIsoTimestampWithTimezone(value);
 }
 
 /** Accept safe local paths or HTTP(S) URLs without embedded credentials. */
@@ -70,7 +50,7 @@ export function isSafeImageUrl(value: unknown): value is string {
     typeof value !== "string" ||
     value.length > 2048 ||
     value.trim() !== value ||
-    /[\u0000-\u001F\u007F]/.test(value)
+    hasControlCharacters(value)
   ) return false;
 
   if (value.startsWith("/")) {
@@ -89,7 +69,12 @@ export function isSafeImageUrl(value: unknown): value is string {
 function strings(value: unknown): value is string[] {
   return Array.isArray(value) &&
     value.length <= 200 &&
-    value.every(item => nonEmpty(item) && item.length <= 200);
+    value.every(item =>
+      nonEmpty(item) &&
+      item.length <= 200 &&
+      item.trim() === item &&
+      !hasControlCharacters(item)
+    );
 }
 
 function referenceIdentifiers(value: unknown): value is string[] {
@@ -106,7 +91,7 @@ function classificationIdentifiers(value: unknown): value is ClassificationId[] 
 }
 
 function isSafeHttpUrl(value: unknown): value is string {
-  if (typeof value !== "string" || value.length > 2048 || value.trim() !== value) return false;
+  if (typeof value !== "string" || value.length > 2048 || value.trim() !== value || hasControlCharacters(value)) return false;
   try {
     const url = new URL(value);
     return (url.protocol === "https:" || url.protocol === "http:") &&
@@ -155,7 +140,7 @@ function externalReferencesErrors(value: unknown): string[] {
       reference.provider.length > 64 ||
       !/^[a-z0-9][a-z0-9._-]*$/i.test(reference.provider)
     ) errors.push(`${prefix}.provider inválido.`);
-    if (!nonEmpty(reference.externalId) || reference.externalId.length > 256) {
+    if (!nonEmpty(reference.externalId) || reference.externalId.length > 256 || reference.externalId.trim() !== reference.externalId || hasControlCharacters(reference.externalId)) {
       errors.push(`${prefix}.externalId deve ser uma string não vazia de até 256 caracteres.`);
     }
     if (
@@ -232,7 +217,7 @@ function metadataErrors(type: ContentType, value: unknown): string[] {
       if (value.isbn13 !== undefined && !isbn13(value.isbn13)) {
         errors.push("metadata.isbn13 inválido.");
       }
-      if (value.publisher !== undefined && !nonEmpty(value.publisher)) {
+      if (value.publisher !== undefined && (!nonEmpty(value.publisher) || value.publisher.length > 200 || value.publisher.trim() !== value.publisher || hasControlCharacters(value.publisher))) {
         errors.push("metadata.publisher deve ser string não vazia.");
       }
       break;
@@ -276,11 +261,11 @@ export function getContentValidationErrors(value: unknown): string[] {
   if (!nonEmpty(value.slug) || value.slug.length > 160 || !SLUG.test(value.slug)) {
     errors.push("slug deve conter letras minúsculas, números e hífens.");
   }
-  if (!nonEmpty(value.title) || value.title.length > 300) {
+  if (!nonEmpty(value.title) || value.title.length > 300 || hasControlCharacters(value.title)) {
     errors.push("title deve ser string não vazia de até 300 caracteres.");
   }
   if (!nullableString(value.originalTitle) ||
-    (typeof value.originalTitle === "string" && value.originalTitle.length > 300)) {
+    (typeof value.originalTitle === "string" && (value.originalTitle.length > 300 || hasControlCharacters(value.originalTitle)))) {
     errors.push("originalTitle inválido.");
   }
   if (value.franchiseId !== undefined && value.franchiseId !== null &&
@@ -292,11 +277,11 @@ export function getContentValidationErrors(value: unknown): string[] {
   if (!isType(value.type)) errors.push("type não corresponde a categoria permitida.");
   if (!isStatus(value.status)) errors.push("status não corresponde a estado editorial permitido.");
   if (!Array.isArray(value.alternativeTitles) || value.alternativeTitles.length > 100 ||
-    !value.alternativeTitles.every(title => nonEmpty(title) && title.length <= 300)) {
+    !value.alternativeTitles.every(title => nonEmpty(title) && title.length <= 300 && title.trim() === title && !hasControlCharacters(title))) {
     errors.push("alternativeTitles deve ser lista de títulos não vazios.");
   }
   if (value.synopsis !== null &&
-    (typeof value.synopsis !== "string" || value.synopsis.length > 20000)) {
+    (typeof value.synopsis !== "string" || value.synopsis.length > 20000 || hasControlCharacters(value.synopsis))) {
     errors.push("synopsis deve ser string de até 20000 caracteres ou null.");
   }
   if (!referenceIdentifiers(value.genreIds)) errors.push("genreIds deve conter referências de gênero válidas e únicas.");
