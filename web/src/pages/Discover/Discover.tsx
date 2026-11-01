@@ -56,6 +56,13 @@ function Discover() {
     setSearchParams(next);
   }
 
+  function clearSearch() {
+    setQuery("");
+    const next = new URLSearchParams(searchParams);
+    next.delete("q");
+    setSearchParams(next);
+  }
+
   function clearFilters() {
     setQuery("");
     setType("all");
@@ -80,7 +87,7 @@ function Discover() {
               aria-label={translation.catalog.searchLabel}
               maxLength={200}
             />
-            {query ? <button type="button" onClick={() => setQuery("")}>{translation.catalog.clear}</button> : null}
+            {query ? <button type="button" onClick={clearSearch}>{translation.catalog.clear}</button> : null}
           </form>
           <div className="discover-page__filters">
             <label className="discover-filter">
