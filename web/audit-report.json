@@ -1,0 +1,136 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@ionic/react": {
+      "name": "@ionic/react",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "@stencil/react-output-target"
+      ],
+      "effects": [],
+      "range": "8.1.2-dev.11715623495.196f4eba - 8.1.2-dev.11722973571.1baa9aa1 || 8.8.4-dev.11775078622.1402ffa2 - 8.8.4-dev.11777318673.18d001f6 || 8.8.9-dev.11779403760.13ea2a08 - 8.8.9-dev.11781098612.122c6758 || 8.8.11-dev.11781186446.19d9a1cc - 8.8.11-dev.11782911278.11f0315e || 8.8.12-dev.11781793379.156d3260 - 8.8.12-dev.11782931922.18ba507c || 8.8.14-dev.11783455203.1cbca643 - 8.8.14-dev.11785507167.1f41b13b || 8.8.16-dev.11784840230.17f5a1f4 - 8.8.16-dev.11785274070.1b3387c9 || 8.8.18-dev.11786108988.1fd94742 - 8.8.18-dev.11786663039.1d61e2fe || 8.8.19-dev.11786610762.137bbb21 - 8.8.19-dev.11787076261.138d5922 || >=8.8.20-dev.11787158518.168a2fea",
+      "nodes": [
+        "node_modules/@ionic/react"
+      ],
+      "fixAvailable": {
+        "name": "@ionic/react",
+        "version": "8.8.19",
+        "isSemVerMajor": true
+      }
+    },
+    "@stencil/react-output-target": {
+      "name": "@stencil/react-output-target",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "ts-morph"
+      ],
+      "effects": [
+        "@ionic/react"
+      ],
+      "range": "<=0.0.1-dev.11753708416.1bc385bb || >=0.6.0",
+      "nodes": [
+        "node_modules/@stencil/react-output-target"
+      ],
+      "fixAvailable": {
+        "name": "@ionic/react",
+        "version": "8.8.19",
+        "isSemVerMajor": true
+      }
+    },
+    "@ts-morph/common": {
+      "name": "@ts-morph/common",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "minimatch"
+      ],
+      "effects": [
+        "ts-morph"
+      ],
+      "range": ">=0.9.0",
+      "nodes": [
+        "node_modules/@ts-morph/common"
+      ],
+      "fixAvailable": {
+        "name": "@ionic/react",
+        "version": "8.8.19",
+        "isSemVerMajor": true
+      }
+    },
+    "minimatch": {
+      "name": "minimatch",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1244012,
+          "name": "minimatch",
+          "dependency": "minimatch",
+          "title": "minimatch has potential denial of service via globparts amplification",
+          "url": "https://github.com/advisories/GHSA-g3hv-75wg-m249",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-405"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<11.0.1"
+        }
+      ],
+      "effects": [
+        "@ts-morph/common"
+      ],
+      "range": "<11.0.1",
+      "nodes": [
+        "node_modules/minimatch"
+      ],
+      "fixAvailable": {
+        "name": "@ionic/react",
+        "version": "8.8.19",
+        "isSemVerMajor": true
+      }
+    },
+    "ts-morph": {
+      "name": "ts-morph",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "@ts-morph/common"
+      ],
+      "effects": [
+        "@stencil/react-output-target"
+      ],
+      "range": ">=10.0.2",
+      "nodes": [
+        "node_modules/ts-morph"
+      ],
+      "fixAvailable": {
+        "name": "@ionic/react",
+        "version": "8.8.19",
+        "isSemVerMajor": true
+      }
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 5,
+      "high": 0,
+      "critical": 0,
+      "total": 5
+    },
+    "dependencies": {
+      "prod": 42,
+      "dev": 62,
+      "optional": 54,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 111
+    }
+  }
+}

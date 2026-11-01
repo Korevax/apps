@@ -2,5 +2,10 @@
   "dependencies": {
     "@ionic/core": "^9.0.2",
     "@ionic/react": "^9.0.2"
+  },
+  "overrides": {
+    "@ts-morph/common": {
+      "minimatch": "11.0.3"
+    }
   }
 }
