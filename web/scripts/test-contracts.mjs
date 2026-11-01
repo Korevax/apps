@@ -66,14 +66,14 @@ const validContent = {
 };
 
 assert.equal(contentValidation.module.isContent(validContent), true, "valid content should pass runtime validation");
-assert.equal(sharedValidation.module.hasControlCharacters("title\\nwith control"), true, "control characters should be detected");
+assert.equal(sharedValidation.module.hasControlCharacters("title\nwith control"), true, "control characters should be detected");
 assert.equal(sharedValidation.module.hasControlCharacters("title without controls"), false, "ordinary text should pass control-character checks");
 assert.equal(sharedValidation.module.isValidCalendarDate("0096-02-29"), true, "calendar validation should handle leap years below year 100");
 assert.equal(sharedValidation.module.isValidCalendarDate("0099-02-29"), false, "non-leap years below year 100 should be rejected");
 assert.equal(sharedValidation.module.isIsoTimestampWithTimezone("2026-01-01T00:00:00Z"), true, "timestamps with explicit timezone should pass");
 assert.equal(sharedValidation.module.isIsoTimestampWithTimezone("2026-01-01T00:00:00"), false, "timestamps without timezone should fail");
-assert.equal(contentValidation.module.isContent({ ...validContent, title: "unsafe\\nname" }), false, "control characters in titles should be rejected");
-assert.equal(contentValidation.module.isContent({ ...validContent, synopsis: "unsafe\\u0000text" }), false, "control characters in synopsis should be rejected");
+assert.equal(contentValidation.module.isContent({ ...validContent, title: "unsafe\nname" }), false, "control characters in titles should be rejected");
+assert.equal(contentValidation.module.isContent({ ...validContent, synopsis: "unsafe\u0000text" }), false, "control characters in synopsis should be rejected");
 assert.equal(contentValidation.module.isContent({ ...validContent, alternativeTitles: [" title "] }), false, "alternative titles with surrounding whitespace should be rejected");
 
 const baseContent = { ...validContent };
@@ -106,7 +106,7 @@ assert.equal(
   "HTTPS streams with supported MIME types should pass",
 );
 assert.equal(
-  torrentServices.module.isSafeBrowserStream("https://media.example/video.mp4\\n", "video/mp4"),
+  torrentServices.module.isSafeBrowserStream("https://media.example/video.mp4\n", "video/mp4"),
   false,
   "stream URLs containing control characters should fail",
 );
