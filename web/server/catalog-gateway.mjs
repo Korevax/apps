@@ -129,7 +129,7 @@ function normalizeResult(item, mediaType) {
     popularity: Number.isFinite(item.popularity) ? item.popularity : null,
     voteAverage: Number.isFinite(item.vote_average) ? item.vote_average : null,
     voteCount: Number.isSafeInteger(item.vote_count) ? item.vote_count : 0,
-    sourceUrl: `https://www.themoviedb.org/${mediaType}/${item.id}`,
+    sourceUrl: `https://www.themoviedb.org/${mediaType === "series" ? "tv" : "movie"}/${item.id}`,
   };
 }
 
