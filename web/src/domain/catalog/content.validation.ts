@@ -1,4 +1,4 @@
-import { hasControlCharacters, isValidCalendarDate, isIsoTimestampWithTimezone } from "../shared/string.validation";
+import { hasControlCharacters, hasDisallowedTextControlCharacters, isValidCalendarDate, isIsoTimestampWithTimezone } from "../shared/string.validation";
 import {
   CLASSIFICATION_IDS,
   CONTENT_STATUSES,
@@ -281,7 +281,7 @@ export function getContentValidationErrors(value: unknown): string[] {
     errors.push("alternativeTitles deve ser lista de títulos não vazios.");
   }
   if (value.synopsis !== null &&
-    (typeof value.synopsis !== "string" || value.synopsis.length > 20000 || hasControlCharacters(value.synopsis))) {
+    (typeof value.synopsis !== "string" || value.synopsis.length > 20000 || hasDisallowedTextControlCharacters(value.synopsis))) {
     errors.push("synopsis deve ser string de até 20000 caracteres ou null.");
   }
   if (!referenceIdentifiers(value.genreIds)) errors.push("genreIds deve conter referências de gênero válidas e únicas.");
